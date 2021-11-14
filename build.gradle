@@ -1,0 +1,77 @@
+import com.github.spotbugs.snom.SpotBugsTask
+
+plugins {
+    id 'org.springframework.boot' version '2.5.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.ec4j.editorconfig' version '0.0.3'
+    id 'com.github.spotbugs' version '4.7.0'
+    id 'checkstyle'
+    id 'java'
+}
+
+group = 'kr.flab.movieon'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+editorconfig {
+    excludes = ["build"]
+}
+
+check.dependsOn editorconfigCheck
+
+checkstyle {
+    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+    configProperties = ["suppressionFile": "${project.rootDir}/config/checkstyle/checkstyle/checkstyle-suppressions.xml"]
+    toolVersion = "8.40"
+    ignoreFailures = false
+    maxErrors = 0
+    maxWarnings = 0
+}
+
+spotbugs {
+    ignoreFailures = false
+    reportLevel = "high"
+    spotbugsTest.enabled = false
+}
+
+tasks.withType(SpotBugsTask) {
+    reports {
+        text.enabled = true
+        xml.enabled = false
+        html.enabled = false
+    }
+}
+
+tasks.register("printSpotbugsMain") {
+    doLast {
+        File mainResult = file("${buildDir}/reports/spotbugs/main.txt")
+        if (mainResult.exists()) {
+            mainResult.readLines().forEach {
+                println(it)
+            }
+        }
+    }
+}
+
+tasks.getByPath("spotbugsMain").finalizedBy("printSpotbugsMain")
