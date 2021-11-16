@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "****Running App Clean Build****"
+
+./gradlew clean build
+
+status=$?
+
+echo "****Done With Clean Build****"
+
+exit $status
