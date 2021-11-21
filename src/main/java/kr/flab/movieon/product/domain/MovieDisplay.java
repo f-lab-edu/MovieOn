@@ -1,6 +1,6 @@
 package kr.flab.movieon.product.domain;
 
-import java.time.LocalTime;
+import java.time.Duration;
 import java.time.Year;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -13,13 +13,13 @@ public final class MovieDisplay {
     private final String title;
     private final String description;
     private final Year release;
-    private final LocalTime runningTime;
+    private final Duration runningTime;
     private final String director;
     private final String actors;
     private final int viewerAge;
 
     @Builder
-    public MovieDisplay(String title, String description, Year release, LocalTime runningTime,
+    public MovieDisplay(String title, String description, Year release, Duration runningTime,
         String director, String actors, int viewerAge) {
         this.title = title;
         this.description = description;
