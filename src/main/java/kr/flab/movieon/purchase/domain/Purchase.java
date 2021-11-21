@@ -1,6 +1,5 @@
 package kr.flab.movieon.purchase.domain;
 
-import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(of = "id")
@@ -15,42 +14,33 @@ public class Purchase {
     }
 
     private Long id;
-    private Long productId;
     private Long customerId;
-    private BigDecimal price;
+    private PurchaseProduct purchaseProduct;
     private PurchaseStatus status;
     private PurchaseType type;
-    private PurchaseHistory history;
 
-    private Purchase(Long productId, Long customerId, BigDecimal price, PurchaseType type) {
-        this.productId = productId;
+    private Purchase(Long customerId, PurchaseProduct purchaseProduct, PurchaseType type) {
         this.customerId = customerId;
-        this.price = price;
+        this.purchaseProduct = purchaseProduct;
         this.status = PurchaseStatus.PENDING;
         this.type = type;
     }
 
-    public static Purchase create(Long productId, Long customerId, BigDecimal price,
-        String type) {
-        return new Purchase(productId, customerId, price,
-            PurchaseType.valueOf(type));
+    public static Purchase pending(Long customerId, PurchaseProduct purchaseProduct, String type) {
+        return new Purchase(customerId, purchaseProduct, PurchaseType.valueOf(type));
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
     public void proceed(int availableDays) {
         this.status = PurchaseStatus.SUCCESS;
-        this.history = PurchaseHistory.create(availableDays);
+        this.purchaseProduct.purchased(availableDays);
     }
 
     public Long getId() {
         return id;
-    }
-
-    public PurchaseHistory getHistory() {
-        return this.history;
     }
 
     public PurchaseStatus getStatus() {
