@@ -16,6 +16,7 @@ public final class MovieDisplay {
     private final Duration runningTime;
     private final String director;
     private final String actors;
+    // 15세 이용가, 19세 이용가, 12세 이용가, 전체 이용가
     private final int viewerAge;
 
     @Builder
