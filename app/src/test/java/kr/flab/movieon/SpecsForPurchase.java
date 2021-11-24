@@ -7,7 +7,7 @@ import java.time.Duration;
 import java.time.Year;
 import kr.flab.movieon.common.Days;
 import kr.flab.movieon.payment.domain.FakePaymentRepository;
-import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentProvider;
+import kr.flab.movieon.payment.infrastructure.PaymentProviderDelegator;
 import kr.flab.movieon.payment.integrate.PurchasePaymentProcessor;
 import kr.flab.movieon.product.domain.FakeProductRepository;
 import kr.flab.movieon.product.domain.MovieDisplay;
@@ -44,8 +44,8 @@ final class SpecsForPurchase {
 
     private PurchasePaymentProcessor getPaymentCommandProcessor() {
         var paymentRepository = new FakePaymentRepository();
-        var paymentProvider = new TossPaymentsPaymentProvider();
-        return new PurchasePaymentProcessor(paymentRepository, paymentProvider);
+        var paymentProviderDelegator = new PaymentProviderDelegator();
+        return new PurchasePaymentProcessor(paymentRepository, paymentProviderDelegator);
     }
 
     private Product voiceProduct() {
