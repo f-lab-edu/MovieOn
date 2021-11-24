@@ -5,8 +5,6 @@ import kr.flab.movieon.payment.domain.PaymentProvider;
 
 public final class TossPaymentsPaymentProvider implements PaymentProvider {
 
-    // Toss Payments 모듈 연동
-
     @Override
     public void payed(Payment payment) {
         // TODO 결제 처리 & 결제 공급자를 전략 패턴을 사용하여 Type에 따라 선택하게끔 리팩토링

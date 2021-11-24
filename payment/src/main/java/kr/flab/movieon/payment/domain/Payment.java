@@ -6,25 +6,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = "id")
 public final class Payment {
 
-    public enum PaymentType {
-        // TODO 더 많은 결제 타입이 생길 수 있다
-        CARD, TOSS
-    }
-
-    public enum PaymentStatus {
-        PENDING("결제대기중"),
-        PAYED("결제완료"),
-        CANCELLED("결제취소"),
-        FAILED("결제실패"),
-        INVALID("위변조검증실패");
-
-        private final String description;
-
-        PaymentStatus(String description) {
-            this.description = description;
-        }
-    }
-
     private Long id;
     private Long purchaseId;
     private Long purchaserId;
@@ -50,6 +31,10 @@ public final class Payment {
 
     public void complete() {
         this.status = PaymentStatus.PAYED;
+    }
+
+    public PaymentType getType() {
+        return type;
     }
 
     public Long getId() {
