@@ -15,21 +15,21 @@ public class Purchase {
     }
 
     private Long id;
-    private Long purchaserId;
+    private Purchaser purchaser;
     private PurchasedProduct purchasedProduct;
     private PurchaseStatus status;
     private PurchaseType type;
 
-    private Purchase(Long purchaserId, PurchasedProduct purchasedProduct, PurchaseType type) {
-        this.purchaserId = purchaserId;
+    private Purchase(Purchaser purchaser, PurchasedProduct purchasedProduct, PurchaseType type) {
+        this.purchaser = purchaser;
         this.purchasedProduct = purchasedProduct;
         this.status = PurchaseStatus.PENDING;
         this.type = type;
     }
 
-    public static Purchase pending(Long customerId, PurchasedProduct purchasedProduct,
+    public static Purchase pending(Purchaser purchaser, PurchasedProduct purchasedProduct,
         String type) {
-        return new Purchase(customerId, purchasedProduct, PurchaseType.valueOf(type));
+        return new Purchase(purchaser, purchasedProduct, PurchaseType.valueOf(type));
     }
 
     void setId(Long id) {
@@ -42,7 +42,7 @@ public class Purchase {
     }
 
     public Long getPurchaserId() {
-        return purchaserId;
+        return purchaser.getPurchaserId();
     }
 
     public String getTitle() {

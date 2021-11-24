@@ -5,5 +5,4 @@ include 'app'
 include 'payment'
 include 'account'
 include 'common'
-include 'purchaser'
 

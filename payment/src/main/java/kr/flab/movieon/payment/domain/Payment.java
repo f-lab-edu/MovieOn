@@ -27,25 +27,25 @@ public final class Payment {
 
     private Long id;
     private Long purchaseId;
+    private Long purchaserId;
     private String purchaseName;
-    private String customerName;
     private BigDecimal amount;
     private PaymentType type;
     private PaymentStatus status;
 
-    private Payment(Long purchaseId, String purchaseName, String customerName,
+    private Payment(Long purchaseId, String purchaseName, Long purchaserId,
         BigDecimal amount, PaymentType type) {
         this.purchaseId = purchaseId;
         this.purchaseName = purchaseName;
-        this.customerName = customerName;
+        this.purchaserId = purchaserId;
         this.amount = amount;
         this.type = type;
         this.status = PaymentStatus.PENDING;
     }
 
-    public static Payment create(Long purchaseId, String purchaseName, String customerName,
+    public static Payment create(Long purchaseId, String purchaseName, Long purchaserId,
         BigDecimal amount, PaymentType type) {
-        return new Payment(purchaseId, purchaseName, customerName, amount, type);
+        return new Payment(purchaseId, purchaseName, purchaserId, amount, type);
     }
 
     public void complete() {
