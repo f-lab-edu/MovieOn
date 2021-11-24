@@ -6,6 +6,7 @@ import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.PurchaseRepository;
 import kr.flab.movieon.purchase.domain.PurchasedProduct;
+import kr.flab.movieon.purchase.domain.Purchaser;
 
 public final class PurchaseCommandService {
 
@@ -22,9 +23,10 @@ public final class PurchaseCommandService {
     }
 
     // PENDING -> 할인 적용 -> PAYED -> PURCHASED
-    public Purchase purchase(Long productId, Long customerId) {
+    public Purchase purchase(Long productId, Long purchaserId) {
         Product product = productRepository.findById(productId);
-        Purchase purchase = purchaseRepository.save(Purchase.pending(customerId,
+        Purchase purchase = purchaseRepository.save(Purchase.pending(
+            new Purchaser(purchaserId),
             PurchasedProduct.create(product.getId(), product.getTitle(),
                 product.getPrice(), product.getAvailableDays()),
             product.getType().toString()));

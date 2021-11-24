@@ -18,8 +18,6 @@ import kr.flab.movieon.purchase.domain.FakePurchaseRepository;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseStatus;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
-import kr.flab.movieon.purchaser.domain.FakePurchaserRepository;
-import kr.flab.movieon.purchaser.domain.Purchaser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -45,12 +43,9 @@ final class SpecsForPurchase {
     }
 
     private PurchasePaymentProcessor getPaymentCommandProcessor() {
-        var purchaserRepository = new FakePurchaserRepository();
-        purchaserRepository.save(new Purchaser("Kitty"));
         var paymentRepository = new FakePaymentRepository();
         var paymentProvider = new TossPaymentsPaymentProvider();
-        return new PurchasePaymentProcessor(purchaserRepository,
-            paymentRepository, paymentProvider);
+        return new PurchasePaymentProcessor(paymentRepository, paymentProvider);
     }
 
     private Product voiceProduct() {
