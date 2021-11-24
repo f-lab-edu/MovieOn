@@ -1,1 +1,9 @@
 rootProject.name = 'MovieOn'
+include 'purchase'
+include 'product'
+include 'app'
+include 'payment'
+include 'account'
+include 'common'
+include 'purchaser'
+
