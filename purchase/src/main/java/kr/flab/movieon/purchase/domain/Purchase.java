@@ -20,16 +20,11 @@ public class Purchase {
     private PurchaseStatus status;
     private PurchaseType type;
 
-    private Purchase(Purchaser purchaser, PurchasedProduct purchasedProduct, PurchaseType type) {
+    public Purchase(Purchaser purchaser, PurchasedProduct purchasedProduct, PurchaseType type) {
         this.purchaser = purchaser;
         this.purchasedProduct = purchasedProduct;
         this.status = PurchaseStatus.PENDING;
         this.type = type;
-    }
-
-    public static Purchase pending(Purchaser purchaser, PurchasedProduct purchasedProduct,
-        String type) {
-        return new Purchase(purchaser, purchasedProduct, PurchaseType.valueOf(type));
     }
 
     void setId(Long id) {
