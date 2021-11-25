@@ -1,6 +1,5 @@
 package kr.flab.movieon.purchase.application;
 
-import kr.flab.movieon.product.domain.Product;
 import kr.flab.movieon.product.domain.ProductRepository;
 import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;

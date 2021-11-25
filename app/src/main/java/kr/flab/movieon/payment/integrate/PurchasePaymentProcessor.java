@@ -19,7 +19,7 @@ public final class PurchasePaymentProcessor implements PaymentProcessor {
     }
 
     @Override
-    public Purchase payed(Purchase purchase) {
+    public void payed(Purchase purchase) {
         // TODO PaymentType을 어딘가를 통해서 받아오도록 리팩토링
         Payment payment = paymentRepository.save(
             Payment.create(purchase.getId(), purchase.getTitle(), purchase.getPurchaserId(),
@@ -30,6 +30,5 @@ public final class PurchasePaymentProcessor implements PaymentProcessor {
 
         // TODO 구매 완료
         // product.purchased(); 도메인 이벤트 전환
-        return purchase;
     }
 }
