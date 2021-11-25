@@ -3,9 +3,8 @@ package kr.flab.movieon.purchase.application;
 import kr.flab.movieon.product.domain.ProductRepository;
 import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;
+import kr.flab.movieon.purchase.domain.PurchaseFactory;
 import kr.flab.movieon.purchase.domain.PurchaseRepository;
-import kr.flab.movieon.purchase.domain.PurchasedProduct;
-import kr.flab.movieon.purchase.domain.Purchaser;
 
 public final class PurchaseCommandService {
 
@@ -24,18 +23,16 @@ public final class PurchaseCommandService {
     // PENDING -> 할인 적용 -> PAYED -> 결제 적용 -> PURCHASED
     public Purchase pending(Long productId, Long purchaserId) {
         var product = productRepository.findById(productId);
-        var purchasedProduct = PurchasedProduct.create(
-            product.getId(), product.getTitle(),
-            product.getPrice(), product.getAvailableDays());
-        return purchaseRepository.save(Purchase.pending(
-            new Purchaser(purchaserId),
-            purchasedProduct,
-            product.getType().toString()));
+        var purchase = PurchaseFactory.pending(
+            productId, purchaserId,
+            product.getTitle(), product.getPrice(),
+            product.getAvailableDays(), product.getType().toString());
+        return purchaseRepository.save(purchase);
     }
 
-    public Purchase payed(Long purchaseId) {
+    public Purchase payed(Long purchaseId, String paymentType) {
         var purchase = purchaseRepository.findById(purchaseId);
-        paymentProcessor.payed(purchase);
+        paymentProcessor.payed(purchase, paymentType);
         purchase.complete();
         return purchase;
     }

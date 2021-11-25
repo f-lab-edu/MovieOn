@@ -19,11 +19,11 @@ public final class PurchasePaymentProcessor implements PaymentProcessor {
     }
 
     @Override
-    public void payed(Purchase purchase) {
+    public void payed(Purchase purchase, String paymentType) {
         // TODO PaymentType을 어딘가를 통해서 받아오도록 리팩토링
         Payment payment = paymentRepository.save(
             Payment.create(purchase.getId(), purchase.getTitle(), purchase.getPurchaserId(),
-                purchase.getPrice(), PaymentType.TOSS));
+                purchase.getPrice(), PaymentType.valueOf(paymentType)));
 
         // TODO 결제 모듈 연동 및 결제 처리
         paymentProvider.payed(payment);

@@ -11,8 +11,7 @@ import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseStatus;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
-import kr.flab.movieon.purchase.domain.PurchasedProduct;
-import kr.flab.movieon.purchase.domain.Purchaser;
+import kr.flab.movieon.purchase.domain.PurchaseFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +30,7 @@ final class SpecsForPurchase {
             mock(PaymentProcessor.class));
 
         // Act
-        Purchase expected = sut.payed(1L);
+        Purchase expected = sut.payed(1L, "TOSS");
 
         // Assert
         assertThat(expected.getStatus()).isEqualTo(PurchaseStatus.SUCCESS);
@@ -39,10 +38,9 @@ final class SpecsForPurchase {
     }
 
     private void setupPendingPurchaseEntity(FakePurchaseRepository purchaseRepository) {
-        purchaseRepository.save(Purchase.pending(
-            new Purchaser(1L),
-            PurchasedProduct.create(1L, "보이스",
-                BigDecimal.valueOf(16390), 5),
-            "PURCHASE"));
+        purchaseRepository.save(PurchaseFactory.pending(
+            1L, 1L,
+            "보이스", BigDecimal.valueOf(16390),
+            5, "PURCHASE"));
     }
 }
