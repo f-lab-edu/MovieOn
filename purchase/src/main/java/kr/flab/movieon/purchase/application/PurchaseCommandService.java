@@ -22,14 +22,22 @@ public final class PurchaseCommandService {
         this.paymentProcessor = paymentProcessor;
     }
 
-    // PENDING -> 할인 적용 -> PAYED -> PURCHASED
-    public Purchase purchase(Long productId, Long purchaserId) {
-        Product product = productRepository.findById(productId);
-        Purchase purchase = purchaseRepository.save(Purchase.pending(
+    // PENDING -> 할인 적용 -> PAYED -> 결제 적용 -> PURCHASED
+    public Purchase pending(Long productId, Long purchaserId) {
+        var product = productRepository.findById(productId);
+        var purchasedProduct = PurchasedProduct.create(
+            product.getId(), product.getTitle(),
+            product.getPrice(), product.getAvailableDays());
+        return purchaseRepository.save(Purchase.pending(
             new Purchaser(purchaserId),
-            PurchasedProduct.create(product.getId(), product.getTitle(),
-                product.getPrice(), product.getAvailableDays()),
+            purchasedProduct,
             product.getType().toString()));
-        return paymentProcessor.payed(purchase);
+    }
+
+    public Purchase payed(Long purchaseId) {
+        var purchase = purchaseRepository.findById(purchaseId);
+        paymentProcessor.payed(purchase);
+        purchase.complete();
+        return purchase;
     }
 }

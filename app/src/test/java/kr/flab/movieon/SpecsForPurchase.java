@@ -18,28 +18,39 @@ import kr.flab.movieon.purchase.domain.FakePurchaseRepository;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseStatus;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
+import kr.flab.movieon.purchase.domain.PurchasedProduct;
+import kr.flab.movieon.purchase.domain.Purchaser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 final class SpecsForPurchase {
 
     @Test
-    @DisplayName("특정 고객이 이용기간이 5일인 보이스를 구매하고, 최종 구매 결과를 검증한다.")
+    @DisplayName("구매 대기 중인 상품을 결제하고, 최종 구매 결과를 검증한다.")
     void sut_purchased_voice_movie_product_with_a_5_days_usage_period() {
         // Arrange
         var productRepository = new FakeProductRepository();
-        productRepository.save(voiceProduct());
         var purchaseRepository = new FakePurchaseRepository();
+        setupPendingPurchaseEntity(purchaseRepository);
         var paymentCommandProcessor = getPaymentCommandProcessor();
         var sut = new PurchaseCommandService(productRepository, purchaseRepository,
             paymentCommandProcessor);
 
         // Act
-        Purchase expected = sut.purchase(1L, 1L);
+        Purchase expected = sut.payed(1L);
 
         // Assert
         assertThat(expected.getStatus()).isEqualTo(PurchaseStatus.SUCCESS);
         assertThat(expected.getType()).isEqualTo(PurchaseType.PURCHASE);
+    }
+
+    private void setupPendingPurchaseEntity(FakePurchaseRepository purchaseRepository) {
+        var purchase = Purchase.pending(
+            new Purchaser(1L),
+            PurchasedProduct.create(1L, "보이스",
+                BigDecimal.valueOf(16390), 5),
+            "PURCHASE");
+        purchaseRepository.save(purchase);
     }
 
     private PurchasePaymentProcessor getPaymentCommandProcessor() {

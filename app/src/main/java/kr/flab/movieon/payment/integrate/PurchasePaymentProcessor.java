@@ -29,7 +29,6 @@ public final class PurchasePaymentProcessor implements PaymentProcessor {
         paymentProvider.payed(payment);
 
         // TODO 구매 완료
-        purchase.complete();
         // product.purchased(); 도메인 이벤트 전환
         return purchase;
     }
