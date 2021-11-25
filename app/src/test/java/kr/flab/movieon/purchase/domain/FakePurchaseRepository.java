@@ -19,4 +19,13 @@ public final class FakePurchaseRepository implements PurchaseRepository {
             return data.putIfAbsent(entity.getId(), entity);
         }
     }
+
+    @Override
+    public Purchase findById(Long purchaseId) {
+        return data.values()
+            .stream()
+            .filter(p -> p.getId().equals(purchaseId))
+            .findFirst()
+            .orElse(null);
+    }
 }
