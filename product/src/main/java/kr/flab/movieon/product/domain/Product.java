@@ -7,8 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = "id")
 public final class Product {
 
-    // TODO primitive 타입을 reference 타입으로 명확하게 정의한다
-
     public enum ProductType {
         PURCHASE, RENTAL
     }

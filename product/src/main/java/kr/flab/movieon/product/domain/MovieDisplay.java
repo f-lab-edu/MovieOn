@@ -16,18 +16,17 @@ public final class MovieDisplay {
     private final Duration runningTime;
     private final String director;
     private final String actors;
-    // 15세 이용가, 19세 이용가, 12세 이용가, 전체 이용가
-    private final int viewerAge;
+    private final MovieRate movieRate;
 
     @Builder
     public MovieDisplay(String title, String description, Year release, Duration runningTime,
-        String director, String actors, int viewerAge) {
+        String director, String actors, MovieRate movieRate) {
         this.title = title;
         this.description = description;
         this.release = release;
         this.runningTime = runningTime;
         this.director = director;
         this.actors = actors;
-        this.viewerAge = viewerAge;
+        this.movieRate = movieRate;
     }
 }
