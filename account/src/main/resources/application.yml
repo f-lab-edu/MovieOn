@@ -1,0 +1,6 @@
+jwt:
+  header: Authorization
+  secret: "secretKey-test-authorization-jwt-manage-token"
+  base64-secret: c2VjcmV0S2V5LXRlc3QtYXV0aG9yaXphdGlvbi1qd3QtbWFuYWdlLXRva2Vu
+  # 24 hours
+  token-validity-in-seconds: 86400
