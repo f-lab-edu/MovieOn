@@ -32,6 +32,7 @@ public class JwtTokenAuthFilter extends OncePerRequestFilter {
         String jwt = parseToken(request);
         if (jwt == null || !tokenUtils.validateJwtToken(jwt)) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         var accountDetails = accountDetailsService.loadUserByUsername(
