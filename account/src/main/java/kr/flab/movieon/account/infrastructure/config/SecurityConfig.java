@@ -4,11 +4,15 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 
+import java.util.Arrays;
+import java.util.List;
 import kr.flab.movieon.account.infrastructure.security.JwtTokenAuthFilter;
+import kr.flab.movieon.account.infrastructure.security.SkipPathRequestMatcher;
 import kr.flab.movieon.account.infrastructure.security.TokenAccessDeniedHandler;
 import kr.flab.movieon.account.infrastructure.security.TokenAuthEntryPoint;
 import kr.flab.movieon.account.infrastructure.security.TokenUtils;
 import kr.flab.movieon.account.infrastructure.security.domain.AccountDetailsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,8 +31,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String REGISTER_URL = "/api/auth/signup";
+    private static final String LOGIN_URL = "/api/auth/login";
+    private static final String API_ROOT_URL = "/api/**";
     private final AccountDetailsService accountDetailsService;
     private final TokenUtils tokenUtils;
+    private List<String> skipUrls = Arrays.asList(LOGIN_URL, REGISTER_URL, "api/test/all");
 
     public SecurityConfig(
         AccountDetailsService accountDetailsService,
@@ -46,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.cors()
 
             .and()
@@ -67,7 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(jwtAuthEntryPoint())
 
             .and()
-            .addFilterBefore(jwtTokenAuthFilter(accountDetailsService),
+            .addFilterBefore(
+                jwtTokenAuthFilter(accountDetailsService),
                 UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -75,8 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtTokenAuthFilter jwtTokenAuthFilter(AccountDetailsService accountDetailsService) {
         return new JwtTokenAuthFilter(
             tokenUtils,
-            accountDetailsService
-        );
+            accountDetailsService,
+            new SkipPathRequestMatcher(skipUrls, API_ROOT_URL));
     }
 
     @Bean

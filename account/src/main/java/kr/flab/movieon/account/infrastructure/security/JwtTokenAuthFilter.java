@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,11 +19,13 @@ public class JwtTokenAuthFilter extends OncePerRequestFilter {
 
     private final TokenUtils tokenUtils;
     private final AccountDetailsService accountDetailsService;
+    private final RequestMatcher skipPathRequestMatcher;
 
-    public JwtTokenAuthFilter(TokenUtils tokenUtils,
-        AccountDetailsService accountDetailsService) {
+    public JwtTokenAuthFilter(TokenUtils tokenUtils, AccountDetailsService accountDetailsService,
+        RequestMatcher skipPathRequestMatcher) {
         this.tokenUtils = tokenUtils;
         this.accountDetailsService = accountDetailsService;
+        this.skipPathRequestMatcher = skipPathRequestMatcher;
     }
 
     @Override
@@ -35,15 +38,18 @@ public class JwtTokenAuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        if (skipPathRequestMatcher.matches(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         var accountDetails = accountDetailsService.loadUserByUsername(
             tokenUtils.getUserNameFromJwtToken(jwt));
 
-        var authentication = new UsernamePasswordAuthenticationToken(
-            accountDetails, null, accountDetails.getAuthorities());
+        var authentication = new UsernamePasswordAuthenticationToken(accountDetails, null,
+            accountDetails.getAuthorities());
 
-        authentication.setDetails(
-            new WebAuthenticationDetailsSource().buildDetails(request));
-
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         filterChain.doFilter(request, response);

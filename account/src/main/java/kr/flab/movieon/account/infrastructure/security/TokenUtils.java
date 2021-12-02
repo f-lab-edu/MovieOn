@@ -18,15 +18,14 @@ import org.springframework.stereotype.Component;
 @Component
 public final class TokenUtils {
 
-    private final String base64Secret;
+    private final byte[] base64Secret;
     private final long tokenValidityInMilliseconds;
 
     public TokenUtils(
-        // #TODO application.yml의 profile값을 불러오는데 실패해서, 일단 임시로 기본값 사용.
-        @Value("${jwt.base64-secret:c2VjcmV0S2V5LXRlc3QtYXV0aG9yaXphdGlvbi1qd3QtbWFuYWdlLXRva2Vu}")
+        @Value("${jwt.base64-secret}")
             String base64Secret,
-        @Value("${jwt.token-validity-in-seconds:86400}") long tokenValidityInSeconds) {
-        this.base64Secret = base64Secret;
+        @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+        this.base64Secret = base64Secret.getBytes(StandardCharsets.UTF_8);
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
 
@@ -37,7 +36,7 @@ public final class TokenUtils {
             .setSubject(accountPrincipal.getUsername())
             .setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + tokenValidityInMilliseconds))
-            .signWith(Keys.hmacShaKeyFor(base64Secret.getBytes(StandardCharsets.UTF_8)),
+            .signWith(Keys.hmacShaKeyFor(base64Secret),
                 SignatureAlgorithm.HS256)
             .compact();
     }

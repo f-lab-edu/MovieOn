@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,14 +19,12 @@ import javax.validation.constraints.Size;
 import kr.flab.movieon.common.EntityStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @NoArgsConstructor
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "accounts",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
@@ -60,10 +57,10 @@ public class Account {
 
     private EntityStatus status = EntityStatus.ALIVE;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdDate;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
     private Account(String username, String email, String password) {
@@ -76,10 +73,6 @@ public class Account {
 
     public static Account of(String username, String email, String password) {
         return new Account(username, email, password);
-    }
-
-    void setId(Long id) {
-        this.id = id;
     }
 
     public void changeRoles(Set<Role> roles) {
