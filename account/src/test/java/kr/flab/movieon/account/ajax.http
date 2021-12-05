@@ -1,0 +1,22 @@
+### Send POST request - signup
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+X-Requested-With: XMLHttpRequest
+
+{
+  "username":"abcde",
+  "email":"abc1234@naver.com",
+  "role":["USER"],
+  "password":"123123123"
+}
+
+### Send POST request - login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+X-Requested-With: XMLHttpRequest
+
+{
+  "username":"abcde",
+  "password":"123123123"
+}
+

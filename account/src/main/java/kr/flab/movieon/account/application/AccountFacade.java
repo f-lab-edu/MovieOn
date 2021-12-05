@@ -1,6 +1,5 @@
 package kr.flab.movieon.account.application;
 
-import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
 import kr.flab.movieon.account.infrastructure.security.domain.AccountContext;
@@ -17,14 +16,11 @@ public class AccountFacade {
 
     private final LoginAccountProcessor loginAccountProcessor;
     private final RegisterAccountProcessor registerAccountProcessor;
-    private final AccountRepository accountRepository;
 
     public AccountFacade(LoginAccountProcessor loginAccountProcessor,
-        RegisterAccountProcessor registerAccountProcessor,
-        AccountRepository accountRepository) {
+        RegisterAccountProcessor registerAccountProcessor) {
         this.loginAccountProcessor = loginAccountProcessor;
         this.registerAccountProcessor = registerAccountProcessor;
-        this.accountRepository = accountRepository;
     }
 
     @Transactional(readOnly = true)
