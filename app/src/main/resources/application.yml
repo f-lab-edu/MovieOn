@@ -1,10 +1,26 @@
 spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
   h2:
     console:
       enabled: true
-jwt:
-  header: Authorization
-  secret: "secretKey-test-authorization-jwt-manage-token"
-  base64-secret: c2VjcmV0S2V5LXRlc3QtYXV0aG9yaXphdGlvbi1qd3QtbWFuYWdlLXRva2Vu
-  # 24 hours
-  token-validity-in-seconds: 86400
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+app.security.jwt:
+  tokenExpirationTime: 15
+  refreshExpirationTime: 60
+  tokenIssuer: movieon
+  tokenSigningKey: secretKey-test-authorization-jwt-manage-token
+  base64TokenSigningKey: c2VjcmV0S2V5LXRlc3QtYXV0aG9yaXphdGlvbi1qd3QtbWFuYWdlLXRva2Vu

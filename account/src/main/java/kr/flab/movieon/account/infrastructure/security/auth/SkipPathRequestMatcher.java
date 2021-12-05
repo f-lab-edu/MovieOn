@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.infrastructure.security;
+package kr.flab.movieon.account.infrastructure.security.auth;
 
 import io.jsonwebtoken.lang.Assert;
 import java.util.List;

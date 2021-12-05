@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.infrastructure.security;
+package kr.flab.movieon.account.infrastructure.security.auth;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;

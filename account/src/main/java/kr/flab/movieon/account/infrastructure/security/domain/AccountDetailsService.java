@@ -23,6 +23,7 @@ public class AccountDetailsService implements UserDetailsService {
         var account = accountRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("Account not found with username: "
                 + username));
-        return AccountDetails.from(account);
+
+        return new AccountContext(account);
     }
 }
