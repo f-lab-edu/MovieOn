@@ -1,6 +1,9 @@
 package kr.flab.movieon.account.infrastructure;
 
 import static java.lang.Boolean.TRUE;
+import static kr.flab.movieon.account.domain.RoleType.ADMIN;
+import static kr.flab.movieon.account.domain.RoleType.PRIME_USER;
+import static kr.flab.movieon.account.domain.RoleType.USER;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public final class RegisterAccountProcessorImpl implements RegisterAccountProcessor {
 
     private final AccountRepository accountRepository;
-
     private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
 
@@ -32,6 +34,7 @@ public final class RegisterAccountProcessorImpl implements RegisterAccountProces
     @Override
     public void register(String username, String password, String email,
         List<String> roles) {
+
         if (TRUE.equals(accountRepository.existsByUsername(username))) {
             throw new IllegalArgumentException("Error: Username is already in use");
         }
@@ -43,12 +46,20 @@ public final class RegisterAccountProcessorImpl implements RegisterAccountProces
         Set<Role> newRoles = new HashSet<>();
 
         roles.forEach(role -> {
-            if (role.equalsIgnoreCase(RoleType.ADMIN.name())) {
-                newRoles.add(findByRoleType(RoleType.ADMIN));
-            } else {
-                newRoles.add(findByRoleType(RoleType.USER));
+            if (role.equalsIgnoreCase(ADMIN.name())) {
+                newRoles.add(findByRoleType(ADMIN));
+
+            } else if (role.equalsIgnoreCase(PRIME_USER.name())) {
+                newRoles.add(findByRoleType(PRIME_USER));
+
+            } else if (role.equalsIgnoreCase(USER.name())) {
+                newRoles.add(findByRoleType(USER));
             }
         });
+
+        if (newRoles.isEmpty()) {
+            newRoles.add(findByRoleType(USER));
+        }
 
         var account = Account.of(username, email, encoder.encode(password));
         account.changeRoles(newRoles);

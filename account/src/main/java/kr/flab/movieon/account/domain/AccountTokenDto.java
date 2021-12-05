@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.presentation.payload;
+package kr.flab.movieon.account.domain;
 
 import java.util.List;
 import lombok.Builder;
@@ -6,13 +6,12 @@ import lombok.Data;
 
 @Builder
 @Data
-public class JwtResponse {
+public final class AccountTokenDto {
 
-    @Builder.Default
-    private String type = "Bearer";
     private String accessToken;
     private String refreshToken;
     private String username;
     private String email;
     private List<String> roles;
+
 }
