@@ -4,15 +4,14 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 
-import java.util.Arrays;
 import java.util.List;
-import kr.flab.movieon.account.infrastructure.security.JwtTokenAuthFilter;
-import kr.flab.movieon.account.infrastructure.security.SkipPathRequestMatcher;
-import kr.flab.movieon.account.infrastructure.security.TokenAccessDeniedHandler;
-import kr.flab.movieon.account.infrastructure.security.TokenAuthEntryPoint;
-import kr.flab.movieon.account.infrastructure.security.TokenUtils;
+import kr.flab.movieon.account.infrastructure.security.auth.JwtAuthProcessingFilter;
+import kr.flab.movieon.account.infrastructure.security.auth.JwtAuthProvider;
+import kr.flab.movieon.account.infrastructure.security.auth.SkipPathRequestMatcher;
+import kr.flab.movieon.account.infrastructure.security.auth.TokenAccessDeniedHandler;
+import kr.flab.movieon.account.infrastructure.security.auth.TokenAuthEntryPoint;
 import kr.flab.movieon.account.infrastructure.security.domain.AccountDetailsService;
-import lombok.extern.slf4j.Slf4j;
+import kr.flab.movieon.account.infrastructure.security.domain.TokenExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -33,23 +33,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String REGISTER_URL = "/api/auth/signup";
     private static final String LOGIN_URL = "/api/auth/login";
+    private static final String REFRESH_TOKEN_URL = "/api/auth/token";
     private static final String API_ROOT_URL = "/api/**";
-    private final AccountDetailsService accountDetailsService;
-    private final TokenUtils tokenUtils;
-    private List<String> skipUrls = Arrays.asList(LOGIN_URL, REGISTER_URL, "api/test/all");
 
-    public SecurityConfig(
-        AccountDetailsService accountDetailsService,
-        TokenUtils tokenUtils) {
+    private final AuthenticationFailureHandler failureHandler;
+    private final TokenExtractor tokenExtractor;
+    private final JwtAuthProvider jwtAuthProvider;
+    private final AccountDetailsService accountDetailsService;
+    private final List<String> skipUrls;
+
+    public SecurityConfig(AuthenticationFailureHandler failureHandler,
+        TokenExtractor tokenExtractor, JwtAuthProvider jwtAuthProvider,
+        AccountDetailsService accountDetailsService) {
+        this.failureHandler = failureHandler;
+        this.tokenExtractor = tokenExtractor;
+        this.jwtAuthProvider = jwtAuthProvider;
         this.accountDetailsService = accountDetailsService;
-        this.tokenUtils = tokenUtils;
+
+        this.skipUrls = List.of(LOGIN_URL, REGISTER_URL, REFRESH_TOKEN_URL, "api/test/all");
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
-        throws Exception {
-        authenticationManagerBuilder.userDetailsService(accountDetailsService)
-            .passwordEncoder(passwordEncoder());
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(accountDetailsService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(jwtAuthProvider);
     }
 
     @Override
@@ -66,27 +73,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(OPTIONS).permitAll()
-            .antMatchers(POST, "/api/auth/**").permitAll()
+            .antMatchers(POST, REGISTER_URL).permitAll()
+            .antMatchers(POST, LOGIN_URL).permitAll()
+            .antMatchers(POST, REFRESH_TOKEN_URL).permitAll()
             .antMatchers(GET, "/api/test/**").permitAll()
             .anyRequest().authenticated()
 
-            .and()
-            .exceptionHandling()
+            .and().exceptionHandling()
             .accessDeniedHandler(jwtAccessDeniedHandler())
             .authenticationEntryPoint(jwtAuthEntryPoint())
 
-            .and()
-            .addFilterBefore(
-                jwtTokenAuthFilter(accountDetailsService),
+            .and().addFilterBefore(jwtAuthProcessingFilter(skipUrls),
                 UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Bean
-    public JwtTokenAuthFilter jwtTokenAuthFilter(AccountDetailsService accountDetailsService) {
-        return new JwtTokenAuthFilter(
-            tokenUtils,
-            accountDetailsService,
-            new SkipPathRequestMatcher(skipUrls, API_ROOT_URL));
+    private JwtAuthProcessingFilter jwtAuthProcessingFilter(List<String> skipUrls)
+        throws Exception {
+        var matcher = new SkipPathRequestMatcher(skipUrls, SecurityConfig.API_ROOT_URL);
+        var filter = new JwtAuthProcessingFilter(failureHandler, tokenExtractor, matcher);
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
     }
 
     @Bean
@@ -110,4 +116,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

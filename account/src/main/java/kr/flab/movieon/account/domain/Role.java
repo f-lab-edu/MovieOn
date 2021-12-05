@@ -28,8 +28,4 @@ public class Role {
     public Role(RoleType name) {
         this.name = name;
     }
-
-    void setId(Long id) {
-        this.id = id;
-    }
 }
