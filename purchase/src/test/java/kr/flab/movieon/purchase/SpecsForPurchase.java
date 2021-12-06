@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
-import kr.flab.movieon.product.domain.ProductRepository;
 import kr.flab.movieon.purchase.application.PurchaseCommandService;
 import kr.flab.movieon.purchase.domain.FakePurchaseRepository;
 import kr.flab.movieon.purchase.domain.PaymentProcessor;
@@ -12,6 +11,7 @@ import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseStatus;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
 import kr.flab.movieon.purchase.domain.PurchaseFactory;
+import kr.flab.movieon.purchase.integrate.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

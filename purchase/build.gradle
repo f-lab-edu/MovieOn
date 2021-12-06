@@ -3,7 +3,6 @@ apply plugin: "io.spring.dependency-management"
 
 dependencies {
     api project(':common')
-    api project(':product')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
