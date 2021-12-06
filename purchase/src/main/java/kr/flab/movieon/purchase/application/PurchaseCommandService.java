@@ -1,10 +1,10 @@
 package kr.flab.movieon.purchase.application;
 
-import kr.flab.movieon.product.domain.ProductRepository;
 import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.PurchaseFactory;
 import kr.flab.movieon.purchase.domain.PurchaseRepository;
+import kr.flab.movieon.purchase.integrate.ProductRepository;
 
 public final class PurchaseCommandService {
 
@@ -26,7 +26,7 @@ public final class PurchaseCommandService {
         var purchase = PurchaseFactory.pending(
             productId, purchaserId,
             product.getTitle(), product.getPrice(),
-            product.getAvailableDays(), product.getType().toString());
+            product.getAvailableDays(), product.getType());
         return purchaseRepository.save(purchase);
     }
 
