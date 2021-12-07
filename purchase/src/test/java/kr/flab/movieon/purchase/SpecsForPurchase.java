@@ -11,6 +11,7 @@ import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseStatus;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
 import kr.flab.movieon.purchase.domain.PurchaseFactory;
+import kr.flab.movieon.purchase.integrate.Product;
 import kr.flab.movieon.purchase.integrate.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,9 +39,13 @@ final class SpecsForPurchase {
     }
 
     private void setupPendingPurchaseEntity(FakePurchaseRepository purchaseRepository) {
-        purchaseRepository.save(PurchaseFactory.pending(
-            1L, 1L,
-            "보이스", BigDecimal.valueOf(16390),
-            5, "PURCHASE"));
+        var product = Product.builder()
+            .productId(1L)
+            .title("보이스")
+            .type("PURCHASE")
+            .availableDays(5)
+            .price(BigDecimal.valueOf(16390))
+            .build();
+        purchaseRepository.save(PurchaseFactory.pending(1L, product));
     }
 }
