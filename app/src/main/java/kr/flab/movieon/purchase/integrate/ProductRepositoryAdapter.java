@@ -13,6 +13,7 @@ public final class ProductRepositoryAdapter implements ProductRepository {
     public Product findById(Long productId) {
         var origin = productRepository.findById(productId);
         return Product.builder()
+            .productId(origin.getId())
             .title(origin.getTitle())
             .type(origin.getType().toString())
             .price(origin.getPrice())

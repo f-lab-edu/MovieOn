@@ -12,14 +12,17 @@ public final class Product {
     }
 
     private Long id;
+    private Category category;
     private MovieDisplay display;
     private BigDecimal price;
     private int purchaseCount;
     private Days availableDays;
     private ProductType productType;
 
-    public Product(MovieDisplay display, BigDecimal price,
+    public Product(Category category,
+        MovieDisplay display, BigDecimal price,
         Days availableDays, ProductType productType) {
+        this.category = category;
         this.display = display;
         this.price = price;
         this.purchaseCount = 0;
