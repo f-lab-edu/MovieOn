@@ -7,11 +7,9 @@ public final class Category {
 
     private Long id;
     private String name;
-    private Long productId;
 
-    public Category(String name, Long productId) {
+    public Category(String name) {
         this.name = name;
-        this.productId = productId;
     }
 
     public Long getId() {
@@ -20,9 +18,5 @@ public final class Category {
 
     public String getName() {
         return name;
-    }
-
-    public Long getProductId() {
-        return productId;
     }
 }
