@@ -1,10 +1,11 @@
 package kr.flab.movieon.purchase.domain;
 
 import java.math.BigDecimal;
+import kr.flab.movieon.common.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(of = "id")
-public class Purchase {
+@EqualsAndHashCode(of = "id", callSuper = false)
+public class Purchase extends AbstractAggregateRoot {
 
     public enum PurchaseStatus {
         PENDING, SUCCESS, FAILED
@@ -34,6 +35,7 @@ public class Purchase {
     public void complete() {
         this.status = PurchaseStatus.SUCCESS;
         this.purchasedProduct.complete();
+        registerEvent(new PurchaseCompletedEvent(this));
     }
 
     public Long getPurchaserId() {
