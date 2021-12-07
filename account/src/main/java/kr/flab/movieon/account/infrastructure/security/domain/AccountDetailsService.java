@@ -18,11 +18,11 @@ public class AccountDetailsService implements UserDetailsService {
     }
 
     @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var account = accountRepository.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("Account not found with username: "
-                + username));
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        var account = accountRepository.findByUserId(userId)
+            .orElseThrow(() -> new UsernameNotFoundException("Account not found with user id: "
+                + userId));
 
         return new AccountContext(account);
     }

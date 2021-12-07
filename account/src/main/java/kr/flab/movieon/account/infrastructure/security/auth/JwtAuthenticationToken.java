@@ -2,22 +2,22 @@ package kr.flab.movieon.account.infrastructure.security.auth;
 
 import java.util.Collection;
 import kr.flab.movieon.account.infrastructure.security.domain.AccountContext;
-import kr.flab.movieon.account.infrastructure.security.jwt.RawJwtToken;
+import kr.flab.movieon.account.infrastructure.security.jwt.JwtRawToken;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-public class JwtAuthToken extends AbstractAuthenticationToken {
+public final class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private AccountContext principal;
-    private RawJwtToken credentials;
+    private JwtRawToken credentials;
 
-    public JwtAuthToken(RawJwtToken rawJwtToken) {
+    public JwtAuthenticationToken(JwtRawToken jwtRawToken) {
         super(null);
-        this.credentials = rawJwtToken;
+        this.credentials = jwtRawToken;
         setAuthenticated(false);
     }
 
-    public JwtAuthToken(AccountContext principal,
+    public JwtAuthenticationToken(AccountContext principal,
         Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;

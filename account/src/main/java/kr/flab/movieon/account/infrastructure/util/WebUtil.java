@@ -3,7 +3,7 @@ package kr.flab.movieon.account.infrastructure.util;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpMethod;
 
-public class WebUtil {
+public final class WebUtil {
 
     public static final String AUTHORIZATION = "Authorization";
     public static final String XML_HTTP_REQUEST = "XMLHttpRequest";

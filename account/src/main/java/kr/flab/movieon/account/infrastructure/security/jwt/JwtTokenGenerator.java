@@ -18,8 +18,10 @@ import kr.flab.movieon.account.infrastructure.security.domain.AuthInfo;
 import kr.flab.movieon.account.infrastructure.security.domain.AuthInfoRepository;
 import kr.flab.movieon.account.infrastructure.security.domain.Token;
 import kr.flab.movieon.account.infrastructure.security.domain.TokenGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public final class JwtTokenGenerator implements TokenGenerator {
 
@@ -52,7 +54,7 @@ public final class JwtTokenGenerator implements TokenGenerator {
             .setIssuer(properties.getTokenIssuer())
             .setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
             .setExpiration(Date.from(currentTime
-                .plusMinutes(properties.getTokenExpirationTime())
+                .plusMinutes(properties.getTokenExpirationSec())
                 .atZone(ZoneId.systemDefault()).toInstant()))
             .signWith(Keys.hmacShaKeyFor(
                     properties.getBase64TokenSigningKey().getBytes(StandardCharsets.UTF_8)),
@@ -79,7 +81,7 @@ public final class JwtTokenGenerator implements TokenGenerator {
             .setId(randomJti)
             .setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
             .setExpiration(Date.from(currentTime
-                .plusMinutes(properties.getRefreshExpirationTime())
+                .plusMinutes(properties.getRefreshExpirationSec())
                 .atZone(ZoneId.systemDefault()).toInstant()))
             .signWith(Keys.hmacShaKeyFor(
                     properties.getBase64TokenSigningKey().getBytes(StandardCharsets.UTF_8)),

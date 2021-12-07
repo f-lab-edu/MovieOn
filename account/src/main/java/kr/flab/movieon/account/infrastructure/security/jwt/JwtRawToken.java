@@ -6,21 +6,23 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import java.nio.charset.StandardCharsets;
 import kr.flab.movieon.account.infrastructure.security.domain.Token;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public final class RawJwtToken implements Token {
+public final class JwtRawToken implements Token {
 
     private final String token;
 
-    public RawJwtToken(String token) {
+    public JwtRawToken(String token) {
         this.token = token;
     }
 
     public Jws<Claims> parseClaims(String signingKey) {
         try {
-            return Jwts.parserBuilder().setSigningKey(signingKey).build().parseClaimsJws(token);
+            return Jwts.parserBuilder().setSigningKey(signingKey.getBytes(StandardCharsets.UTF_8))
+                .build().parseClaimsJws(token);
         } catch (SecurityException e) {
             log.info("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {

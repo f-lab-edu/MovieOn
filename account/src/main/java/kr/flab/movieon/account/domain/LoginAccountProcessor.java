@@ -1,6 +1,8 @@
 package kr.flab.movieon.account.domain;
 
+import kr.flab.movieon.account.infrastructure.security.domain.AccountContext;
+
 public interface LoginAccountProcessor {
 
-    AccountTokenDto authenticate(String username, String password);
+    AccountContext login(String userId, String password);
 }

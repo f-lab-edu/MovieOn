@@ -9,9 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app.security.jwt")
 public class SecurityAppProperties {
 
-    private Integer tokenExpirationTime;
+    private Integer tokenExpirationSec;
     private String tokenIssuer;
-    private String tokenSigningKey;
     private String base64TokenSigningKey;
-    private Integer refreshExpirationTime;
+    private Integer refreshExpirationSec;
 }

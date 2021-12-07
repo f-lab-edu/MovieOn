@@ -1,8 +1,8 @@
 package kr.flab.movieon.account.presentation;
 
 import kr.flab.movieon.account.application.AccountFacade;
-import kr.flab.movieon.account.infrastructure.security.domain.AccountContext;
 import kr.flab.movieon.account.presentation.payload.AccountResponse;
+import kr.flab.movieon.common.AccountAuthentication;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,8 +32,14 @@ public class TestController {
 
     @GetMapping("/me")
     public ResponseEntity<AccountResponse> getProfile(
-        @AuthenticationPrincipal AccountContext principal) {
+        @AuthenticationPrincipal AccountAuthentication principal) {
         return ResponseEntity.ok(accountFacade.findInfo(principal));
+    }
+
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER') or hasRole('PRIME_USER') or hasRole('ADMIN')")
+    public String primeUserAccess() {
+        return "User Access";
     }
 
     @GetMapping("/admin")

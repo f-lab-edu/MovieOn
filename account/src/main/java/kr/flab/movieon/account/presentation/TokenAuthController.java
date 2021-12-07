@@ -4,12 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import kr.flab.movieon.account.application.AccountFacade;
 import kr.flab.movieon.account.infrastructure.security.domain.Token;
-import kr.flab.movieon.account.infrastructure.security.domain.TokenConverter;
-import kr.flab.movieon.account.presentation.payload.JwtResponse;
+import kr.flab.movieon.account.presentation.payload.AccountTokenResponse;
 import kr.flab.movieon.account.presentation.payload.LoginAccountCommand;
 import kr.flab.movieon.account.presentation.payload.RegisterAccountCommand;
-import kr.flab.movieon.common.ApiResult;
-import org.springframework.http.HttpStatus;
+import kr.flab.movieon.account.presentation.payload.RegisterAccountResponse;
+import kr.flab.movieon.common.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,31 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class TokenAuthController {
 
     private final AccountFacade accountFacade;
-    private final TokenConverter tokenConverter;
 
-    public TokenAuthController(AccountFacade accountFacade,
-        TokenConverter tokenConverter) {
+    public TokenAuthController(AccountFacade accountFacade) {
         this.accountFacade = accountFacade;
-        this.tokenConverter = tokenConverter;
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> register(
+    public ResponseEntity<ApiResponse<RegisterAccountResponse>> register(
         @Valid @RequestBody RegisterAccountCommand request) {
-        accountFacade.register(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(
+            ApiResponse.success(accountFacade.register(request)));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResult<JwtResponse>> authenticate(
+    public ResponseEntity<ApiResponse<AccountTokenResponse>> authenticate(
         @Valid @RequestBody LoginAccountCommand request) {
         return ResponseEntity.ok(
-            ApiResult.success(accountFacade.login(request)));
+            ApiResponse.success(accountFacade.login(request)));
     }
 
-    @GetMapping("/token")
+    @GetMapping("/refresh")
     public Token regenerateToken(HttpServletRequest request) {
-        return tokenConverter.convertToAccessToken(request.getHeader("Authorization"));
+        return accountFacade.refresh(request.getHeader("Authorization"));
     }
 
 }

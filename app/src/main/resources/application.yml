@@ -19,8 +19,7 @@ logging:
     org.hibernate.SQL: debug
 
 app.security.jwt:
-  tokenExpirationTime: 15
-  refreshExpirationTime: 60
+  tokenExpirationSec: 15
+  refreshExpirationSec: 60
   tokenIssuer: movieon
-  tokenSigningKey: secretKey-test-authorization-jwt-manage-token
   base64TokenSigningKey: c2VjcmV0S2V5LXRlc3QtYXV0aG9yaXphdGlvbi1qd3QtbWFuYWdlLXRva2Vu
