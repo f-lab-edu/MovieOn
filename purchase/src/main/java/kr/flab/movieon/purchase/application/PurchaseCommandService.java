@@ -23,10 +23,7 @@ public final class PurchaseCommandService {
     // PENDING -> 할인 적용 -> PAYED -> 결제 적용 -> PURCHASED
     public Purchase pending(Long productId, Long purchaserId) {
         var product = productRepository.findById(productId);
-        var purchase = PurchaseFactory.pending(
-            productId, purchaserId,
-            product.getTitle(), product.getPrice(),
-            product.getAvailableDays(), product.getType());
+        var purchase = PurchaseFactory.pending(purchaserId, product);
         return purchaseRepository.save(purchase);
     }
 
