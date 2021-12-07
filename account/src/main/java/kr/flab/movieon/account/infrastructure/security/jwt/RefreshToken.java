@@ -17,7 +17,7 @@ public final class RefreshToken implements Token {
         this.claims = claims;
     }
 
-    public static Optional<RefreshToken> create(RawJwtToken rawToken, String signingKey) {
+    public static Optional<RefreshToken> create(JwtRawToken rawToken, String signingKey) {
         Jws<Claims> claims = rawToken.parseClaims(signingKey);
         if (claims == null) {
             throw new InvalidTokenException();

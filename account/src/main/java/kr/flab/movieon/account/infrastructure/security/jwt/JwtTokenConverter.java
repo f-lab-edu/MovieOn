@@ -10,7 +10,6 @@ import kr.flab.movieon.account.infrastructure.security.domain.TokenExtractor;
 import kr.flab.movieon.account.infrastructure.security.domain.TokenGenerator;
 import kr.flab.movieon.account.infrastructure.security.domain.TokenVerifier;
 import kr.flab.movieon.account.infrastructure.security.exception.InvalidTokenException;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -35,23 +34,19 @@ public final class JwtTokenConverter implements TokenConverter {
     }
 
     @Override
-    public Token convertToAccessToken(String payload) {
-        var rawJwtToken = new RawJwtToken(tokenExtractor.extract(payload));
+    public Token convert(String payload) {
+        var rawJwtToken = new JwtRawToken(tokenExtractor.extract(payload));
         var refreshToken = RefreshToken.create(rawJwtToken,
-                properties.getTokenSigningKey())
+                properties.getBase64TokenSigningKey())
             .orElseThrow(InvalidTokenException::new);
 
         if (!tokenVerifier.verify(refreshToken.getJti())) {
             throw new InvalidTokenException();
         }
 
-        var username = refreshToken.getSubject();
-        Account account = accountRepository.findByUsername(username)
+        var userId = refreshToken.getSubject();
+        Account account = accountRepository.findByUserId(userId)
             .orElseThrow(IllegalArgumentException::new);
-
-        if (account.getRoles() == null || account.getRoles().isEmpty()) {
-            throw new InsufficientAuthenticationException("User has no roles assigned");
-        }
 
         return tokenGenerator.createAccessToken(new AccountContext(account));
     }

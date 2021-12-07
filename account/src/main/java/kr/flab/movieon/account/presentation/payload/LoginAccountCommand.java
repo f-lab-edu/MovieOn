@@ -7,7 +7,7 @@ import lombok.Data;
 public class LoginAccountCommand {
 
     @NotBlank
-    private String username;
+    private String userId;
 
     @NotBlank
     private String password;

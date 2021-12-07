@@ -3,10 +3,8 @@ package kr.flab.movieon.account.infrastructure.config;
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
-import kr.flab.movieon.account.domain.RoleRepository;
 import kr.flab.movieon.account.infrastructure.LoginAccountProcessorImpl;
 import kr.flab.movieon.account.infrastructure.RegisterAccountProcessorImpl;
-import kr.flab.movieon.account.infrastructure.security.domain.TokenGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,14 +15,13 @@ public class AccountModuleConfig {
 
     @Bean
     public LoginAccountProcessor loginAccountProcessor(
-        AuthenticationManager authenticationManager, TokenGenerator tokenGenerator) {
-        return new LoginAccountProcessorImpl(authenticationManager, tokenGenerator);
+        AuthenticationManager authenticationManager) {
+        return new LoginAccountProcessorImpl(authenticationManager);
     }
 
     @Bean
     public RegisterAccountProcessor registerAccountProcessor(
-        AccountRepository accountRepository, RoleRepository roleRepository,
-        PasswordEncoder passwordEncoder) {
-        return new RegisterAccountProcessorImpl(accountRepository, roleRepository, passwordEncoder);
+        AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+        return new RegisterAccountProcessorImpl(accountRepository, passwordEncoder);
     }
 }

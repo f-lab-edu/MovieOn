@@ -5,7 +5,7 @@ import kr.flab.movieon.account.infrastructure.security.domain.TokenVerifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JwtTokenVerifier implements TokenVerifier {
+public final class JwtTokenVerifier implements TokenVerifier {
 
     private final AuthInfoRepository authInfoRepository;
 

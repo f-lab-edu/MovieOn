@@ -1,73 +1,38 @@
 package kr.flab.movieon.account.infrastructure;
 
 import static java.lang.Boolean.TRUE;
-import static kr.flab.movieon.account.domain.RoleType.ADMIN;
-import static kr.flab.movieon.account.domain.RoleType.PRIME_USER;
-import static kr.flab.movieon.account.domain.RoleType.USER;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
+import kr.flab.movieon.account.domain.RegisterAccountConflictException;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
-import kr.flab.movieon.account.domain.Role;
-import kr.flab.movieon.account.domain.RoleRepository;
-import kr.flab.movieon.account.domain.RoleType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public final class RegisterAccountProcessorImpl implements RegisterAccountProcessor {
 
     private final AccountRepository accountRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
 
     public RegisterAccountProcessorImpl(
         AccountRepository accountRepository,
-        RoleRepository roleRepository,
         PasswordEncoder encoder) {
         this.accountRepository = accountRepository;
-        this.roleRepository = roleRepository;
         this.encoder = encoder;
     }
 
     @Override
-    public void register(String username, String password, String email,
-        List<String> roles) {
+    public void register(String userId, String password, String email) {
 
-        if (TRUE.equals(accountRepository.existsByUsername(username))) {
-            throw new IllegalArgumentException("Error: Username is already in use");
+        if (accountRepository.existsByUserId(userId)) {
+            throw new RegisterAccountConflictException("Error: User id is already in use");
         }
 
-        if (TRUE.equals(accountRepository.existsByEmail(email))) {
-            throw new IllegalArgumentException("Error: Email is already in use");
+        if (accountRepository.existsByEmail(email)) {
+            throw new RegisterAccountConflictException("Error: Email is already in use");
         }
 
-        Set<Role> newRoles = new HashSet<>();
-
-        roles.forEach(role -> {
-            if (role.equalsIgnoreCase(ADMIN.name())) {
-                newRoles.add(findByRoleType(ADMIN));
-
-            } else if (role.equalsIgnoreCase(PRIME_USER.name())) {
-                newRoles.add(findByRoleType(PRIME_USER));
-
-            } else if (role.equalsIgnoreCase(USER.name())) {
-                newRoles.add(findByRoleType(USER));
-            }
-        });
-
-        if (newRoles.isEmpty()) {
-            newRoles.add(findByRoleType(USER));
-        }
-
-        var account = Account.of(username, email, encoder.encode(password));
-        account.changeRoles(newRoles);
+        var account = Account.of(userId, email, encoder.encode(password));
         accountRepository.save(account);
     }
 
-    private Role findByRoleType(RoleType name) {
-        return roleRepository.findByName(name)
-            .orElseThrow(() -> new IllegalArgumentException("Error: Role is not found. : " + name));
-    }
 }
