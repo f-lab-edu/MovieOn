@@ -12,7 +12,13 @@ public abstract class AbstractAggregateRoot {
         this.events.add(domainEvent);
     }
 
-    public List<DomainEvent> getEvents() {
-        return Collections.unmodifiableList(events);
+    public List<DomainEvent> pollAllEvents() {
+        if (!events.isEmpty()) {
+            var domainEvents = List.copyOf(events);
+            this.events.clear();
+            return domainEvents;
+        } else {
+            return Collections.emptyList();
+        }
     }
 }

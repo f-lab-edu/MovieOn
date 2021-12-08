@@ -35,7 +35,7 @@ public final class PurchaseCommandService {
         var purchase = purchaseRepository.findById(purchaseId);
         paymentProcessor.payed(purchase, paymentType);
         purchase.complete();
-        purchase.getEvents().forEach(publisher::publishEvent);
+        purchase.pollAllEvents().forEach(publisher::publishEvent);
         return purchase;
     }
 }
