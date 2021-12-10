@@ -1,4 +1,4 @@
-package kr.flab.movieon.common.exception;
+package kr.flab.movieon.account.domain.exception;
 
 import kr.flab.movieon.common.ErrorCode;
 

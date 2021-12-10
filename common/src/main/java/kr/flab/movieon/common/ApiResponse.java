@@ -1,5 +1,6 @@
 package kr.flab.movieon.common;
 
+import java.util.Map;
 import lombok.Getter;
 
 @Getter
@@ -19,11 +20,14 @@ public final class ApiResponse<T> {
         return new ApiResponse<>(true, data, null);
     }
 
-    public static ApiResponse<ErrorCode> error(ErrorCode error, String message) {
-        return new ApiResponse<>(false, error, message);
+    public static ApiResponse<Map<String, Object>> error(ErrorCode error, String message) {
+        return new ApiResponse<>(false, Map.of("status", error.getStatus(),
+            "code", error.getCode(), "message", error.getMessage()), message);
+
     }
 
-    public static ApiResponse<ErrorCode> error(ErrorCode error) {
-        return new ApiResponse<>(false, error, error.getMessage());
+    public static ApiResponse<Map<String, Object>> error(ErrorCode error) {
+        return new ApiResponse<>(false, Map.of("status", error.getStatus(),
+            "code", error.getCode(), "message", error.getMessage()), error.getMessage());
     }
 }

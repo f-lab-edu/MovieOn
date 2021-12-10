@@ -1,7 +1,7 @@
 package kr.flab.movieon.account.infrastructure.security.exception;
 
+import kr.flab.movieon.account.domain.exception.SystemException;
 import kr.flab.movieon.common.ErrorCode;
-import kr.flab.movieon.common.exception.SystemException;
 
 public final class InvalidTokenException extends SystemException {
 
