@@ -1,6 +1,4 @@
-package kr.flab.movieon.account.domain;
-
-import kr.flab.movieon.common.exception.EntityNotFoundException;
+package kr.flab.movieon.account.domain.exception;
 
 public final class AccountNotFoundException extends EntityNotFoundException {
 

@@ -1,11 +1,9 @@
 package kr.flab.movieon.account.infrastructure;
 
-import static java.lang.Boolean.TRUE;
-
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
-import kr.flab.movieon.account.domain.RegisterAccountConflictException;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
+import kr.flab.movieon.account.domain.exception.RegisterAccountConflictException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public final class RegisterAccountProcessorImpl implements RegisterAccountProcessor {

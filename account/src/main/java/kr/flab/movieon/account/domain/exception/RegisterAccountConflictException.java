@@ -1,7 +1,6 @@
-package kr.flab.movieon.account.domain;
+package kr.flab.movieon.account.domain.exception;
 
 import kr.flab.movieon.common.ErrorCode;
-import kr.flab.movieon.common.exception.SystemException;
 
 public final class RegisterAccountConflictException extends SystemException {
 

@@ -1,6 +1,7 @@
-package kr.flab.movieon.common;
+package kr.flab.movieon;
 
-import kr.flab.movieon.common.exception.SystemException;
+import kr.flab.movieon.common.ApiResponse;
+import kr.flab.movieon.common.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public final class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleArgumentNotValid(
+    private ResponseEntity<ApiResponse<?>> handleArgumentNotValid(
         MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException: ", e);
 
@@ -26,7 +27,7 @@ public final class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleMethodNotSupported(
+    private ResponseEntity<ApiResponse<?>> handleMethodNotSupported(
         HttpRequestMethodNotSupportedException e) {
         log.error("HttpRequestMethodNotSupportedException", e);
 
@@ -35,7 +36,7 @@ public final class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleArgumentException(
+    private ResponseEntity<ApiResponse<?>> handleArgumentException(
         IllegalArgumentException e) {
         log.error("IllegalArgumentException", e);
 
@@ -44,7 +45,7 @@ public final class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalStateException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleIllegalState(IllegalStateException e) {
+    private ResponseEntity<ApiResponse<?>> handleIllegalState(IllegalStateException e) {
         log.error("IllegalStateException", e);
 
         return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_INPUT),
@@ -52,7 +53,7 @@ public final class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleMediaTypeNotSupported(
+    private ResponseEntity<ApiResponse<?>> handleMediaTypeNotSupported(
         HttpMediaTypeNotSupportedException e) {
         log.error("HttpMediaTypeNotSupportedException", e);
         return new ResponseEntity<>(ApiResponse.error(ErrorCode.UNSUPPORTED_MEDIA_TYPE),
@@ -60,7 +61,7 @@ public final class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleAuthenticationException(
+    private ResponseEntity<ApiResponse<?>> handleAuthenticationException(
         AuthenticationException e) {
         log.error("AuthenticationException", e);
         return new ResponseEntity<>(ApiResponse.error(ErrorCode.UN_AUTHORIZED),
@@ -68,7 +69,7 @@ public final class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleAccessDenied(
+    private ResponseEntity<ApiResponse<?>> handleAccessDenied(
         AccessDeniedException e) {
         log.error("AccessDeniedException", e);
 
@@ -76,17 +77,8 @@ public final class GlobalExceptionHandler {
             HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(SystemException.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleSystemException(SystemException e) {
-        log.error("SystemException", e);
-
-        return new ResponseEntity<>(ApiResponse.error(e.getErrorCode()),
-            HttpStatus.INTERNAL_SERVER_ERROR);
-
-    }
-
     @ExceptionHandler(Exception.class)
-    private ResponseEntity<ApiResponse<ErrorCode>> handleException(Exception e) {
+    private ResponseEntity<ApiResponse<?>> handleException(Exception e) {
         log.error("Unknown Exception", e);
 
         return new ResponseEntity<>(ApiResponse.error(ErrorCode.SYSTEM_ERROR),

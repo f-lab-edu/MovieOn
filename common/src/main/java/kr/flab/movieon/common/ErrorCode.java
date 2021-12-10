@@ -1,11 +1,8 @@
 package kr.flab.movieon.common;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import lombok.Getter;
 
 @Getter
-@JsonFormat(shape = Shape.OBJECT)
 public enum ErrorCode {
     INVALID_INPUT(400, "001", "Invalid Input"),
     UN_AUTHORIZED(401, "002", "UnAuthorized"),
