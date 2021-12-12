@@ -1,0 +1,24 @@
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+group "kr.flab.movieon"
+version "0.0.1"
+
+dependencies {
+    api project(":purchase-api:purchase-domain")
+    implementation "org.springframework:spring-context:${SPRING_VERSION}"
+    implementation "org.springframework:spring-tx:${SPRING_VERSION}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
