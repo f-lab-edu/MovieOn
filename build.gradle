@@ -1,28 +1,25 @@
 import com.github.spotbugs.snom.SpotBugsTask
 
 plugins {
-    id 'org.springframework.boot' version '2.5.6'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.ec4j.editorconfig' version '0.0.3'
-    id 'com.github.spotbugs' version '4.7.0'
-    id 'checkstyle'
-    id 'java'
+    id "org.springframework.boot" version "2.5.6"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "org.ec4j.editorconfig" version "0.0.3"
+    id "com.github.spotbugs" version "4.7.0"
+    id "checkstyle"
+    id "java"
 }
 
 subprojects {
-    apply plugin: 'org.ec4j.editorconfig'
-    apply plugin: 'com.github.spotbugs'
-    apply plugin: 'checkstyle'
-    apply plugin: 'java-library'
-    apply plugin: 'java'
-
-    group = 'kr.flab.movieon'
-    version = '0.0.1'
+    apply plugin: "org.ec4j.editorconfig"
+    apply plugin: "com.github.spotbugs"
+    apply plugin: "checkstyle"
+    apply plugin: "java-library"
+    apply plugin: "java"
 
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-    compileJava.options.encoding = 'UTF-8'
-    compileTestJava.options.encoding = 'UTF-8'
+    compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
 
     configurations {
         compileOnly {
@@ -34,9 +31,16 @@ subprojects {
         mavenCentral()
     }
 
+    ext {
+        SPRING_VERSION = "5.3.12"
+        JUNIT_JUPITER_VERSION = "5.7.2"
+        JJWT_VERSION = "0.11.2"
+        ASSERTJ_VERSION = "3.19.0"
+    }
+
     dependencies {
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
     }
 
     editorconfig {
@@ -83,5 +87,5 @@ subprojects {
 }
 
 bootJar {
-    mainClass = 'kr.flab.movieon.MovieOnApplication'
+    mainClass = "kr.flab.movieon.MovieOnApplication"
 }

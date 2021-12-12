@@ -1,8 +1,31 @@
 rootProject.name = 'MovieOn'
-include 'purchase'
-include 'product'
 include 'app'
-include 'payment'
-include 'account'
 include 'common'
-
+include (
+        'purchase-api',
+        'purchase-api:purchase-presentation',
+        'purchase-api:purchase-application',
+        'purchase-api:purchase-domain',
+        'purchase-api:purchase-infrastructure',
+)
+include (
+        'product-api',
+        'product-api:product-presentation',
+        'product-api:product-application',
+        'product-api:product-domain',
+        'product-api:product-infrastructure',
+)
+include (
+        'payment-api',
+        'payment-api:payment-presentation',
+        'payment-api:payment-application',
+        'payment-api:payment-domain',
+        'payment-api:payment-infrastructure',
+)
+include(
+        'account-api',
+        'account-api:account-presentation',
+        'account-api:account-application',
+        'account-api:account-domain',
+        'account-api:account-infrastructure',
+)
