@@ -6,6 +6,10 @@ dependencies {
     api project(":purchase-api:purchase-application")
     api project(":product-api:product-domain")
     api project(":payment-api:payment-domain")
+    api project(":notification-api:notification-domain")
+    api project(":notification-api:notification-application")
+    api project(":notification-api:notification-presentation")
+    api project(":notification-api:notification-infrastructure")
     api project(":account-api")
 
     implementation "org.springframework.boot:spring-boot-starter-web"

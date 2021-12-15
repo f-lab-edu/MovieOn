@@ -29,3 +29,10 @@ include(
         'account-api:account-domain',
         'account-api:account-infrastructure',
 )
+include (
+        'notification-api',
+        'notification-api:notification-presentation',
+        'notification-api:notification-application',
+        'notification-api:notification-domain',
+        'notification-api:notification-infrastructure',
+)
