@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Map;
 import kr.flab.movieon.notification.domain.Notification;
 import kr.flab.movieon.notification.domain.NotificationSender;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public final class NotificationCommandService {
 
     private final List<NotificationSender> senders;
@@ -15,14 +13,19 @@ public final class NotificationCommandService {
     private Map<Class<? extends Notification>, NotificationSender>
         senderMap = new HashMap<>();
 
+    public NotificationCommandService(List<NotificationSender> senders) {
+        this.senders = senders;
+        setSenderMap();
+    }
+
+    private void setSenderMap() {
+        for (NotificationSender sender : this.senders) {
+            senderMap.put(sender.appliesTo(), sender);
+        }
+    }
+
     public void send(Notification notification) {
         senderMap.get(notification.getClass())
             .send(notification);
-    }
-
-    public void init() {
-        for (NotificationSender sender : senders) {
-            senderMap.put(sender.appliesTo(), sender);
-        }
     }
 }
