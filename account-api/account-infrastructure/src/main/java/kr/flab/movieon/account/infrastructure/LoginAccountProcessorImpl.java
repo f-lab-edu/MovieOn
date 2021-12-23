@@ -1,7 +1,6 @@
 package kr.flab.movieon.account.infrastructure;
 
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
-import kr.flab.movieon.account.infrastructure.security.domain.AccountContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
