@@ -10,7 +10,9 @@ dependencies {
     api project(":notification-api:notification-application")
     api project(":notification-api:notification-presentation")
     api project(":notification-api:notification-infrastructure")
-    api project(":account-api")
+    api project(":account-api:account-domain")
+    api project(":account-api:account-infrastructure")
+    api project(":common")
 
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
@@ -19,10 +21,12 @@ dependencies {
     implementation "io.jsonwebtoken:jjwt-api:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-impl:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-jackson:${JJWT_VERSION}"
-    testImplementation "org.springframework.security:spring-security-test"
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation "com.h2database:h2"
     testImplementation "com.h2database:h2"
+    testImplementation "org.springframework.security:spring-security-test"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 bootJar {
