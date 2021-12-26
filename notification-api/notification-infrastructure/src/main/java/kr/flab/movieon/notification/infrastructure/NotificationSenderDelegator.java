@@ -5,7 +5,9 @@ import java.util.Map;
 import kr.flab.movieon.notification.domain.Notification;
 import kr.flab.movieon.notification.domain.NotificationSender;
 import kr.flab.movieon.notification.domain.NotificationType;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class NotificationSenderDelegator implements NotificationSender {
 
     private static final Map<NotificationType, NotificationSender> senderMap

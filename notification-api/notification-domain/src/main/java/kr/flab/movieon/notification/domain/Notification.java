@@ -1,5 +1,7 @@
 package kr.flab.movieon.notification.domain;
 
+import static java.time.LocalDateTime.now;
+
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,8 @@ import lombok.Getter;
 @Getter
 public class Notification {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Receiver receiver;
@@ -29,7 +32,8 @@ public class Notification {
     private String email;
     private String tel;
 
-    protected Notification() {}
+    protected Notification() {
+    }
 
     private Notification(Receiver receiver, String message,
         NotificationType type, LocalDateTime createdAt, String email, String tel) {
@@ -39,5 +43,11 @@ public class Notification {
         this.createdAt = createdAt;
         this.email = email;
         this.tel = tel;
+    }
+
+    public static Notification toEmail(Receiver receiver, String message,
+        String email) {
+        return new Notification(receiver, message, NotificationType.EMAIL,
+            now(), email, null);
     }
 }
