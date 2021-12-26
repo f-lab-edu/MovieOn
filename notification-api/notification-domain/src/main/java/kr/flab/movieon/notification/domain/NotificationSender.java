@@ -1,8 +1,6 @@
 package kr.flab.movieon.notification.domain;
 
-public interface NotificationSender<T> {
+public interface NotificationSender {
 
-    Class<T> appliesTo();
-
-    void send(T notification);
+    void send(Notification notification);
 }
