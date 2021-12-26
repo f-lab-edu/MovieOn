@@ -1,32 +1,22 @@
 package kr.flab.movieon.notification.infrastructure;
 
-import java.time.LocalDateTime;
-import kr.flab.movieon.notification.application.NotificationCommandService;
-import kr.flab.movieon.notification.domain.EmailNotification;
-import kr.flab.movieon.notification.domain.NotificationRepository;
-import kr.flab.movieon.notification.domain.Receiver;
 import kr.flab.movieon.notification.domain.RegisteredAccountConfirmEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class EventHandler {
 
-    private final NotificationRepository notificationRepository;
-    private final NotificationCommandService notificationCommandService;
-
-    public EventHandler(
-        NotificationRepository notificationRepository,
-        NotificationCommandService notificationCommandService) {
-        this.notificationRepository = notificationRepository;
-        this.notificationCommandService = notificationCommandService;
-    }
-
+    @EventListener
     public void handle(RegisteredAccountConfirmEvent event) {
-        var notification = new EmailNotification(
-            new Receiver(event.getAccountId()), "",
-            LocalDateTime.now(),
-            event.getEmail());
+        // 이메일 형식의 알림 메세지 생성
 
-        notificationRepository.save(notification);
+        // 알림 메세지 영속화
 
-        notificationCommandService.send(notification);
+        // 템플릿 모델을 저장소 개체로부터 조회
+
+        // 템플릿 엔진을 사용하여 조회한 템플릿 모델을 HTML 파일로 변환
+
+        // 메세지 발송(비동기)
     }
 }
