@@ -1,7 +1,8 @@
-package kr.flab.movieon.account.presentation.payload;
+package kr.flab.movieon.account.application.payload;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.Data;
 
@@ -18,6 +19,6 @@ public class RegisterAccountCommand {
     private String email;
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Pattern(regexp = "^[A-Za-z1-9~!@#$%^&*()+|=]{6,40}$")
     private String password;
 }

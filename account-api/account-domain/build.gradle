@@ -10,6 +10,7 @@ version "0.0.1"
 dependencies {
     api project(":common")
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
 bootJar {

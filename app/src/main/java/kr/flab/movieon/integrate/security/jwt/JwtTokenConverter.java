@@ -6,11 +6,11 @@ import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
 import kr.flab.movieon.integrate.security.SecurityAppProperties;
 import kr.flab.movieon.integrate.security.domain.AccountContext;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
-import kr.flab.movieon.integrate.security.domain.Token;
 import kr.flab.movieon.integrate.security.domain.TokenConverter;
 import kr.flab.movieon.integrate.security.domain.TokenExtractor;
 import kr.flab.movieon.integrate.security.domain.TokenGenerator;
 import kr.flab.movieon.integrate.security.domain.TokenVerifier;
+import kr.flab.movieon.integrate.security.domain.Tokens;
 import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +39,7 @@ public final class JwtTokenConverter implements TokenConverter {
     }
 
     @Override
-    public Token convert(String payload) {
+    public Tokens convert(String payload) {
         var rawJwtToken = new JwtRawToken(tokenExtractor.extract(payload));
         var refreshToken = RefreshToken.create(rawJwtToken,
                 properties.getBase64TokenSigningKey())
@@ -55,10 +55,12 @@ public final class JwtTokenConverter implements TokenConverter {
 
         var authEntity = refreshTokenInfoRepository.findByRefreshTokenJti(refreshToken.getJti())
             .orElseThrow(InvalidTokenException::new);
-
         authEntity.expire();
 
-        return tokenGenerator.createAccessToken(new AccountContext(account));
+        var accountContext = new AccountContext(account);
+        return new Tokens(
+            tokenGenerator.createAccessToken(accountContext),
+            tokenGenerator.createRefreshToken(accountContext)
+        );
     }
-
 }

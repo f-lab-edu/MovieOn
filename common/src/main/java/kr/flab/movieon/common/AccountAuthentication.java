@@ -7,5 +7,9 @@ public interface AccountAuthentication {
     Set<String> getRoles();
 
     Long getAccountId();
+
+    String getUserId();
+
+    String getEmail();
 }
 

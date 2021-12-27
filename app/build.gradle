@@ -10,6 +10,7 @@ dependencies {
     api project(":notification-api:notification-application")
     api project(":notification-api:notification-presentation")
     api project(":notification-api:notification-infrastructure")
+    api project(":account-api:account-application")
     api project(":account-api:account-domain")
     api project(":account-api:account-infrastructure")
     api project(":common")
