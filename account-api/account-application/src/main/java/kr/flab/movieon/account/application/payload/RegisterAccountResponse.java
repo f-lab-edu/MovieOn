@@ -1,13 +1,11 @@
 package kr.flab.movieon.account.application.payload;
 
-import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
 public final class RegisterAccountResponse {
 
-    private String userId;
+    private final String userId;
 
-    private String email;
+    private final String email;
 }

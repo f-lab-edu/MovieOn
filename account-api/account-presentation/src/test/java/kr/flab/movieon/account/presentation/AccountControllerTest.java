@@ -28,7 +28,7 @@ class AccountControllerTest {
     @DisplayName("인증된 사용자가 정보 요청에 성공한다.")
     void findInfo() throws Exception {
         var action = mockMvc.perform(
-            get("/api/me")
+            get("/api/account/me")
                 .with(user("user").roles("USER"))
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)

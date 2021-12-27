@@ -3,14 +3,13 @@ package kr.flab.movieon.integrate.security.jwt;
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
+import kr.flab.movieon.account.infrastructure.TokenConverter;
+import kr.flab.movieon.account.infrastructure.TokenGenerator;
+import kr.flab.movieon.account.infrastructure.Tokens;
 import kr.flab.movieon.integrate.security.SecurityAppProperties;
-import kr.flab.movieon.integrate.security.domain.AccountContext;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
-import kr.flab.movieon.integrate.security.domain.TokenConverter;
 import kr.flab.movieon.integrate.security.domain.TokenExtractor;
-import kr.flab.movieon.integrate.security.domain.TokenGenerator;
 import kr.flab.movieon.integrate.security.domain.TokenVerifier;
-import kr.flab.movieon.integrate.security.domain.Tokens;
 import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
 import org.springframework.stereotype.Component;
 
@@ -57,10 +56,9 @@ public final class JwtTokenConverter implements TokenConverter {
             .orElseThrow(InvalidTokenException::new);
         authEntity.expire();
 
-        var accountContext = new AccountContext(account);
         return new Tokens(
-            tokenGenerator.createAccessToken(accountContext),
-            tokenGenerator.createRefreshToken(accountContext)
+            tokenGenerator.createAccessToken(account),
+            tokenGenerator.createRefreshToken(account)
         );
     }
 }
