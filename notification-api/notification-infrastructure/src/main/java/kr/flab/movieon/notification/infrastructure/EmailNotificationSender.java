@@ -1,12 +1,17 @@
 package kr.flab.movieon.notification.infrastructure;
 
-import kr.flab.movieon.notification.domain.Notification;
+import kr.flab.movieon.notification.domain.EmailNotification;
 import kr.flab.movieon.notification.domain.NotificationSender;
 
-public final class EmailNotificationSender implements NotificationSender {
+public final class EmailNotificationSender implements NotificationSender<EmailNotification> {
 
     @Override
-    public void send(Notification notification) {
+    public Class<EmailNotification> appliesTo() {
+        return EmailNotification.class;
+    }
+
+    @Override
+    public void send(EmailNotification notification) {
 
     }
 }
