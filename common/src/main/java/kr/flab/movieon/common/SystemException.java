@@ -1,6 +1,4 @@
-package kr.flab.movieon.account.domain.exception;
-
-import kr.flab.movieon.common.ErrorCode;
+package kr.flab.movieon.common;
 
 public class SystemException extends RuntimeException {
 

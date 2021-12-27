@@ -12,12 +12,13 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import kr.flab.movieon.account.domain.Account;
+import kr.flab.movieon.account.infrastructure.Token;
+import kr.flab.movieon.account.infrastructure.TokenGenerator;
 import kr.flab.movieon.integrate.security.SecurityAppProperties;
 import kr.flab.movieon.integrate.security.domain.AccountContext;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfo;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
-import kr.flab.movieon.integrate.security.domain.Token;
-import kr.flab.movieon.integrate.security.domain.TokenGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,8 @@ public final class JwtTokenGenerator implements TokenGenerator {
         this.properties = properties;
     }
 
-    public Token createAccessToken(AccountContext accountContext) {
+    public Token createAccessToken(Account account) {
+        var accountContext = new AccountContext(account);
         if (accountContext.getUsername().isBlank()) {
             throw new IllegalArgumentException("Cannot create jwt token without username");
         }
@@ -64,7 +66,8 @@ public final class JwtTokenGenerator implements TokenGenerator {
         return new JwtToken(token, claims);
     }
 
-    public Token createRefreshToken(AccountContext accountContext) {
+    public Token createRefreshToken(Account account) {
+        var accountContext = new AccountContext(account);
         if (accountContext.getUsername().isBlank()) {
             throw new IllegalArgumentException("Cannot create JWT Token without username");
         }

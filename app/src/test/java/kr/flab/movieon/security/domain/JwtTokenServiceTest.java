@@ -25,7 +25,7 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.security.authentication.AuthenticationServiceException;
 
-final class TokenConvertTest {
+final class JwtTokenServiceTest {
 
     private final String invalidToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
         + ".eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
@@ -50,15 +50,14 @@ final class TokenConvertTest {
             new JwtTokenExtractor());
 
         return Arrays.asList(
-            dynamicTest("토큰 값이 null 이라면 변환에 인증 예외가 발생한다.", () -> {
+            dynamicTest("토큰 값이 null 이라면 변환에 인증 예외가 발생한다.", () ->
                 assertThatExceptionOfType(AuthenticationServiceException.class).isThrownBy(
-                    () -> tokenConverter.convert(null));
+                    () -> tokenConverter.convert(null))
 
-            }), dynamicTest("유효하지 않은 토큰을 변환하면 예외를 발생한다.", () -> {
+            ), dynamicTest("유효하지 않은 토큰을 변환하면 예외를 발생한다.", () ->
                 assertThatExceptionOfType(InvalidTokenException.class).isThrownBy(
-                    () -> tokenConverter.convert(invalidToken));
-
-            }));
+                    () -> tokenConverter.convert(invalidToken))
+            ));
     }
 
     @TestFactory
@@ -90,19 +89,19 @@ final class TokenConvertTest {
         var tokenExtractor = new JwtTokenExtractor();
 
         return Arrays.asList(
-            dynamicTest("공백인 payload 에서 토큰을 추출하려고 하면 인증 예외가 발생한다.", () -> {
+            dynamicTest("공백인 payload 에서 토큰을 추출하려고 하면 인증 예외가 발생한다.", () ->
                 assertThatExceptionOfType(AuthenticationServiceException.class).isThrownBy(
-                    () -> tokenExtractor.extract(""));
+                    () -> tokenExtractor.extract(""))
 
-            }), dynamicTest("null 에서 토큰을 추출하려고 하면 인증 예외가 발생한다.", () -> {
+            ), dynamicTest("null 에서 토큰을 추출하려고 하면 인증 예외가 발생한다.", () ->
                 assertThatExceptionOfType(AuthenticationServiceException.class).isThrownBy(
-                    () -> tokenExtractor.extract(null));
+                    () -> tokenExtractor.extract(null))
 
-            }), dynamicTest("유효하지 않은 문자열에서 토큰을 추출하려고 하면 인증 예외가 발생한다.", () -> {
+            ), dynamicTest("유효하지 않은 문자열에서 토큰을 추출하려고 하면 인증 예외가 발생한다.", () ->
                 assertThatExceptionOfType(AuthenticationServiceException.class).isThrownBy(
-                    () -> tokenExtractor.extract("BeBeBe DERFTGYHUJIKOL"));
+                    () -> tokenExtractor.extract("BeBeBe DERFTGYHUJIKOL"))
 
-            }));
+            ));
     }
 
     private final class FakeRefreshTokenInfoRepository implements RefreshTokenInfoRepository {
@@ -140,6 +139,11 @@ final class TokenConvertTest {
         @Override
         public Account save(Account account) {
             return account;
+        }
+
+        @Override
+        public Optional<Account> findById(Long accountId) {
+            return Optional.of(account);
         }
 
         @Override

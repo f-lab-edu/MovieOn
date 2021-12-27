@@ -1,6 +1,5 @@
 package kr.flab.movieon.account.presentation;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import kr.flab.movieon.account.application.AccountFacade;
 import kr.flab.movieon.account.application.payload.AccountTokenResponse;
@@ -12,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    AccountFacade accountFacade;
+    private final AccountFacade accountFacade;
 
     public AuthController(AccountFacade accountFacade) {
         this.accountFacade = accountFacade;
@@ -41,7 +41,8 @@ public class AuthController {
     }
 
     @GetMapping("/refresh")
-    public ApiResponse<AccountTokenResponse> regenerateToken(HttpServletRequest request) {
-        return ApiResponse.success(accountFacade.refresh(request.getHeader("Authorization")));
+    public ApiResponse<AccountTokenResponse> regenerateToken(
+        @RequestHeader("Authorization") String payload) {
+        return ApiResponse.success(accountFacade.refresh(payload));
     }
 }

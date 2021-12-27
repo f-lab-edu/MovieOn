@@ -6,6 +6,8 @@ public interface AccountRepository {
 
     Account save(Account account);
 
+    Optional<Account> findById(Long accountId);
+
     Optional<Account> findByUserId(String userId);
 
     Optional<Account> findByEmail(String email);

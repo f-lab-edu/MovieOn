@@ -18,6 +18,14 @@ public final class FakeAccountRepository implements AccountRepository {
     }
 
     @Override
+    public Optional<Account> findById(Long accountId) {
+        if (!data.containsKey(accountId)) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(data.get(accountId));
+    }
+
+    @Override
     public Optional<Account> findByUserId(
         String userId) {
         return data.values().stream()

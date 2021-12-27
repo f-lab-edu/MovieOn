@@ -2,7 +2,7 @@ package kr.flab.movieon.integrate.security.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.jsonwebtoken.Claims;
-import kr.flab.movieon.integrate.security.domain.Token;
+import kr.flab.movieon.account.infrastructure.Token;
 
 public final class JwtToken implements Token {
 

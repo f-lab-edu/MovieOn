@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.domain;
+package kr.flab.movieon.account.infrastructure;
 
 import lombok.Getter;
 
