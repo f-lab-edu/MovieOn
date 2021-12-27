@@ -27,10 +27,12 @@ public final class AccountContext extends User implements AccountAuthentication 
             .collect(Collectors.toList());
     }
 
+    @Override
     public String getEmail() {
         return account.getEmail();
     }
 
+    @Override
     public String getUserId() {
         return account.getUserId();
     }

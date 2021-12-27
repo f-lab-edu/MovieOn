@@ -65,35 +65,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
         web.ignoring().antMatchers(LOGIN_URL, REGISTER_URL, REFRESH_TOKEN_URL);
-        web.ignoring().antMatchers("/api/test/all");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.cors()
 
-            .and().csrf().disable().httpBasic().disable().formLogin().disable().sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .csrf().disable()
+            .httpBasic().disable()
+            .formLogin().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-            .and().authorizeRequests().antMatchers(OPTIONS).permitAll()
-            .antMatchers(POST, REGISTER_URL).permitAll().antMatchers(POST, LOGIN_URL).permitAll()
-            .antMatchers(POST, REFRESH_TOKEN_URL).permitAll().antMatchers(API_ROOT_URL)
-            .authenticated()
+            .and()
+            .authorizeRequests().antMatchers(OPTIONS).permitAll()
+            .antMatchers(POST, REGISTER_URL).permitAll()
+            .antMatchers(POST, LOGIN_URL).permitAll()
+            .antMatchers(POST, REFRESH_TOKEN_URL).permitAll()
+            .antMatchers(API_ROOT_URL).authenticated()
 
-            .and().exceptionHandling()
+            .and()
+            .exceptionHandling()
             .accessDeniedHandler(tokenAccessDeniedHandler(handlerExceptionResolver))
             .authenticationEntryPoint(tokenAuthenticationEntryPoint(handlerExceptionResolver))
 
             .and()
             .addFilterBefore(jwtAuthProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    private JwtAuthenticationFilter jwtAuthProcessingFilter() throws Exception {
-        var filter = new JwtAuthenticationFilter(tokenExtractor,
-            new AntPathRequestMatcher(API_ROOT_URL));
-        filter.setAuthenticationManager(authenticationManagerBean());
-        return filter;
     }
 
     @Bean
@@ -103,6 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         config.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE"));
         config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
 
         var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
@@ -115,6 +113,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         //AuthenticationManager 를 외부에서 사용하기 위하여 @Bean 등록.
         return super.authenticationManagerBean();
+    }
+
+    private JwtAuthenticationFilter jwtAuthProcessingFilter() throws Exception {
+        var filter = new JwtAuthenticationFilter(tokenExtractor,
+            new AntPathRequestMatcher(API_ROOT_URL));
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
     }
 
     @Bean

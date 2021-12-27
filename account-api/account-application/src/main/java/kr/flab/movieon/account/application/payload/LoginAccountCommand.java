@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.presentation.payload;
+package kr.flab.movieon.account.application.payload;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Data;

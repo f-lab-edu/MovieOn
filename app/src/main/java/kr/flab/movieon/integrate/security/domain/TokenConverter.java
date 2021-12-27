@@ -6,5 +6,5 @@ package kr.flab.movieon.integrate.security.domain;
  */
 public interface TokenConverter {
 
-    Token convert(String payload);
+    Tokens convert(String payload);
 }

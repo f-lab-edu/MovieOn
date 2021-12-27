@@ -9,6 +9,7 @@ dependencies {
     api project(":account-api:account-domain")
     api project(":account-api:account-infrastructure")
     implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework:spring-context:${SPRING_VERSION}"
     implementation "org.springframework:spring-tx:${SPRING_VERSION}"
 }

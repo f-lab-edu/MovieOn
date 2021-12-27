@@ -19,7 +19,7 @@ public final class RegisterAccountProcessorImpl implements RegisterAccountProces
     }
 
     @Override
-    public void register(String userId, String password, String email) {
+    public void register(String userId, String email, String password) {
 
         if (accountRepository.existsByUserId(userId)) {
             throw new RegisterAccountConflictException("Error: User id is already in use");
