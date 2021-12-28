@@ -3,6 +3,7 @@ package kr.flab.movieon.account.domain;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,6 +40,12 @@ public class Account {
 
     private String password;
 
+    private boolean emailVerified = false;
+
+    private String emailValidationToken;
+
+    private LocalDateTime emailValidationTokenCreatedDate;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
@@ -58,9 +65,23 @@ public class Account {
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = LocalDateTime.now();
         this.roles.add(Role.USER);
+        generateEmailValidationToken();
     }
 
     public static Account of(String userId, String email, String password) {
         return new Account(userId, email, password);
+    }
+
+    private void generateEmailValidationToken() {
+        this.emailValidationToken = UUID.randomUUID().toString();
+        this.emailValidationTokenCreatedDate = LocalDateTime.now();
+    }
+
+    public void confirmRegister() {
+        this.emailVerified = true;
+    }
+
+    public boolean isValidEmailToken(String token) {
+        return this.emailValidationToken.equals(token);
     }
 }

@@ -2,6 +2,7 @@ package kr.flab.movieon.account.infrastructure.config;
 
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
+import kr.flab.movieon.account.domain.RegisterAccountConfirmProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
 import kr.flab.movieon.account.infrastructure.LoginAccountProcessorImpl;
 import kr.flab.movieon.account.infrastructure.RegisterAccountProcessorImpl;
@@ -24,4 +25,11 @@ public class AccountModuleConfig {
         AuthenticationManager authenticationManager) {
         return new LoginAccountProcessorImpl(authenticationManager);
     }
+
+    @Bean
+    public RegisterAccountConfirmProcessor registerAccountConfirmProcessor(
+        AccountRepository accountRepository) {
+        return new RegisterAccountConfirmProcessor(accountRepository);
+    }
+
 }

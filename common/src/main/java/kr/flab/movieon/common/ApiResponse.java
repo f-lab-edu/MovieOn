@@ -16,6 +16,10 @@ public final class ApiResponse<T> {
         this.message = message;
     }
 
+    public static <T> ApiResponse<T> success() {
+        return new ApiResponse<>(true, null, null);
+    }
+
     public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse<>(true, data, null);
     }
