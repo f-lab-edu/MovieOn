@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import kr.flab.movieon.account.application.AccountFacade;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,39 +18,47 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(AccountController.class)
-class AccountControllerTest {
+final class AccountControllerTest {
 
     @MockBean
     private AccountFacade accountFacade;
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    @DisplayName("인증된 사용자가 정보 요청에 성공한다.")
-    void findInfo() throws Exception {
-        var action = mockMvc.perform(
-            get("/api/account/me")
-                .with(user("user").roles("USER"))
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-        );
+    @Nested
+    @DisplayName("회원 정보 조회 API")
+    class FindInfoApiTest {
 
-        action.andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.success").value(true));
-    }
+        private static final String FIND_INFO_API = "/api/account/me";
 
-    @Test
-    @DisplayName("인증되지 않은 사용자가 정보를 요청하면 401 코드를 응답한다.")
-    void unAuthenticate_findInfo() throws Exception {
-        var action = mockMvc.perform(
-            get("/api/me")
-                .with(anonymous())
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-        );
+        @Test
+        @DisplayName("인증된 사용자가 정보 요청에 성공한다.")
+        void findInfo() throws Exception {
+            var action = mockMvc.perform(
+                get(FIND_INFO_API)
+                    .with(user("user").roles("USER"))
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+            );
 
-        action.andDo(print())
-            .andExpect(status().isUnauthorized());
+            action.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true));
+        }
+
+        @Test
+        @DisplayName("인증되지 않은 사용자가 정보를 요청하면 401 코드를 응답한다.")
+        void unAuthenticate_findInfo() throws Exception {
+            var action = mockMvc.perform(
+                get(FIND_INFO_API)
+                    .with(anonymous())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+            );
+
+            action.andDo(print())
+                .andExpect(status().isUnauthorized());
+        }
+
     }
 }

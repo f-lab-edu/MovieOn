@@ -1,6 +1,8 @@
 package kr.flab.movieon.account.infrastructure;
 
 import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
+import kr.flab.movieon.account.domain.exception.AccountNotVerifiedException;
+import kr.flab.movieon.account.domain.exception.InvalidEmailTokenException;
 import kr.flab.movieon.account.domain.exception.RegisterAccountConflictException;
 import kr.flab.movieon.common.ApiResponse;
 import kr.flab.movieon.common.ErrorCode;
@@ -32,4 +34,21 @@ public final class AccountExceptionHandler {
             HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(AccountNotVerifiedException.class)
+    private ResponseEntity<ApiResponse<?>> handleAccountNotVerified(
+        AccountNotVerifiedException e) {
+        log.error("AccountNotVerifiedException: ", e);
+
+        return new ResponseEntity<>(ApiResponse.error(ErrorCode.UN_AUTHORIZED),
+            HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(InvalidEmailTokenException.class)
+    private ResponseEntity<ApiResponse<?>> handleInvalidEmailToken(
+        InvalidEmailTokenException e) {
+        log.error("InvalidEmailTokenException: ", e);
+
+        return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_TOKEN),
+            HttpStatus.BAD_REQUEST);
+    }
 }

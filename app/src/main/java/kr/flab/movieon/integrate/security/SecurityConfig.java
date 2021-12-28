@@ -36,6 +36,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String REGISTER_URL = "/api/auth/signup";
+    private static final String REGISTER_CONFIRM_URL = "api/auth/confirm";
     private static final String LOGIN_URL = "/api/auth/login";
     private static final String REFRESH_TOKEN_URL = "/api/auth/refresh";
     private static final String API_ROOT_URL = "/api/**";
@@ -64,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-        web.ignoring().antMatchers(LOGIN_URL, REGISTER_URL, REFRESH_TOKEN_URL);
+        web.ignoring()
+            .antMatchers(LOGIN_URL, REGISTER_URL, REFRESH_TOKEN_URL, REGISTER_CONFIRM_URL);
     }
 
     @Override
