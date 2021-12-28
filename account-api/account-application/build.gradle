@@ -8,7 +8,6 @@ dependencies {
     api project(":common")
     api project(":account-api:account-domain")
     api project(":account-api:account-infrastructure")
-    api project(":notification-api:notification-domain")
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework:spring-context:${SPRING_VERSION}"

@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    private final AccountFacade accountFacade;
     private static final String LOGIN_PAGE_URI = "http://movieon.flab.kr/login";
+    private final AccountFacade accountFacade;
 
     public AuthController(AccountFacade accountFacade) {
         this.accountFacade = accountFacade;

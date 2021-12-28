@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(
-    path = "/api/account",
+    path = "/api/accounts",
     produces = MediaType.APPLICATION_JSON_VALUE,
     consumes = MediaType.APPLICATION_JSON_VALUE)
 @RestController
@@ -28,4 +28,5 @@ public final class AccountController {
         @AuthenticationPrincipal AccountAuthentication authentication) {
         return ApiResponse.success(accountFacade.findInfo(authentication));
     }
+
 }

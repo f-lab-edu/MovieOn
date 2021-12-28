@@ -29,7 +29,7 @@ final class AccountControllerTest {
     @DisplayName("회원 정보 조회 API")
     class FindInfoApiTest {
 
-        private static final String FIND_INFO_API = "/api/account/me";
+        private static final String FIND_INFO_API = "/api/accounts/me";
 
         @Test
         @DisplayName("인증된 사용자가 정보 요청에 성공한다.")
