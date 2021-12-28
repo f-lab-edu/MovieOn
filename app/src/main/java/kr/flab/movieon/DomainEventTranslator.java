@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.application;
+package kr.flab.movieon;
 
 import kr.flab.movieon.account.domain.RegisteredAccountConfirmEvent;
 import org.springframework.context.ApplicationEventPublisher;
@@ -6,15 +6,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
- * Receives all domain events from account module.
- * and Convert to other module's domain events.
+ * Receives all domain events and Convert to other module's domain events.
  */
 @Component
-class AccountEventTranslator {
+class DomainEventTranslator {
 
     private final ApplicationEventPublisher publisher;
 
-    AccountEventTranslator(ApplicationEventPublisher publisher) {
+    DomainEventTranslator(ApplicationEventPublisher publisher) {
         this.publisher = publisher;
     }
 

@@ -65,11 +65,12 @@ public class Account {
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = LocalDateTime.now();
         this.roles.add(Role.USER);
-        generateEmailValidationToken();
     }
 
     public static Account of(String userId, String email, String password) {
-        return new Account(userId, email, password);
+        var account = new Account(userId, email, password);
+        account.generateEmailValidationToken();
+        return account;
     }
 
     private void generateEmailValidationToken() {
