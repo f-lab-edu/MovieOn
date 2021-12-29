@@ -30,6 +30,18 @@ public class NotificationGroup {
         return this.type.equals(type);
     }
 
+    public void enable() {
+        this.disabled = false;
+    }
+
+    public void enableOption(NotificationType notificationType) {
+        var option = options.stream()
+            .filter(o -> o.isEqualTo(notificationType))
+            .findFirst()
+            .orElseThrow(IllegalArgumentException::new);
+        option.enable();
+    }
+
     public void disable() {
         this.disabled = true;
     }

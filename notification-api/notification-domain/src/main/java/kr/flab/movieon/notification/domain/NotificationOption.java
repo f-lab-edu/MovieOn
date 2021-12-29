@@ -19,6 +19,10 @@ public final class NotificationOption {
         this.disabled = true;
     }
 
+    public void enable() {
+        this.disabled = false;
+    }
+
     public boolean isEqualTo(NotificationType type) {
         return this.type.equals(type);
     }
