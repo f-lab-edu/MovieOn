@@ -19,7 +19,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @EqualsAndHashCode(of = "id")
 public class NotificationSetting {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Receiver receiver;
@@ -67,5 +68,25 @@ public class NotificationSetting {
         return groups.stream()
             .anyMatch(g -> g.isEqualTo(groupType) && !g.isDisabled()
                 && g.isDisabledOption(notificationType));
+    }
+
+    public void enableGroup(NotificationGroupType groupType) {
+        var group = groups.stream()
+            .filter(g -> g.isEqualTo(groupType))
+            .findFirst()
+            .orElseThrow(IllegalArgumentException::new);
+        group.enable();
+    }
+
+    public void enableOptionInGroup(NotificationType notificationType,
+        NotificationGroupType groupType) {
+        var group = groups.stream()
+            .filter(g -> g.isEqualTo(groupType))
+            .findFirst()
+            .orElseThrow(IllegalArgumentException::new);
+        if (group.isDisabled()) {
+            throw new IllegalStateException("해당 알림 그룹이 비활성화되어 있습니다.");
+        }
+        group.enableOption(notificationType);
     }
 }
