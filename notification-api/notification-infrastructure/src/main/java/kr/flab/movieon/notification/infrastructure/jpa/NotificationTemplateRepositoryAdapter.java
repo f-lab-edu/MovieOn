@@ -1,8 +1,8 @@
 package kr.flab.movieon.notification.infrastructure.jpa;
 
 import kr.flab.movieon.notification.domain.NotificationTemplate;
-import kr.flab.movieon.notification.domain.NotificationTemplateId;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
+import kr.flab.movieon.notification.domain.NotificationTemplateType;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,8 +21,7 @@ public final class NotificationTemplateRepositoryAdapter implements Notification
     }
 
     @Override
-    public NotificationTemplate findById(NotificationTemplateId templateId) {
-        return templateRepository.findById(templateId)
-            .orElseThrow(IllegalArgumentException::new);
+    public NotificationTemplate findByTemplateType(NotificationTemplateType templateType) {
+        return templateRepository.findByTemplateType(templateType);
     }
 }

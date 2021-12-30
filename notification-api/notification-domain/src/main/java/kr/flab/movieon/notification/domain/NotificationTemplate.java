@@ -2,18 +2,27 @@ package kr.flab.movieon.notification.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter
+@EqualsAndHashCode(of = "id")
 public class NotificationTemplate {
 
-    @EmbeddedId
-    private NotificationTemplateId templateId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
+    private NotificationTemplateType templateType;
 
     private String title;
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -27,15 +36,15 @@ public class NotificationTemplate {
 
     }
 
-    private NotificationTemplate(NotificationTemplateId templateId, String title,
+    public NotificationTemplate(NotificationTemplateType templateType, String title,
         String contents) {
-        this.templateId = templateId;
+        this.templateType = templateType;
         this.title = title;
         this.contents = contents;
     }
 
-    public static NotificationTemplate toEmail(NotificationTemplateId id,
-        String title, String contents) {
-        return new NotificationTemplate(id, title, contents);
+    public NotificationTemplate toEmail(String templateName, String title, String contents) {
+        return new NotificationTemplate(new NotificationTemplateType(NotificationType.EMAIL,
+            templateName), title, contents);
     }
 }
