@@ -4,5 +4,5 @@ public interface NotificationTemplateRepository {
 
     NotificationTemplate save(NotificationTemplate entity);
 
-    NotificationTemplate findById(NotificationTemplateId templateId);
+    NotificationTemplate findByTemplateType(NotificationTemplateType templateType);
 }

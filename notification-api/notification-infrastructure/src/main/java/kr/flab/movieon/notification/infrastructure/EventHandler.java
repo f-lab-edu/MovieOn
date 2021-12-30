@@ -8,14 +8,12 @@ import static kr.flab.movieon.notification.domain.NotificationType.SMS;
 
 import java.util.Set;
 import kr.flab.movieon.notification.domain.NotificationGroup;
-import kr.flab.movieon.notification.domain.NotificationMessageType;
 import kr.flab.movieon.notification.domain.NotificationOption;
 import kr.flab.movieon.notification.domain.NotificationRepository;
 import kr.flab.movieon.notification.domain.NotificationSetting;
 import kr.flab.movieon.notification.domain.NotificationSettingRepository;
-import kr.flab.movieon.notification.domain.NotificationTemplateId;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
-import kr.flab.movieon.notification.domain.NotificationType;
+import kr.flab.movieon.notification.domain.NotificationTemplateType;
 import kr.flab.movieon.notification.domain.Receiver;
 import kr.flab.movieon.notification.domain.RegisterCompletedEvent;
 import kr.flab.movieon.notification.domain.RegisteredAccountConfirmEvent;
@@ -39,9 +37,8 @@ public final class EventHandler {
 
     @EventListener
     public void handle(RegisteredAccountConfirmEvent event) {
-        var template = templateRepository.findById(
-            new NotificationTemplateId(NotificationType.EMAIL,
-                NotificationMessageType.EMAIL_CONFIRM));
+        var template = templateRepository
+            .findByTemplateType(new NotificationTemplateType(EMAIL, "계정 확인 메일"));
 
         var message = "MovieOn 서비스를 사용하려면 링크를 클릭해주세요.";
 
