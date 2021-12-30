@@ -52,13 +52,12 @@ public final class EventHandler {
 
     @EventListener
     public void handle(RegisterCompletedEvent event) {
-        var notificationGroups = defaultNotificationGroups();
-        var setting = new NotificationSetting(new Receiver(event.getId()), notificationGroups);
+        var setting = defaultSetting(event.getId());
         settingRepository.save(setting);
     }
 
-    private Set<NotificationGroup> defaultNotificationGroups() {
-        return Set.of(
+    private NotificationSetting defaultSetting(Long accountId) {
+        return new NotificationSetting(new Receiver(accountId), Set.of(
             new NotificationGroup(PURCHASE_INFO, Set.of(
                 new NotificationOption(EMAIL),
                 new NotificationOption(SMS),
@@ -69,6 +68,6 @@ public final class EventHandler {
                 new NotificationOption(SMS),
                 new NotificationOption(PUSH)
             ))
-        );
+        ));
     }
 }
