@@ -19,7 +19,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 비활성화된 구매 내역 알림 그룹을 활성화한다.")
     void sut_user_has_already_disabled_notificationGroup_enable_in_notificationSetting() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
         sut.disableGroup(PURCHASE_INFO);
 
         // Act
@@ -33,7 +33,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 구매 내역 알림 그룹 내에 비활성화된 이메일 수신 옵션을 활성화한다.")
     void sut_user_has_already_disabled_notificationOption_enable_in_notificationGroup() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
         sut.disableOptionInGroup(EMAIL, PURCHASE_INFO);
 
         // Act
@@ -47,7 +47,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 비활성화된 알림 그룹 내에 있는 알림 옵션을 활성화할 수 없습니다.")
     void sut_error_the_notificationOption_withIn_the_enable_notificationGroup_is_disabled() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
 
         // Act
         sut.disableGroup(PURCHASE_INFO);
@@ -61,7 +61,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 알림 설정 내에 존재하지 않는 알림 그룹은 비활성화 할 수 없다.")
     void sut_not_possible_deactivate_a_notificationGroup_notFound_within_notificationSetting() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
 
         // Act & Assert
         assertThatExceptionOfType(IllegalArgumentException.class)
@@ -72,7 +72,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 알림 설정에서 구매 내역 알림 그룹을 비활성화한다.")
     void sut_user_has_disable_notificationGroup_in_notificationSetting() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
 
         // Act
         sut.disableGroup(PURCHASE_INFO);
@@ -85,7 +85,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 구매 내역 알림 그룹 내에 있는 이메일 알림 옵션을 비활성화한다.")
     void sut_user_has_disable_notificationOption_in_notificationGroup() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
 
         // Act
         sut.disableOptionInGroup(EMAIL, PURCHASE_INFO);
@@ -98,7 +98,7 @@ class NotificationSettingTest {
     @DisplayName("사용자는 비활성화된 알림 그룹 내에 있는 알림 옵션을 비활성화할 수 없습니다.")
     void sut_error_the_notificationOption_withIn_the_disable_notificationGroup_is_disabled() {
         // Arrange
-        var sut = defaultSetting();
+        var sut = NotificationSetting.defaultSetting(1L);
 
         // Act
         sut.disableGroup(PURCHASE_INFO);
@@ -106,21 +106,5 @@ class NotificationSettingTest {
         // Assert
         assertThatExceptionOfType(IllegalStateException.class)
             .isThrownBy(() -> sut.disableOptionInGroup(EMAIL, PURCHASE_INFO));
-    }
-
-    private NotificationSetting defaultSetting() {
-        var notificationGroups = Set.of(
-            new NotificationGroup(PURCHASE_INFO, Set.of(
-                new NotificationOption(EMAIL),
-                new NotificationOption(SMS),
-                new NotificationOption(PUSH)
-            )),
-            new NotificationGroup(USER_INFO, Set.of(
-                new NotificationOption(EMAIL),
-                new NotificationOption(SMS),
-                new NotificationOption(PUSH)
-            ))
-        );
-        return new NotificationSetting(new Receiver(1L), notificationGroups);
     }
 }
