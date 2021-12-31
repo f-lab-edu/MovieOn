@@ -1,20 +1,12 @@
 package kr.flab.movieon.notification.infrastructure;
 
-import static kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType.PURCHASE_INFO;
-import static kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType.USER_INFO;
 import static kr.flab.movieon.notification.domain.NotificationType.EMAIL;
-import static kr.flab.movieon.notification.domain.NotificationType.PUSH;
-import static kr.flab.movieon.notification.domain.NotificationType.SMS;
 
-import java.util.Set;
-import kr.flab.movieon.notification.domain.NotificationGroup;
-import kr.flab.movieon.notification.domain.NotificationOption;
 import kr.flab.movieon.notification.domain.NotificationRepository;
 import kr.flab.movieon.notification.domain.NotificationSetting;
 import kr.flab.movieon.notification.domain.NotificationSettingRepository;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
 import kr.flab.movieon.notification.domain.NotificationTemplateType;
-import kr.flab.movieon.notification.domain.Receiver;
 import kr.flab.movieon.notification.domain.RegisterCompletedEvent;
 import kr.flab.movieon.notification.domain.RegisteredAccountConfirmEvent;
 import org.springframework.context.event.EventListener;
@@ -49,22 +41,7 @@ public final class EventHandler {
 
     @EventListener
     public void handle(RegisterCompletedEvent event) {
-        var setting = defaultSetting(event.getId());
+        var setting = NotificationSetting.defaultSetting(event.getId());
         settingRepository.save(setting);
-    }
-
-    private NotificationSetting defaultSetting(Long accountId) {
-        return new NotificationSetting(new Receiver(accountId), Set.of(
-            new NotificationGroup(PURCHASE_INFO, Set.of(
-                new NotificationOption(EMAIL),
-                new NotificationOption(SMS),
-                new NotificationOption(PUSH)
-            )),
-            new NotificationGroup(USER_INFO, Set.of(
-                new NotificationOption(EMAIL),
-                new NotificationOption(SMS),
-                new NotificationOption(PUSH)
-            ))
-        ));
     }
 }
