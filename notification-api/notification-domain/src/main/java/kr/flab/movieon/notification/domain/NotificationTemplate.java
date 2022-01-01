@@ -36,7 +36,7 @@ public class NotificationTemplate {
 
     }
 
-    public NotificationTemplate(NotificationTemplateType templateType, String title,
+    private NotificationTemplate(NotificationTemplateType templateType, String title,
         String contents) {
         this.templateType = templateType;
         this.title = title;
