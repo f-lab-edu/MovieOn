@@ -21,7 +21,8 @@ class DomainEventTranslator {
     public void translate(RegisteredAccountConfirmEvent event) {
         publisher.publishEvent(
             new kr.flab.movieon.notification.domain.RegisteredAccountConfirmEvent(
-                event.getAccountId(), event.getEmail(), event.getEmailCheckToken()
+                event.getAccountId(), event.getEmail(),
+                event.getEmailCheckToken(), event.occurredOn()
             )
         );
     }

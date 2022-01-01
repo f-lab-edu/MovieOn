@@ -1,21 +1,17 @@
-package kr.flab.movieon.notification.infrastructure;
+package kr.flab.movieon.notification.domain;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import kr.flab.movieon.notification.domain.Notification;
-import kr.flab.movieon.notification.domain.NotificationSender;
-import org.springframework.stereotype.Component;
 
-@Component
-public final class NotificationSenderProcessor {
+public final class NotificationSenderDelegator {
 
     private final List<NotificationSender> senders;
 
     private Map<Class<? extends Notification>, NotificationSender> senderMap
         = new HashMap<>();
 
-    public NotificationSenderProcessor(List<NotificationSender> senders) {
+    public NotificationSenderDelegator(List<NotificationSender> senders) {
         this.senders = senders;
         setSenderMap(this.senders);
     }
