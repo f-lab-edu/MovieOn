@@ -3,10 +3,11 @@ package kr.flab.movieon.notification.infrastructure.jpa;
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
 import kr.flab.movieon.notification.domain.NotificationTemplateType;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class NotificationTemplateRepositoryAdapter implements NotificationTemplateRepository {
+public class NotificationTemplateRepositoryAdapter implements NotificationTemplateRepository {
 
     private final JpaNotificationTemplateRepository templateRepository;
 
@@ -20,6 +21,7 @@ public final class NotificationTemplateRepositoryAdapter implements Notification
         return templateRepository.save(entity);
     }
 
+    @Cacheable(value = "template")
     @Override
     public NotificationTemplate findByTemplateType(NotificationTemplateType templateType) {
         return templateRepository.findByTemplateType(templateType);
