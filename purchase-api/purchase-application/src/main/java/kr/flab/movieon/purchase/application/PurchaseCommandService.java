@@ -1,6 +1,5 @@
 package kr.flab.movieon.purchase.application;
 
-import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.PurchaseFactory;
 import kr.flab.movieon.purchase.domain.PurchaseRepository;
@@ -11,16 +10,13 @@ public final class PurchaseCommandService {
 
     private final ProductRepository productRepository;
     private final PurchaseRepository purchaseRepository;
-    private final PaymentProcessor paymentProcessor;
     private final ApplicationEventPublisher publisher;
 
     public PurchaseCommandService(ProductRepository productRepository,
         PurchaseRepository purchaseRepository,
-        PaymentProcessor paymentProcessor,
         ApplicationEventPublisher publisher) {
         this.productRepository = productRepository;
         this.purchaseRepository = purchaseRepository;
-        this.paymentProcessor = paymentProcessor;
         this.publisher = publisher;
     }
 
@@ -33,9 +29,8 @@ public final class PurchaseCommandService {
         return purchaseRepository.save(purchase);
     }
 
-    public Purchase payed(Long purchaseId, String paymentType) {
+    public Purchase payed(Long purchaseId) {
         var purchase = purchaseRepository.findById(purchaseId);
-        paymentProcessor.payed(purchase, paymentType);
         purchase.complete();
         purchase.pollAllEvents().forEach(publisher::publishEvent);
         return purchase;

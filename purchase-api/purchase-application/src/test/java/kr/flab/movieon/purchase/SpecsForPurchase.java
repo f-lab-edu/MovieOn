@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 import java.math.BigDecimal;
 import kr.flab.movieon.purchase.application.PurchaseCommandService;
 import kr.flab.movieon.purchase.domain.FakePurchaseRepository;
-import kr.flab.movieon.purchase.domain.PaymentProcessor;
 import kr.flab.movieon.purchase.domain.Purchase;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseStatus;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
@@ -34,10 +33,10 @@ final class SpecsForPurchase {
         setupPendingPurchaseEntity(purchaseRepository);
         var publisher = mock(ApplicationEventPublisher.class);
         var sut = new PurchaseCommandService(mock(ProductRepository.class), purchaseRepository,
-            mock(PaymentProcessor.class), publisher);
+            publisher);
 
         // Act
-        Purchase expected = sut.payed(1L, "TOSS");
+        Purchase expected = sut.payed(1L);
 
         // Assert
         assertThat(expected.getStatus()).isEqualTo(PurchaseStatus.SUCCESS);
