@@ -34,13 +34,13 @@ class NotificationSettingTest {
     void sut_user_has_already_disabled_notificationOption_enable_in_notificationGroup() {
         // Arrange
         var sut = NotificationSetting.defaultSetting(1L);
-        sut.disableOptionInGroup(EMAIL, PURCHASE_INFO);
+        sut.disableOptionInGroup(PURCHASE_INFO, EMAIL);
 
         // Act
-        sut.enableOptionInGroup(EMAIL, PURCHASE_INFO);
+        sut.enableOptionInGroup(PURCHASE_INFO, EMAIL);
 
         // Assert
-        assertThat(sut.isDisabledOptionInGroup(EMAIL, PURCHASE_INFO)).isFalse();
+        assertThat(sut.isDisabledOptionInGroup(PURCHASE_INFO, EMAIL)).isFalse();
     }
 
     @Test
@@ -54,7 +54,7 @@ class NotificationSettingTest {
 
         // Assert
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(() -> sut.enableOptionInGroup(EMAIL, PURCHASE_INFO));
+            .isThrownBy(() -> sut.enableOptionInGroup(PURCHASE_INFO, EMAIL));
     }
 
     @Test
@@ -88,10 +88,10 @@ class NotificationSettingTest {
         var sut = NotificationSetting.defaultSetting(1L);
 
         // Act
-        sut.disableOptionInGroup(EMAIL, PURCHASE_INFO);
+        sut.disableOptionInGroup(PURCHASE_INFO, EMAIL);
 
         // Assert
-        assertThat(sut.isDisabledOptionInGroup(EMAIL, PURCHASE_INFO)).isTrue();
+        assertThat(sut.isDisabledOptionInGroup(PURCHASE_INFO, EMAIL)).isTrue();
     }
 
     @Test
@@ -105,6 +105,6 @@ class NotificationSettingTest {
 
         // Assert
         assertThatExceptionOfType(IllegalStateException.class)
-            .isThrownBy(() -> sut.disableOptionInGroup(EMAIL, PURCHASE_INFO));
+            .isThrownBy(() -> sut.disableOptionInGroup(PURCHASE_INFO, EMAIL));
     }
 }
