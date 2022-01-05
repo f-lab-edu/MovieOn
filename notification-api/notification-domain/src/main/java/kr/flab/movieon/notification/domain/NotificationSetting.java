@@ -44,6 +44,10 @@ public class NotificationSetting {
         this.groups = groups;
     }
 
+    void setId(Long id) {
+        this.id = id;
+    }
+
     public void disableGroup(NotificationGroupType groupType) {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
@@ -57,8 +61,8 @@ public class NotificationSetting {
             .anyMatch(g -> g.isEqualTo(groupType) && g.isDisabled());
     }
 
-    public void disableOptionInGroup(NotificationType notificationType,
-        NotificationGroupType groupType) {
+    public void disableOptionInGroup(NotificationGroupType groupType,
+        NotificationType notificationType) {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
             .findFirst()
@@ -69,8 +73,8 @@ public class NotificationSetting {
         group.disableOption(notificationType);
     }
 
-    public boolean isDisabledOptionInGroup(NotificationType notificationType,
-        NotificationGroupType groupType) {
+    public boolean isDisabledOptionInGroup(NotificationGroupType groupType,
+        NotificationType notificationType) {
         return groups.stream()
             .anyMatch(g -> g.isEqualTo(groupType) && !g.isDisabled()
                 && g.isDisabledOption(notificationType));
@@ -84,8 +88,8 @@ public class NotificationSetting {
         group.enable();
     }
 
-    public void enableOptionInGroup(NotificationType notificationType,
-        NotificationGroupType groupType) {
+    public void enableOptionInGroup(NotificationGroupType groupType,
+        NotificationType notificationType) {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
             .findFirst()
