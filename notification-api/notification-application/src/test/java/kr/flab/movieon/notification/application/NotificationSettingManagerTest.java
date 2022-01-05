@@ -22,7 +22,7 @@ final class NotificationSettingManagerTest {
 
         // Act
         Throwable result = catchThrowable(
-            () -> sut.disable(1L, NotificationGroupType.USER_INFO));
+            () -> sut.disable(1L, "USER_INFO"));
 
         // Assert
         assertThat(result).isNull();
@@ -38,7 +38,7 @@ final class NotificationSettingManagerTest {
 
         // Act
         Throwable result = catchThrowable(
-            () -> sut.disable(1L, NotificationGroupType.USER_INFO, NotificationType.EMAIL));
+            () -> sut.disable(1L, "USER_INFO", "EMAIL"));
 
         // Assert
         assertThat(result).isNull();
@@ -56,7 +56,7 @@ final class NotificationSettingManagerTest {
 
         // Act
         Throwable result = catchThrowable(
-            () -> sut.enable(1L, NotificationGroupType.USER_INFO));
+            () -> sut.enable(1L, "USER_INFO"));
 
         // Assert
         assertThat(result).isNull();
@@ -74,7 +74,7 @@ final class NotificationSettingManagerTest {
 
         // Act
         Throwable result = catchThrowable(
-            () -> sut.enable(1L, NotificationGroupType.USER_INFO, NotificationType.EMAIL));
+            () -> sut.enable(1L, "USER_INFO", "EMAIL"));
 
         // Assert
         assertThat(result).isNull();

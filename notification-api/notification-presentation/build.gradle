@@ -1,7 +1,12 @@
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
 group "kr.flab.movieon"
 version "0.0.1"
 
 dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-security"
     api project(":notification-api:notification-application")
     testImplementation "org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${JUNIT_JUPITER_VERSION}"
@@ -13,4 +18,8 @@ test {
 
 jar {
     enabled = true
+}
+
+bootJar {
+    enabled = false
 }

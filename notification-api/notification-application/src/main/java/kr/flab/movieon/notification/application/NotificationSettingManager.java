@@ -17,23 +17,25 @@ public class NotificationSettingManager {
         this.settingRepository = settingRepository;
     }
 
-    public void disable(Long accountId, NotificationGroupType groupType) {
+    public void disable(Long accountId, String groupName) {
         var setting = settingRepository.findByReceiver(new Receiver(accountId));
-        setting.disableGroup(groupType);
+        setting.disableGroup(NotificationGroupType.findByGroup(groupName));
     }
 
-    public void disable(Long accountId, NotificationGroupType groupType, NotificationType type) {
+    public void disable(Long accountId, String groupName, String typeName) {
         var setting = settingRepository.findByReceiver(new Receiver(accountId));
-        setting.disableOptionInGroup(groupType, type);
+        setting.disableOptionInGroup(NotificationGroupType.findByGroup(groupName),
+            NotificationType.findByType(typeName));
     }
 
-    public void enable(Long accountId, NotificationGroupType groupType) {
+    public void enable(Long accountId, String groupName) {
         var setting = settingRepository.findByReceiver(new Receiver(accountId));
-        setting.enableGroup(groupType);
+        setting.enableGroup(NotificationGroupType.findByGroup(groupName));
     }
 
-    public void enable(Long accountId, NotificationGroupType groupType, NotificationType type) {
+    public void enable(Long accountId, String groupName, String typeName) {
         var setting = settingRepository.findByReceiver(new Receiver(accountId));
-        setting.enableOptionInGroup(groupType, type);
+        setting.enableOptionInGroup(NotificationGroupType.findByGroup(groupName),
+            NotificationType.findByType(typeName));
     }
 }
