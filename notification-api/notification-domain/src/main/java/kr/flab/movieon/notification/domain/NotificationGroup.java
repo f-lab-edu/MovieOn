@@ -1,5 +1,6 @@
 package kr.flab.movieon.notification.domain;
 
+import java.util.Arrays;
 import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
@@ -11,7 +12,14 @@ import lombok.Getter;
 public class NotificationGroup {
 
     public enum NotificationGroupType {
-        PURCHASE_INFO, MARKETING, USER_INFO
+        PURCHASE_INFO, MARKETING, USER_INFO;
+
+        public static NotificationGroupType findByGroup(String groupName) {
+            return Arrays.stream(values())
+                .filter(g -> g.name().equals(groupName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("일치하는 group을 찾을 수 없습니다."));
+        }
     }
 
     @Enumerated(EnumType.STRING)
