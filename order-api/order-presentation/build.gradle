@@ -1,0 +1,16 @@
+group "kr.flab.movieon"
+version "0.0.1"
+
+dependencies {
+    api project(":order-api:order-application")
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${JUNIT_JUPITER_VERSION}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled = true
+}
