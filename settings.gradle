@@ -36,3 +36,10 @@ include (
         'notification-api:notification-domain',
         'notification-api:notification-infrastructure',
 )
+include (
+        'order-api',
+        'order-api:order-presentation',
+        'order-api:order-application',
+        'order-api:order-domain',
+        'order-api:order-infrastructure',
+)
