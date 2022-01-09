@@ -2,5 +2,9 @@ package kr.flab.movieon.payment.domain;
 
 public interface PaymentProvider {
 
-    void payed(Payment payment);
+    boolean support(PaymentMethod paymentMethod);
+
+    PaymentRedirectUri pending(Payment payment);
+
+    void pay(Payment payment);
 }
