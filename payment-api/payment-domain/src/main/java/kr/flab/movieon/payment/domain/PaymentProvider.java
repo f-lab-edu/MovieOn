@@ -2,5 +2,9 @@ package kr.flab.movieon.payment.domain;
 
 public interface PaymentProvider {
 
-    void payed(Payment payment);
+    boolean support(Payment.Type type);
+
+    boolean validate(PaymentApprovalCommand command, String pgToken);
+
+    Payment pay(PaymentApprovalCommand command, String pgToken);
 }
