@@ -1,7 +1,18 @@
 group "kr.flab.movieon"
 version "0.0.1"
 
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
 dependencies {
+    api project(":common")
+    api project(":payment-api:payment-application")
+    api project(":payment-api:payment-infrastructure")
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    testImplementation "org.springframework.security:spring-security-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${JUNIT_JUPITER_VERSION}"
 }
@@ -12,4 +23,8 @@ test {
 
 jar {
     enabled = true
+}
+
+bootJar {
+    enabled = false
 }
