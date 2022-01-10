@@ -10,7 +10,6 @@ import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountConfirmProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
-import kr.flab.movieon.account.domain.RegisteredAccountConfirmEvent;
 import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
 import kr.flab.movieon.account.domain.exception.AccountNotVerifiedException;
 import kr.flab.movieon.account.infrastructure.TokenConverter;
@@ -73,8 +72,7 @@ public class AccountFacade {
         var account = accountRepository.findByUserId(command.getUserId())
             .orElseThrow(AccountNotFoundException::new);
 
-        publisher.publishEvent(new RegisteredAccountConfirmEvent(account.getId(),
-            account.getEmail(), account.getEmailValidationToken()));
+        account.pollAllEvents().forEach(publisher::publishEvent);
 
         return new RegisterAccountResponse(account.getUserId(), account.getEmail());
     }

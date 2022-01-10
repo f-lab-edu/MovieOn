@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import kr.flab.movieon.account.domain.event.RegisteredAccountConfirmEvent;
+import kr.flab.movieon.common.AbstractAggregateRoot;
 import kr.flab.movieon.common.EntityStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,11 +26,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "accounts",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "userId"),
-        @UniqueConstraint(columnNames = "email")})
-public class Account {
+@Table(name = "accounts", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "userId"),
+    @UniqueConstraint(columnNames = "email")})
+public class Account extends AbstractAggregateRoot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,15 +68,18 @@ public class Account {
         this.roles.add(Role.USER);
     }
 
-    public static Account of(String userId, String email, String password) {
+    public static Account create(String userId, String email, String password) {
         var account = new Account(userId, email, password);
         account.generateEmailValidationToken();
+
         return account;
     }
 
     private void generateEmailValidationToken() {
         this.emailValidationToken = UUID.randomUUID().toString();
         this.emailValidationTokenCreatedDate = LocalDateTime.now();
+
+        this.registerEvent(new RegisteredAccountConfirmEvent(this));
     }
 
     public void confirmRegister() {

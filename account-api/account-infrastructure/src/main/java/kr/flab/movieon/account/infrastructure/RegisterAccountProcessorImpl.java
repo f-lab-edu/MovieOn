@@ -29,7 +29,8 @@ public final class RegisterAccountProcessorImpl implements RegisterAccountProces
             throw new RegisterAccountConflictException("Error: Email is already in use");
         }
 
-        var account = Account.of(userId, email, encoder.encode(password));
+        var account = Account.create(userId, email, encoder.encode(password));
+
         accountRepository.save(account);
     }
 

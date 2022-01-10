@@ -22,7 +22,7 @@ final class RegisterAccountConfirmProcessorTest {
         var accountRepository = new FakeAccountRepository();
         var processor = new RegisterAccountConfirmProcessor(accountRepository);
 
-        var account = Account.of("jiwon", "jiwon@gmail.com", "password!");
+        var account = Account.create("jiwon", "jiwon@gmail.com", "password!");
         accountRepository.save(account);
 
         return Arrays.asList(

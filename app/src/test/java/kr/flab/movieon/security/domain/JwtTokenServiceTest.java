@@ -134,7 +134,7 @@ final class JwtTokenServiceTest {
 
     private final class StubAccountRepository implements AccountRepository {
 
-        private final Account account = Account.of("userid", "email@naver.com", "password!");
+        private final Account account = Account.create("userid", "email@naver.com", "password!");
 
         @Override
         public Account save(Account account) {
