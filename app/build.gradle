@@ -5,6 +5,7 @@ dependencies {
     api project(":purchase-api:purchase-domain")
     api project(":purchase-api:purchase-application")
     api project(":product-api:product-domain")
+    api project(":payment-api:payment-application")
     api project(":payment-api:payment-domain")
     api project(":notification-api:notification-domain")
     api project(":notification-api:notification-application")
