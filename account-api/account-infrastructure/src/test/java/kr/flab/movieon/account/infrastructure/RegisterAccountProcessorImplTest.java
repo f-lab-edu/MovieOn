@@ -35,7 +35,7 @@ class RegisterAccountProcessorImplTest {
 
             }), dynamicTest("중복된 이메일인 경우 예외를 반환한다.", () -> {
                 var existEmail = "duplicated@naver.com";
-                accountRepository.save(Account.of("jiwon3388", existEmail, "!password"));
+                accountRepository.save(Account.create("jiwon3388", existEmail, "!password"));
 
                 // Act & Assert
                 assertThatExceptionOfType(RegisterAccountConflictException.class)
@@ -44,7 +44,8 @@ class RegisterAccountProcessorImplTest {
 
             }), dynamicTest("중복된 유저 아이디인 경우 예외를 반환한다.", () -> {
                 var existUsername = "duplicated_user";
-                accountRepository.save(Account.of(existUsername, "jiwon@naver.com", "!password"));
+                accountRepository.save(
+                    Account.create(existUsername, "jiwon@naver.com", "!password"));
 
                 // Act & Assert
                 assertThatExceptionOfType(RegisterAccountConflictException.class)
