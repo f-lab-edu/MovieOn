@@ -25,6 +25,6 @@ jar {
     enabled = true
 }
 
-bootjar {
+bootJar {
     enabled = false
 }

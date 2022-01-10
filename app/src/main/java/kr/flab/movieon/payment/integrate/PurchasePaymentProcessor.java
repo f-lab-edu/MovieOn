@@ -1,34 +1,72 @@
 package kr.flab.movieon.payment.integrate;
 
+import java.util.List;
 import kr.flab.movieon.payment.domain.Payment;
+import kr.flab.movieon.payment.domain.PaymentMethod;
+import kr.flab.movieon.payment.domain.PaymentProcessor;
 import kr.flab.movieon.payment.domain.PaymentProvider;
+import kr.flab.movieon.payment.domain.PaymentRedirectUri;
 import kr.flab.movieon.payment.domain.PaymentRepository;
-import kr.flab.movieon.payment.domain.PaymentType;
-import kr.flab.movieon.purchase.domain.PaymentProcessor;
-import kr.flab.movieon.purchase.domain.Purchase;
+import kr.flab.movieon.payment.domain.PaymentValidator;
+import kr.flab.movieon.payment.domain.exception.InvalidPaymentCommandException;
+import kr.flab.movieon.purchase.domain.PurchaseRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class PurchasePaymentProcessor implements PaymentProcessor {
 
+    private final PurchaseRepository purchaseRepository;
     private final PaymentRepository paymentRepository;
-    private final PaymentProvider paymentProvider;
+    private final List<PaymentValidator> paymentValidatorList;
+    private final List<PaymentProvider> paymentProviderList;
 
-    public PurchasePaymentProcessor(PaymentRepository paymentRepository,
-        PaymentProvider paymentProvider) {
+    public PurchasePaymentProcessor(
+        PurchaseRepository purchaseRepository,
+        PaymentRepository paymentRepository,
+        List<PaymentValidator> paymentValidatorList,
+        List<PaymentProvider> paymentProviderList) {
+        this.purchaseRepository = purchaseRepository;
         this.paymentRepository = paymentRepository;
-        this.paymentProvider = paymentProvider;
+        this.paymentValidatorList = paymentValidatorList;
+        this.paymentProviderList = paymentProviderList;
     }
 
     @Override
-    public void payed(Purchase purchase, String paymentType) {
-        // TODO PaymentType을 어딘가를 통해서 받아오도록 리팩토링
-        Payment payment = paymentRepository.save(
-            Payment.create(purchase.getId(), purchase.getTitle(), purchase.getPurchaserId(),
-                purchase.getPrice(), PaymentType.valueOf(paymentType)));
+    public PaymentRedirectUri pending(Long purchaseId, String paymentMethod) {
+        var purchase = purchaseRepository.findById(purchaseId);
 
-        // TODO 결제 모듈 연동 및 결제 처리
-        paymentProvider.payed(payment);
+        var payment = paymentRepository.save(
+            Payment.create(
+                purchase.getId(),
+                purchase.getTitle(),
+                purchase.getPurchaserId(),
+                purchase.getPrice(),
+                PaymentMethod.valueOf(paymentMethod)
+            ));
 
-        // TODO 구매 완료
-        // product.purchased(); 도메인 이벤트 전환
+        var paymentProvider = routingPaymentProvider(payment);
+
+        return paymentProvider.pending(payment);
+    }
+
+    @Override
+    public void pay(Long purchaseId, String purchaseToken) {
+        var payment = paymentRepository.findByPurchaseId(purchaseId)
+            .orElseThrow(() -> new InvalidPaymentCommandException(
+                "The payment cannot be completed, This payment is an invalid."));
+
+        paymentValidatorList.forEach(
+            paymentValidator -> paymentValidator.validate(payment));
+
+        var paymentProvider = routingPaymentProvider(payment);
+        paymentProvider.pay(payment);
+    }
+
+    private PaymentProvider routingPaymentProvider(Payment payment) {
+        return paymentProviderList.stream()
+            .filter(paymentProvider -> paymentProvider.support(payment.getPaymentMethod()))
+            .findFirst()
+            .orElseThrow(
+                () -> new InvalidPaymentCommandException("This payment method is not supported."));
     }
 }

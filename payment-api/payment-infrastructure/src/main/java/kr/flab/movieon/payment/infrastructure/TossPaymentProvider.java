@@ -5,23 +5,23 @@ import kr.flab.movieon.payment.domain.PaymentMethod;
 import kr.flab.movieon.payment.domain.PaymentProvider;
 import kr.flab.movieon.payment.domain.PaymentRedirectUri;
 
-public final class KakaoPayPaymentProvider implements PaymentProvider {
+public final class TossPaymentProvider implements PaymentProvider {
 
     @Override
     public boolean support(PaymentMethod paymentMethod) {
-        return PaymentMethod.KAKAO_PAY == paymentMethod;
+        return PaymentMethod.TOSS == paymentMethod;
     }
 
     @Override
     public PaymentRedirectUri pending(
         Payment payment) {
-        // TODO - KakaoPay 구현
+        // TODO - Toss 결제 구현
         return null;
     }
 
     @Override
     public void pay(Payment payment) {
-        // TODO - KakaoPay 구현
+        // TODO - Toss 결제 구현
         // 1. 결제 요청후, 응답받고
         // 2. 우리 payment 객체와 응답 비교 (도메인 로직)
         payment.complete();
