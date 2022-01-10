@@ -1,5 +1,6 @@
 package kr.flab.movieon.notification.domain;
 
+import static kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType.PAYMENT_INFO;
 import static kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType.PURCHASE_INFO;
 import static kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType.USER_INFO;
 import static kr.flab.movieon.notification.domain.NotificationType.EMAIL;
@@ -108,6 +109,11 @@ public class NotificationSetting {
                 new NotificationOption(PUSH)
             )),
             new NotificationGroup(USER_INFO, Set.of(
+                new NotificationOption(EMAIL),
+                new NotificationOption(SMS),
+                new NotificationOption(PUSH)
+            )),
+            new NotificationGroup(PAYMENT_INFO, Set.of(
                 new NotificationOption(EMAIL),
                 new NotificationOption(SMS),
                 new NotificationOption(PUSH)

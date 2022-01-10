@@ -12,7 +12,7 @@ import lombok.Getter;
 public class NotificationGroup {
 
     public enum NotificationGroupType {
-        PURCHASE_INFO, MARKETING, USER_INFO;
+        PURCHASE_INFO, MARKETING, USER_INFO, PAYMENT_INFO;
 
         public static NotificationGroupType findByGroup(String groupName) {
             return Arrays.stream(values())
