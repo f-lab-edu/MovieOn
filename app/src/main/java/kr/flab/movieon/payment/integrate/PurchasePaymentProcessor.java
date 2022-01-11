@@ -48,7 +48,7 @@ public final class PurchasePaymentProcessor implements PaymentProcessor {
     }
 
     @Override
-    public void pay(Long purchaseId, String purchaseToken) {
+    public void pay(Long purchaseId, String pgToken) {
         var payment = paymentRepository.findByPurchaseId(purchaseId)
             .orElseThrow(() -> new InvalidPaymentCommandException(
                 "The payment cannot be completed, This payment is an invalid."));
@@ -57,7 +57,7 @@ public final class PurchasePaymentProcessor implements PaymentProcessor {
             paymentValidator -> paymentValidator.validate(payment));
 
         var paymentProvider = routingPaymentProvider(payment);
-        paymentProvider.pay(payment, purchaseToken);
+        paymentProvider.pay(payment, pgToken);
     }
 
     private PaymentProvider routingPaymentProvider(Payment payment) {

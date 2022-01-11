@@ -6,5 +6,5 @@ public interface PaymentProvider {
 
     void pending(Payment payment);
 
-    void pay(Payment payment, String purchaseToken);
+    void pay(Payment payment, String pgToken);
 }

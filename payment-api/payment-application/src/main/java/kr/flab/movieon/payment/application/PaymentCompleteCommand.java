@@ -10,6 +10,6 @@ public final class PaymentCompleteCommand {
     private Long purchaseId;
 
     @NotBlank
-    private String purchaseToken;
+    private String pgToken;
 
 }

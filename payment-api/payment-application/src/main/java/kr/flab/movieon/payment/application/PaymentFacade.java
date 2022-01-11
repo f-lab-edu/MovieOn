@@ -36,7 +36,7 @@ public class PaymentFacade {
 
     @Transactional
     public void completePayment(PaymentCompleteCommand command) {
-        paymentProcessor.pay(command.getPurchaseId(), command.getPurchaseToken());
+        paymentProcessor.pay(command.getPurchaseId(), command.getPgToken());
 
         var payment = paymentRepository.findByPurchaseId(command.getPurchaseId())
             .orElseThrow(() -> new InvalidPaymentCommandException(

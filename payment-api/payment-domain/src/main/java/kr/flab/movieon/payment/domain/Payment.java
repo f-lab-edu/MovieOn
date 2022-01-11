@@ -2,7 +2,6 @@ package kr.flab.movieon.payment.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,9 +29,6 @@ public class Payment extends AbstractAggregateRoot {
     private Long purchaserId;
 
     private String purchaseName;
-
-    private String purchaseToken;
-
     private Long quantity;
 
     private BigDecimal amount;
@@ -62,10 +58,8 @@ public class Payment extends AbstractAggregateRoot {
 
     public static Payment create(Long purchaseId, String purchaseName, Long purchaserId,
         BigDecimal amount, PaymentMethod paymentMethod) {
-        var payment = new Payment(purchaseId, purchaseName, purchaserId, amount, paymentMethod);
-        payment.generatePurchaseToken();
 
-        return payment;
+        return new Payment(purchaseId, purchaseName, purchaserId, amount, paymentMethod);
     }
 
     public void readyPayment(String transactionId, String redirectUrl) {
@@ -93,20 +87,12 @@ public class Payment extends AbstractAggregateRoot {
         return id;
     }
 
-    public boolean isValidPurchaseToken(String token) {
-        return this.purchaseToken.equals(token);
-    }
-
     public BigDecimal calculateTotalAmount() {
         return this.getAmount();
     }
 
     public boolean isPaymentPending() {
         return this.status.equals(PaymentStatus.PENDING);
-    }
-
-    private void generatePurchaseToken() {
-        this.purchaseToken = UUID.randomUUID().toString();
     }
 
     public BigDecimal calculateTaxFreeAmount() {
