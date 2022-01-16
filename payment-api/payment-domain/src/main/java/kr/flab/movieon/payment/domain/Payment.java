@@ -24,13 +24,11 @@ public class Payment extends AbstractAggregateRoot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long purchaseId;
+    private Long orderId;
 
     private Long purchaserId;
 
-    private String purchaseName;
-
-    private Long quantity;
+    private String orderName;
 
     private BigDecimal amount;
 
@@ -44,26 +42,25 @@ public class Payment extends AbstractAggregateRoot {
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
-    private Payment(Long purchaseId, String purchaseName, Long purchaserId, BigDecimal amount,
+    private Payment(Long orderId, String orderName, Long purchaserId, BigDecimal amount,
         Type type) {
-        this.purchaseId = purchaseId;
-        this.purchaseName = purchaseName;
+        this.orderId = orderId;
+        this.orderName = orderName;
         this.purchaserId = purchaserId;
         this.amount = amount;
         this.type = type;
         this.status = Status.PENDING;
-        this.quantity = 1L;
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = LocalDateTime.now();
     }
 
-    public static Payment create(Long purchaseId, String purchaseName, Long purchaserId,
+    public static Payment create(Long orderId, String orderName, Long purchaserId,
         BigDecimal amount, Type type) {
 
-        return new Payment(purchaseId, purchaseName, purchaserId, amount, type);
+        return new Payment(orderId, orderName, purchaserId, amount, type);
     }
 
-    public void complete() {
+    public void approve() {
         if (this.status != Status.PENDING) {
             throw new InvalidPaymentStatusException("The payment cannot be switched to Complete.");
         }
@@ -98,8 +95,7 @@ public class Payment extends AbstractAggregateRoot {
         PENDING("결제대기중"),
         PAYED("결제완료"),
         CANCELLED("결제취소"),
-        FAILED("결제실패"),
-        INVALID("위변조검증실패");
+        FAILED("결제실패");
 
         private final String description;
 

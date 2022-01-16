@@ -16,27 +16,28 @@ class PaymentProcessorTest {
     void paymentApprovalTest() {
         // Arrange
         var paymentRepository = new FakePaymentRepository();
-        var processor = new PaymentProcessor(List.of(new FakePaymentProvider()), paymentRepository);
+        var processor = new PaymentProcessor(List.of(new DummyPaymentApiProvider()),
+            paymentRepository);
         var command = PaymentApprovalCommand.builder()
             .paymentType(Type.TOSS)
             .amount(BigDecimal.valueOf(10000L))
-            .purchaseId(1L)
+            .orderId(1L)
+            .pgToken("token")
             .build();
 
         // Act
-        processor.pay(command, "token");
+        processor.pay(command);
 
-        var payment = paymentRepository.findByPurchaseId(command.getPurchaseId())
+        var payment = paymentRepository.findByOrderId(command.getOrderId())
             .orElseThrow(() -> new IllegalStateException("cannot found payment, test fail"));
 
         // Assert
         assertThat(payment.getStatus()).isEqualTo(Status.PAYED);
         assertThat(payment.getAmount()).isEqualTo(command.getAmount());
         assertThat(payment.getType()).isEqualTo(command.getPaymentType());
-        assertThat(payment.getQuantity()).isEqualTo(1L);
     }
 
-    private class FakePaymentProvider implements PaymentProvider {
+    private class DummyPaymentApiProvider implements PaymentApiProvider {
 
         @Override
         public boolean support(Type type) {
@@ -44,20 +45,15 @@ class PaymentProcessorTest {
         }
 
         @Override
-        public boolean validate(PaymentApprovalCommand command, String pgToken) {
-            return true;
-        }
-
-        @Override
-        public Payment pay(PaymentApprovalCommand command, String pgToken) {
+        public Payment pay(PaymentApprovalCommand command) {
             var payment = Payment.create(
-                command.getPurchaseId(),
+                command.getOrderId(),
                 "item",
                 2L,
                 command.getAmount(),
                 command.getPaymentType());
 
-            payment.complete();
+            payment.approve();
             return payment;
         }
     }

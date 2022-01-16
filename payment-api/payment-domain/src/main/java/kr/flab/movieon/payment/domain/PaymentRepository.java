@@ -6,5 +6,5 @@ public interface PaymentRepository {
 
     Payment save(Payment entity);
 
-    Optional<Payment> findByPurchaseId(Long purchaseId);
+    Optional<Payment> findByOrderId(Long orderId);
 }
