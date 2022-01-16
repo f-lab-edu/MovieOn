@@ -7,7 +7,7 @@ import lombok.Data;
 public final class PaymentApprovalRequest {
 
     @NotBlank
-    private Long purchaseId;
+    private Long orderId;
 
     @NotBlank
     private String amount;

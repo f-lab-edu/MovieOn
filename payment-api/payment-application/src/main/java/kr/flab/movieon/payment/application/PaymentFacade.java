@@ -26,16 +26,17 @@ public class PaymentFacade {
     }
 
     @Transactional
-    public void complete(PaymentApprovalRequest request) {
+    public void approve(PaymentApprovalRequest request) {
         var command = PaymentApprovalCommand.builder()
             .paymentType(Payment.Type.valueOf(request.getPaymentType()))
             .amount(new BigDecimal(request.getAmount()))
-            .purchaseId(request.getPurchaseId())
+            .orderId(request.getOrderId())
+            .pgToken(request.getPgToken())
             .build();
 
-        paymentProcessor.pay(command, request.getPgToken());
+        paymentProcessor.pay(command);
 
-        var payment = paymentRepository.findByPurchaseId(command.getPurchaseId())
+        var payment = paymentRepository.findByOrderId(command.getOrderId())
             .orElseThrow(() -> new InvalidPaymentCommandException(
                 "The payment cannot be completed, Failed to complete payment."));
 

@@ -8,29 +8,26 @@ import org.springframework.stereotype.Component;
 @Component
 public final class PaymentProcessor {
 
-    private final List<PaymentProvider> paymentProviderList;
+    private final List<PaymentApiProvider> paymentApiProviderList;
     private final PaymentRepository paymentRepository;
 
-    public PaymentProcessor(List<PaymentProvider> paymentProviderList,
+    public PaymentProcessor(List<PaymentApiProvider> paymentApiProviderList,
         PaymentRepository paymentRepository) {
-        this.paymentProviderList = paymentProviderList;
+        this.paymentApiProviderList = paymentApiProviderList;
         this.paymentRepository = paymentRepository;
     }
 
-    public void pay(PaymentApprovalCommand command, String pgToken) {
-        var paymentProvider = routingPaymentProvider(command.getPaymentType());
+    public void pay(PaymentApprovalCommand command) {
+        var paymentApiProvider = routingPaymentApiProvider(command.getPaymentType());
 
-        if (!paymentProvider.validate(command, pgToken)) {
-            throw new InvalidPaymentCommandException();
-        }
-
-        var payment = paymentProvider.pay(command, pgToken);
+        var payment = paymentApiProvider.pay(command);
         paymentRepository.save(payment);
 
     }
 
-    private PaymentProvider routingPaymentProvider(Type type) {
-        return paymentProviderList.stream().filter(paymentProvider -> paymentProvider.support(type))
+    private PaymentApiProvider routingPaymentApiProvider(Type type) {
+        return paymentApiProviderList.stream()
+            .filter(paymentApiProvider -> paymentApiProvider.support(type))
             .findFirst().orElseThrow(
                 () -> new InvalidPaymentCommandException("This payment method is not supported."));
     }

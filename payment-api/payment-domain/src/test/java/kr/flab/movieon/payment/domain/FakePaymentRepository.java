@@ -17,9 +17,9 @@ public final class FakePaymentRepository implements PaymentRepository {
     }
 
     @Override
-    public Optional<Payment> findByPurchaseId(Long purchaseId) {
+    public Optional<Payment> findByOrderId(Long orderId) {
         return data.values().stream()
-            .filter(entity -> entity.getPurchaseId().equals(purchaseId))
+            .filter(entity -> entity.getOrderId().equals(orderId))
             .findFirst();
     }
 

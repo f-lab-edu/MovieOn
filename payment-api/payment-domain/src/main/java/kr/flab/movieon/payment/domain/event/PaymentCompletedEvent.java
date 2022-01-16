@@ -15,9 +15,9 @@ public final class PaymentCompletedEvent implements DomainEvent {
     private final Date occurredOn;
 
     public PaymentCompletedEvent(Payment payment) {
-        this.orderId = payment.getPurchaseId();
+        this.orderId = payment.getOrderId();
         this.accountId = payment.getPurchaserId();
-        this.productName = payment.getPurchaseName();
+        this.productName = payment.getOrderName();
         this.price = payment.getAmount().toString();
         this.occurredOn = new Date();
     }
