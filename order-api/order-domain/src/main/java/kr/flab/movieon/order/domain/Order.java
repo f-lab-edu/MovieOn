@@ -17,7 +17,6 @@ public class Order extends AbstractAggregateRoot {
 
     private String payMethod;
     private OrderStatus status;
-    private OrderType type;
 
     private List<OrderProduct> products;
 
@@ -26,20 +25,19 @@ public class Order extends AbstractAggregateRoot {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    private Order(Customer customer, String payMethod, OrderStatus status, OrderType type,
-        List<OrderProduct> products, BigDecimal discountPrice) {
+    private Order(Customer customer, String payMethod, OrderStatus status,
+        BigDecimal discountPrice, List<OrderProduct> products) {
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;
-        this.type = type;
-        this.products = products;
         this.discountPrice = discountPrice;
+        this.products = products;
         registerEvent(new OrderCreatedEvent(this));
     }
 
     public static Order create(Customer customer, String payMethod,
-        OrderType type, List<OrderProduct> products, BigDecimal discountPrice) {
-        return new Order(customer, payMethod, OrderStatus.CREATED, type, products, discountPrice);
+        BigDecimal discountPrice, List<OrderProduct> products) {
+        return new Order(customer, payMethod, OrderStatus.CREATED, discountPrice, products);
     }
 
     public BigDecimal calculateTotalPrice() {
@@ -59,8 +57,8 @@ public class Order extends AbstractAggregateRoot {
         registerEvent(new OrderCanceledEvent(this));
     }
 
-    public enum OrderType {
-        RENTAL, PURCHASE
+    void setId(Long id) {
+        this.id = id;
     }
 
     public enum OrderStatus {

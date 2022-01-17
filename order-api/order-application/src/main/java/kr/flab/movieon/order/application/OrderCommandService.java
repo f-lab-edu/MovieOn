@@ -8,7 +8,6 @@ import kr.flab.movieon.order.domain.Customer;
 import kr.flab.movieon.order.domain.Order;
 import kr.flab.movieon.order.domain.OrderProduct;
 import kr.flab.movieon.order.domain.OrderRepository;
-import kr.flab.movieon.order.domain.OrderValidator;
 import lombok.Getter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -19,21 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderCommandService {
 
     private final OrderRepository orderRepository;
-    private final OrderValidator orderValidator;
     private final ApplicationEventPublisher publisher;
 
     public OrderCommandService(OrderRepository orderRepository,
-        OrderValidator orderValidator,
         ApplicationEventPublisher publisher) {
         this.orderRepository = orderRepository;
-        this.orderValidator = orderValidator;
         this.publisher = publisher;
     }
 
     public Order create(Long accountId, CreateOrderCommand command) {
         var order = Order.create(new Customer(accountId), command.getPayMethod(),
-            command.getUseOfPoint(), mapFrom(command.getProducts()));
-        orderValidator.validate(order);
+            command.getDiscountPrice(), mapFrom(command.getProducts()));
         orderRepository.save(order);
         order.pollAllEvents().forEach(publisher::publishEvent);
         return order;
@@ -48,13 +43,13 @@ public class OrderCommandService {
     @Getter
     public static final class CreateOrderCommand {
         private final String payMethod;
-        private final BigDecimal useOfPoint;
+        private final BigDecimal discountPrice;
         private final List<CreateOrderProduct> products;
 
-        public CreateOrderCommand(String payMethod, BigDecimal useOfPoint,
+        public CreateOrderCommand(String payMethod, BigDecimal discountPrice,
             List<CreateOrderProduct> products) {
             this.payMethod = payMethod;
-            this.useOfPoint = useOfPoint;
+            this.discountPrice = discountPrice;
             this.products = products;
         }
 
