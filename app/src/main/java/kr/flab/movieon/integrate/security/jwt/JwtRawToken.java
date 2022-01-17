@@ -8,7 +8,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import java.nio.charset.StandardCharsets;
-import kr.flab.movieon.account.infrastructure.Token;
+import kr.flab.movieon.account.domain.Token;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

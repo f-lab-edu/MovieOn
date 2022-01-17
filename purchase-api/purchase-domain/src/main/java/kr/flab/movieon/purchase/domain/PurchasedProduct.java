@@ -2,20 +2,20 @@ package kr.flab.movieon.purchase.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import kr.flab.movieon.common.Days;
+import java.time.Period;
 
 public final class PurchasedProduct {
 
     private Long productId;
     private String title;
     private BigDecimal purchasedPrice;
-    private Days availableDays;
+    private Period availableDays;
     private boolean available;
     private LocalDateTime purchased;
     private LocalDateTime expired;
 
     private PurchasedProduct(Long productId, String title, BigDecimal purchasedPrice,
-        boolean available, Days availableDays) {
+        boolean available, Period availableDays) {
         this.productId = productId;
         this.title = title;
         this.purchasedPrice = purchasedPrice;
@@ -24,15 +24,15 @@ public final class PurchasedProduct {
     }
 
     public static PurchasedProduct create(Long productId, String title, BigDecimal price,
-        int availableDays) {
+        Period availableDays) {
         return new PurchasedProduct(productId, title, price, false,
-            new Days(availableDays));
+            availableDays);
     }
 
     public void complete() {
         this.available = true;
         this.purchased = LocalDateTime.now();
-        this.expired = this.purchased.plusDays(availableDays.getValue());
+        this.expired = this.purchased.plusDays(availableDays.getDays());
     }
 
     public void expire() {

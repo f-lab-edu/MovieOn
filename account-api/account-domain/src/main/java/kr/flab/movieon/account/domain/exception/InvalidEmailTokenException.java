@@ -1,7 +1,7 @@
 package kr.flab.movieon.account.domain.exception;
 
-import kr.flab.movieon.common.ErrorCode;
-import kr.flab.movieon.common.SystemException;
+import kr.flab.movieon.common.error.ErrorCode;
+import kr.flab.movieon.common.error.SystemException;
 
 public final class InvalidEmailTokenException extends SystemException {
 

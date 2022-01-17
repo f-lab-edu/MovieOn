@@ -1,6 +1,7 @@
-package kr.flab.movieon.common;
+package kr.flab.movieon.common.result;
 
 import java.util.Map;
+import kr.flab.movieon.common.error.ErrorCode;
 import lombok.Getter;
 
 @Getter

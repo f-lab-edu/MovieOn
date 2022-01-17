@@ -3,7 +3,7 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import kr.flab.movieon.common.AbstractAggregateRoot;
+import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

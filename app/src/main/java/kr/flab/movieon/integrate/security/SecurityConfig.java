@@ -113,7 +113,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        //AuthenticationManager 를 외부에서 사용하기 위하여 @Bean 등록.
         return super.authenticationManagerBean();
     }
 

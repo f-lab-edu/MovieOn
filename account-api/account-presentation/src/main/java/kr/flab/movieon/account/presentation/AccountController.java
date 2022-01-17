@@ -2,8 +2,8 @@ package kr.flab.movieon.account.presentation;
 
 import kr.flab.movieon.account.application.AccountFacade;
 import kr.flab.movieon.account.application.payload.AccountResponse;
-import kr.flab.movieon.common.AccountAuthentication;
-import kr.flab.movieon.common.ApiResponse;
+import kr.flab.movieon.common.AuthenticatedUser;
+import kr.flab.movieon.common.result.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public final class AccountController {
 
     @GetMapping("/me")
     public ApiResponse<AccountResponse> findInfo(
-        @AuthenticationPrincipal AccountAuthentication authentication) {
+        @AuthenticationPrincipal AuthenticatedUser authentication) {
         return ApiResponse.success(accountFacade.findInfo(authentication));
     }
 

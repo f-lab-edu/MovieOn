@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.domain;
+package kr.flab.movieon.common;
 
 import java.util.Arrays;
 

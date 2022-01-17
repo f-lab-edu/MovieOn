@@ -1,7 +1,7 @@
 package kr.flab.movieon.purchase.domain;
 
 import java.math.BigDecimal;
-import kr.flab.movieon.common.AbstractAggregateRoot;
+import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(of = "id", callSuper = false)
