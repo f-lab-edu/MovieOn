@@ -1,6 +1,7 @@
 package kr.flab.movieon.order.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import kr.flab.movieon.order.application.OrderCommandService.CreateOrderCommand;
 import kr.flab.movieon.order.application.OrderCommandService.CreateOrderCommand.CreateOrderProduct;
+import kr.flab.movieon.order.domain.DummyOrderValidator;
 import kr.flab.movieon.order.domain.FakeOrderRepository;
 import kr.flab.movieon.order.domain.Order.OrderStatus;
 import kr.flab.movieon.order.domain.OrderCreatedEvent;
@@ -38,6 +40,18 @@ final class SpecsForCreateOrder {
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CREATED);
         verify(publisher, times(1))
             .publishEvent(Mockito.any(OrderCreatedEvent.class));
+    }
+
+    @Test
+    @DisplayName("주문 생성 요청 과정에서 생성된 주문에 대한 검증이 잘못된 경우 예외 발생")
+    void sut_create_order_failed_order_validate_is_wrong() {
+        // Arrange
+        var sut = new OrderCommandService(new FakeOrderRepository(), new DummyOrderValidator(),
+            mock(ApplicationEventPublisher.class));
+
+        // Act & Assert
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() ->
+            sut.create(1L, getCommand()));
     }
 
     private CreateOrderCommand getCommand() {
