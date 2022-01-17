@@ -1,7 +1,7 @@
-package kr.flab.movieon;
+package kr.flab.movieon.supports;
 
-import kr.flab.movieon.common.ApiResponse;
-import kr.flab.movieon.common.ErrorCode;
+import kr.flab.movieon.common.error.ErrorCode;
+import kr.flab.movieon.common.result.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

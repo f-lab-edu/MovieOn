@@ -1,4 +1,4 @@
-package kr.flab.movieon.common;
+package kr.flab.movieon.common.domain.model;
 
 import java.util.Date;
 

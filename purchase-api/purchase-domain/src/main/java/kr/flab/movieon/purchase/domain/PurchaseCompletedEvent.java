@@ -1,7 +1,7 @@
 package kr.flab.movieon.purchase.domain;
 
 import java.util.Date;
-import kr.flab.movieon.common.DomainEvent;
+import kr.flab.movieon.common.domain.model.DomainEvent;
 
 public final class PurchaseCompletedEvent implements DomainEvent {
 

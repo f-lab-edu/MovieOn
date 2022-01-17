@@ -1,6 +1,6 @@
 package kr.flab.movieon.notification.presentation;
 
-import kr.flab.movieon.common.AccountAuthentication;
+import kr.flab.movieon.common.AuthenticatedUser;
 import kr.flab.movieon.notification.application.NotificationSettingManager;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,25 +20,25 @@ final class NotificationSettingApi {
 
     @PatchMapping("/{groupName}/enable")
     public void enable(@PathVariable String groupName,
-        @AuthenticationPrincipal AccountAuthentication authentication) {
-        settingManager.enable(authentication.getAccountId(), groupName);
+        @AuthenticationPrincipal AuthenticatedUser authentication) {
+        settingManager.enable(authentication.getId(), groupName);
     }
 
     @PatchMapping("/{groupName}/enable/{typeName}")
     public void enable(@PathVariable String groupName, @PathVariable String typeName,
-        @AuthenticationPrincipal AccountAuthentication authentication) {
-        settingManager.enable(authentication.getAccountId(), groupName, typeName);
+        @AuthenticationPrincipal AuthenticatedUser authentication) {
+        settingManager.enable(authentication.getId(), groupName, typeName);
     }
 
     @PatchMapping("/{groupName}/disable")
     public void disable(@PathVariable String groupName,
-        @AuthenticationPrincipal AccountAuthentication authentication) {
-        settingManager.disable(authentication.getAccountId(), groupName);
+        @AuthenticationPrincipal AuthenticatedUser authentication) {
+        settingManager.disable(authentication.getId(), groupName);
     }
 
     @PatchMapping("/{groupName}/disable/{typeName}")
     public void disable(@PathVariable String groupName, @PathVariable String typeName,
-        @AuthenticationPrincipal AccountAuthentication authentication) {
-        settingManager.disable(authentication.getAccountId(), groupName, typeName);
+        @AuthenticationPrincipal AuthenticatedUser authentication) {
+        settingManager.disable(authentication.getId(), groupName, typeName);
     }
 }

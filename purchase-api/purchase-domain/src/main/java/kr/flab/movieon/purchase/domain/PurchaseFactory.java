@@ -1,6 +1,7 @@
 package kr.flab.movieon.purchase.domain;
 
 import java.math.BigDecimal;
+import java.time.Period;
 import kr.flab.movieon.purchase.domain.Purchase.PurchaseType;
 
 public final class PurchaseFactory {
@@ -9,7 +10,7 @@ public final class PurchaseFactory {
     }
 
     public static Purchase pending(Long purchaserId, Long productId, String title,
-        BigDecimal price, int availableDays, String type) {
+        BigDecimal price, Period availableDays, String type) {
         var purchasedProduct = PurchasedProduct.create(
             productId, title,
             price, availableDays);

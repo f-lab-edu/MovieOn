@@ -3,7 +3,7 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import kr.flab.movieon.common.AbstractAggregateRoot;
+import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -20,17 +20,17 @@ public class Order extends AbstractAggregateRoot {
 
     private List<OrderProduct> products;
 
-    private BigDecimal discountPrice;
+    private BigDecimal useOfPoint;
     private LocalDateTime orderedAt;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
     private Order(Customer customer, String payMethod, OrderStatus status,
-        BigDecimal discountPrice, List<OrderProduct> products) {
+        BigDecimal useOfPoint, List<OrderProduct> products) {
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;
-        this.discountPrice = discountPrice;
+        this.useOfPoint = useOfPoint;
         this.products = products;
         registerEvent(new OrderCreatedEvent(this));
     }
@@ -44,7 +44,7 @@ public class Order extends AbstractAggregateRoot {
         return this.products.stream()
             .map(OrderProduct::getPrice)
             .reduce(BigDecimal.ZERO, BigDecimal::add)
-            .subtract(this.discountPrice);
+            .subtract(this.useOfPoint);
     }
 
     public void complete() {

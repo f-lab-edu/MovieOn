@@ -9,7 +9,7 @@ import kr.flab.movieon.account.application.payload.LoginAccountCommand;
 import kr.flab.movieon.account.application.payload.RegisterAccountCommand;
 import kr.flab.movieon.account.application.payload.RegisterAccountResponse;
 import kr.flab.movieon.account.application.payload.RegisterConfirmCommand;
-import kr.flab.movieon.common.ApiResponse;
+import kr.flab.movieon.common.result.ApiResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

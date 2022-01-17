@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import java.util.List;
 import java.util.Optional;
-import kr.flab.movieon.account.infrastructure.Token;
+import kr.flab.movieon.account.domain.Token;
 import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
 import lombok.extern.slf4j.Slf4j;
 

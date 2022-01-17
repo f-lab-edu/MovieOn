@@ -15,8 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import kr.flab.movieon.account.domain.event.RegisteredAccountConfirmEvent;
-import kr.flab.movieon.common.AbstractAggregateRoot;
-import kr.flab.movieon.common.EntityStatus;
+import kr.flab.movieon.common.Role;
+import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,8 +50,7 @@ public class Account extends AbstractAggregateRoot {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
-
-    private EntityStatus status = EntityStatus.ALIVE;
+    private boolean deleted;
 
     @CreationTimestamp
     private LocalDateTime createdDate;

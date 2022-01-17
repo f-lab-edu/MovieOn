@@ -1,7 +1,7 @@
 package kr.flab.movieon.product.domain;
 
 import java.math.BigDecimal;
-import kr.flab.movieon.common.Days;
+import java.time.Period;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(of = "id")
@@ -16,12 +16,12 @@ public final class Product {
     private MovieDisplay display;
     private BigDecimal price;
     private int purchaseCount;
-    private Days availableDays;
+    private Period availableDays;
     private ProductType productType;
 
     public Product(Category category,
         MovieDisplay display, BigDecimal price,
-        Days availableDays, ProductType productType) {
+        Period availableDays, ProductType productType) {
         this.category = category;
         this.display = display;
         this.price = price;
@@ -54,8 +54,8 @@ public final class Product {
         return price;
     }
 
-    public int getAvailableDays() {
-        return availableDays.getValue();
+    public Period getAvailableDays() {
+        return availableDays;
     }
 
 }
