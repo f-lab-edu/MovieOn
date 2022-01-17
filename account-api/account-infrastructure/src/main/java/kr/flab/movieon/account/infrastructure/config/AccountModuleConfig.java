@@ -2,10 +2,11 @@ package kr.flab.movieon.account.infrastructure.config;
 
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
+import kr.flab.movieon.account.domain.PasswordEncrypter;
 import kr.flab.movieon.account.domain.RegisterAccountConfirmProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
 import kr.flab.movieon.account.infrastructure.LoginAccountProcessorImpl;
-import kr.flab.movieon.account.infrastructure.RegisterAccountProcessorImpl;
+import kr.flab.movieon.account.infrastructure.PasswordEncrypterAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,8 +17,13 @@ public class AccountModuleConfig {
 
     @Bean
     public RegisterAccountProcessor registerAccountProcessor(
-        AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
-        return new RegisterAccountProcessorImpl(accountRepository, passwordEncoder);
+        AccountRepository accountRepository, PasswordEncrypter passwordEncrypter) {
+        return new RegisterAccountProcessor(accountRepository, passwordEncrypter);
+    }
+
+    @Bean
+    public PasswordEncrypter passwordEncrypter(PasswordEncoder passwordEncoder) {
+        return new PasswordEncrypterAdapter(passwordEncoder);
     }
 
     @Bean
