@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.infrastructure;
+package kr.flab.movieon.account.domain;
 
 public interface Token {
 

@@ -1,6 +1,6 @@
 package kr.flab.movieon.notification.domain;
 
-import kr.flab.movieon.common.DomainEvent;
+import kr.flab.movieon.common.domain.model.DomainEvent;
 
 public interface ExternalEventNotificationProcessor<T extends DomainEvent> {
 
