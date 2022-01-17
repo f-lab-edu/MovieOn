@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.infrastructure;
+package kr.flab.movieon.account.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -7,21 +7,19 @@ import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import java.util.Arrays;
 import java.util.Collection;
-import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.exception.RegisterAccountConflictException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-class RegisterAccountProcessorImplTest {
+final class RegisterAccountProcessorTests {
 
     @TestFactory
     @DisplayName("회원가입 시나리오")
     Collection<DynamicTest> register_scenarios() {
         var accountRepository = new FakeAccountRepository();
-        var processor = new RegisterAccountProcessorImpl(accountRepository,
-            new BCryptPasswordEncoder());
+        var processor = new RegisterAccountProcessor(accountRepository,
+            new FakePasswordEncrypter());
 
         return Arrays.asList(
             dynamicTest("회원가입에 성공한다.", () -> {
@@ -54,7 +52,18 @@ class RegisterAccountProcessorImplTest {
             })
 
         );
-
     }
 
+    private static final class FakePasswordEncrypter implements PasswordEncrypter {
+
+        @Override
+        public String encode(CharSequence rawPassword) {
+            return rawPassword.toString();
+        }
+
+        @Override
+        public boolean matches(CharSequence rawPassword, String encodedPassword) {
+            return rawPassword.toString().equals(encodedPassword);
+        }
+    }
 }
