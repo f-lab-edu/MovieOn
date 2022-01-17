@@ -9,13 +9,13 @@ public final class OrderCanceledEvent implements DomainEvent {
     private final Long orderId;
     private final Long accountId;
     private final Date occurredOn;
-    private final BigDecimal discountPrice;
+    private final BigDecimal useOfPoint;
 
     public OrderCanceledEvent(Order order) {
         this.orderId = order.getId();
         this.accountId = order.getCustomer().getAccountId();
         this.occurredOn = new Date();
-        this.discountPrice = order.getDiscountPrice();
+        this.useOfPoint = order.getUseOfPoint();
     }
 
     @Override
