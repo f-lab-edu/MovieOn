@@ -1,4 +1,4 @@
-package kr.flab.movieon;
+package kr.flab.movieon.supports;
 
 import kr.flab.movieon.account.domain.event.RegisteredAccountConfirmEvent;
 import org.springframework.context.ApplicationEventPublisher;

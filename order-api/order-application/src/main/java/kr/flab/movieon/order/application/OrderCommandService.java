@@ -8,6 +8,7 @@ import kr.flab.movieon.order.domain.Customer;
 import kr.flab.movieon.order.domain.Order;
 import kr.flab.movieon.order.domain.OrderProduct;
 import kr.flab.movieon.order.domain.OrderRepository;
+import kr.flab.movieon.order.domain.OrderValidator;
 import lombok.Getter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderCommandService {
 
     private final OrderRepository orderRepository;
+    private final OrderValidator orderValidator;
     private final ApplicationEventPublisher publisher;
 
     public OrderCommandService(OrderRepository orderRepository,
+        OrderValidator orderValidator,
         ApplicationEventPublisher publisher) {
         this.orderRepository = orderRepository;
+        this.orderValidator = orderValidator;
         this.publisher = publisher;
     }
 
     public Order create(Long accountId, CreateOrderCommand command) {
         var order = Order.create(new Customer(accountId), command.getPayMethod(),
-            command.getDiscountPrice(), mapFrom(command.getProducts()));
+            command.getUseOfPoint(), mapFrom(command.getProducts()));
+        if (orderValidator.validate(order)) {
+            throw new IllegalStateException("요청하신 주문에 대한 검증이 실패하였습니다.");
+        }
         orderRepository.save(order);
         order.pollAllEvents().forEach(publisher::publishEvent);
         return order;
@@ -43,13 +50,13 @@ public class OrderCommandService {
     @Getter
     public static final class CreateOrderCommand {
         private final String payMethod;
-        private final BigDecimal discountPrice;
+        private final BigDecimal useOfPoint;
         private final List<CreateOrderProduct> products;
 
-        public CreateOrderCommand(String payMethod, BigDecimal discountPrice,
+        public CreateOrderCommand(String payMethod, BigDecimal useOfPoint,
             List<CreateOrderProduct> products) {
             this.payMethod = payMethod;
-            this.discountPrice = discountPrice;
+            this.useOfPoint = useOfPoint;
             this.products = products;
         }
 

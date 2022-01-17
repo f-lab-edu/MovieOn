@@ -1,6 +1,4 @@
-package kr.flab.movieon.account.infrastructure;
-
-import kr.flab.movieon.account.domain.Account;
+package kr.flab.movieon.account.domain;
 
 public interface TokenGenerator {
 

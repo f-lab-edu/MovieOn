@@ -10,13 +10,12 @@ import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountConfirmProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
+import kr.flab.movieon.account.domain.TokenConverter;
+import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
 import kr.flab.movieon.account.domain.exception.AccountNotVerifiedException;
-import kr.flab.movieon.account.infrastructure.TokenConverter;
-import kr.flab.movieon.account.infrastructure.TokenGenerator;
-import kr.flab.movieon.common.AccountAuthentication;
+import kr.flab.movieon.common.AuthenticatedUser;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,11 +91,11 @@ public class AccountFacade {
         );
     }
 
-    public AccountResponse findInfo(AccountAuthentication authentication) {
+    public AccountResponse findInfo(AuthenticatedUser authentication) {
         if (authentication == null) {
-            throw new AccessDeniedException("Anonymous user require login authentication.");
+            throw new IllegalArgumentException("Anonymous user require login authentication.");
         }
-        var account = accountRepository.findById(authentication.getAccountId())
+        var account = accountRepository.findById(authentication.getId())
             .orElseThrow(AccountNotFoundException::new);
 
         return new AccountResponse(account.getUserId(), account.getEmail());

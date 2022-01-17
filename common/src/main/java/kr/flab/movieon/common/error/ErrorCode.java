@@ -1,4 +1,4 @@
-package kr.flab.movieon.common;
+package kr.flab.movieon.common.error;
 
 import lombok.Getter;
 

@@ -2,10 +2,10 @@ package kr.flab.movieon.integrate.security.jwt;
 
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
+import kr.flab.movieon.account.domain.TokenConverter;
+import kr.flab.movieon.account.domain.TokenGenerator;
+import kr.flab.movieon.account.domain.Tokens;
 import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
-import kr.flab.movieon.account.infrastructure.TokenConverter;
-import kr.flab.movieon.account.infrastructure.TokenGenerator;
-import kr.flab.movieon.account.infrastructure.Tokens;
 import kr.flab.movieon.integrate.security.SecurityAppProperties;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
 import kr.flab.movieon.integrate.security.domain.TokenExtractor;

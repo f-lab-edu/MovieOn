@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
+import java.time.Period;
 import kr.flab.movieon.purchase.application.PurchaseCommandService;
 import kr.flab.movieon.purchase.domain.FakePurchaseRepository;
 import kr.flab.movieon.purchase.domain.PaymentProcessor;
@@ -52,7 +53,7 @@ final class SpecsForPurchase {
             .productId(1L)
             .title("보이스")
             .type("PURCHASE")
-            .availableDays(5)
+            .availableDays(Period.ofDays(5))
             .price(BigDecimal.valueOf(16390))
             .build();
         purchaseRepository.save(PurchaseFactory.pending(1L, product.getProductId(),

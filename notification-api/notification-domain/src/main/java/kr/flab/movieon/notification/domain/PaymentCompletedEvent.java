@@ -2,7 +2,7 @@ package kr.flab.movieon.notification.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import kr.flab.movieon.common.DomainEvent;
+import kr.flab.movieon.common.domain.model.DomainEvent;
 import lombok.Getter;
 
 @Getter

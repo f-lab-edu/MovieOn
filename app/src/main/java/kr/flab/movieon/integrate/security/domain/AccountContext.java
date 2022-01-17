@@ -5,14 +5,15 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import kr.flab.movieon.account.domain.Account;
-import kr.flab.movieon.common.AccountAuthentication;
+import kr.flab.movieon.common.AuthenticatedUser;
+import kr.flab.movieon.common.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 @Getter
-public final class AccountContext extends User implements AccountAuthentication {
+public final class AccountContext extends User implements AuthenticatedUser {
 
     private final Account account;
 
@@ -27,23 +28,13 @@ public final class AccountContext extends User implements AccountAuthentication 
             .collect(Collectors.toList());
     }
 
-    public String getEmail() {
-        return account.getEmail();
-    }
-
-    public String getUserId() {
-        return account.getUserId();
+    @Override
+    public Set<Role> getRoles() {
+        return account.getRoles();
     }
 
     @Override
-    public Set<String> getRoles() {
-        return account.getRoles().stream()
-            .map(Enum::name)
-            .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Long getAccountId() {
+    public Long getId() {
         return account.getId();
     }
 
