@@ -17,36 +17,34 @@ public class Order extends AbstractAggregateRoot {
 
     private String payMethod;
     private OrderStatus status;
-    private OrderType type;
 
     private List<OrderProduct> products;
 
-    private BigDecimal discountPrice;
+    private BigDecimal useOfPoint;
     private LocalDateTime orderedAt;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    private Order(Customer customer, String payMethod, OrderStatus status, OrderType type,
-        List<OrderProduct> products, BigDecimal discountPrice) {
+    private Order(Customer customer, String payMethod, OrderStatus status,
+        BigDecimal useOfPoint, List<OrderProduct> products) {
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;
-        this.type = type;
+        this.useOfPoint = useOfPoint;
         this.products = products;
-        this.discountPrice = discountPrice;
         registerEvent(new OrderCreatedEvent(this));
     }
 
     public static Order create(Customer customer, String payMethod,
-        OrderType type, List<OrderProduct> products, BigDecimal discountPrice) {
-        return new Order(customer, payMethod, OrderStatus.CREATED, type, products, discountPrice);
+        BigDecimal useOfPoint, List<OrderProduct> products) {
+        return new Order(customer, payMethod, OrderStatus.CREATED, useOfPoint, products);
     }
 
     public BigDecimal calculateTotalPrice() {
         return this.products.stream()
             .map(OrderProduct::getPrice)
             .reduce(BigDecimal.ZERO, BigDecimal::add)
-            .subtract(this.discountPrice);
+            .subtract(this.useOfPoint);
     }
 
     public void complete() {
@@ -59,8 +57,8 @@ public class Order extends AbstractAggregateRoot {
         registerEvent(new OrderCanceledEvent(this));
     }
 
-    public enum OrderType {
-        RENTAL, PURCHASE
+    void setId(Long id) {
+        this.id = id;
     }
 
     public enum OrderStatus {
