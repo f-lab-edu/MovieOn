@@ -21,6 +21,10 @@ public final class ApiResponse<T> {
         return new ApiResponse<>(true, data, null);
     }
 
+    public static <T> ApiResponse<T> success() {
+        return new ApiResponse<>(true, null, null);
+    }
+
     public static ApiResponse<Map<String, Object>> error(ErrorCode error, String message) {
         return new ApiResponse<>(false, Map.of("status", error.getStatus(),
             "code", error.getCode(), "message", error.getMessage()), message);

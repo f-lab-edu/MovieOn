@@ -27,6 +27,8 @@ public class PaymentFacade {
             .amount(new BigDecimal(request.getAmount()))
             .orderId(request.getOrderId())
             .pgToken(request.getPgToken())
+            .orderName(request.getOrderName())
+            .purchaserId(request.getPurchaserId())
             .build();
 
         var payment = paymentProcessor.pay(command);

@@ -8,6 +8,7 @@ dependencies {
     api project(":payment-api:payment-domain")
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-webflux"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
