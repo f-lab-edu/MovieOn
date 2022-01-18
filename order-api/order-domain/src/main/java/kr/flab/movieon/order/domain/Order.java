@@ -3,6 +3,7 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Getter;
 public class Order extends AbstractAggregateRoot {
 
     private Long id;
+    private String orderId;
 
     private Customer customer;
 
@@ -27,6 +29,7 @@ public class Order extends AbstractAggregateRoot {
 
     private Order(Customer customer, String payMethod, OrderStatus status,
         BigDecimal useOfPoint, List<OrderProduct> products) {
+        this.orderId = UUID.randomUUID().toString();
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;

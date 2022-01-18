@@ -10,14 +10,14 @@ import lombok.Getter;
 @Getter
 public final class OrderCompletedEvent implements DomainEvent {
 
-    private final Long orderId;
+    private final String orderId;
     private final Long customerId;
     private final LocalDateTime orderedAt;
     private final List<Long> products;
     private final Date occurredOn;
 
     public OrderCompletedEvent(Order order) {
-        this.orderId = order.getId();
+        this.orderId = order.getOrderId();
         this.customerId = order.getCustomer().getAccountId();
         this.orderedAt = order.getOrderedAt();
         this.products = order.getProducts().stream()
