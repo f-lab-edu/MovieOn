@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import kr.flab.movieon.common.AbstractAggregateRoot;
+import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import kr.flab.movieon.payment.domain.event.PaymentCompletedEvent;
 import kr.flab.movieon.payment.domain.exception.InvalidPaymentStatusException;
 import lombok.AccessLevel;
