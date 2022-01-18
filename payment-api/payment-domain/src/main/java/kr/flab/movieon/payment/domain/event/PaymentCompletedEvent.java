@@ -1,7 +1,7 @@
 package kr.flab.movieon.payment.domain.event;
 
 import java.util.Date;
-import kr.flab.movieon.common.DomainEvent;
+import kr.flab.movieon.common.domain.model.DomainEvent;
 import kr.flab.movieon.payment.domain.Payment;
 import lombok.Getter;
 

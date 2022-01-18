@@ -17,12 +17,11 @@ public final class PaymentProcessor {
         this.paymentRepository = paymentRepository;
     }
 
-    public void pay(PaymentApprovalCommand command) {
+    public Payment pay(PaymentApprovalCommand command) {
         var paymentApiProvider = routingPaymentApiProvider(command.getPaymentType());
 
         var payment = paymentApiProvider.pay(command);
-        paymentRepository.save(payment);
-
+        return paymentRepository.save(payment);
     }
 
     private PaymentApiProvider routingPaymentApiProvider(Type type) {

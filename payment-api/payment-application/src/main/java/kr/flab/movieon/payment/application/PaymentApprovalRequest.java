@@ -10,6 +10,12 @@ public final class PaymentApprovalRequest {
     private Long orderId;
 
     @NotBlank
+    private Long purchaserId;
+
+    @NotBlank
+    private String orderName;
+
+    @NotBlank
     private String amount;
 
     @NotBlank

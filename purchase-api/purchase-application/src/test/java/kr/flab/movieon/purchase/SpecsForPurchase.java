@@ -1,10 +1,5 @@
 package kr.flab.movieon.purchase;
 
-import java.math.BigDecimal;
-import java.time.Period;
-import kr.flab.movieon.purchase.domain.FakePurchaseRepository;
-import kr.flab.movieon.purchase.domain.PurchaseFactory;
-import kr.flab.movieon.purchase.integrate.Product;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -32,16 +27,16 @@ final class SpecsForPurchase {
     //            .publishEvent(Mockito.any(PurchaseCompletedEvent.class));
     //    }
 
-    private void setupPendingPurchaseEntity(FakePurchaseRepository purchaseRepository) {
-        var product = Product.builder()
-            .productId(1L)
-            .title("보이스")
-            .type("PURCHASE")
-            .availableDays(Period.ofDays(5))
-            .price(BigDecimal.valueOf(16390))
-            .build();
-        purchaseRepository.save(PurchaseFactory.pending(1L, product.getProductId(),
-            product.getTitle(), product.getPrice(),
-            product.getAvailableDays(), product.getType()));
-    }
+//    private void setupPendingPurchaseEntity(FakePurchaseRepository purchaseRepository) {
+//        var product = Product.builder()
+//            .productId(1L)
+//            .title("보이스")
+//            .type("PURCHASE")
+//            .availableDays(Period.ofDays(5))
+//            .price(BigDecimal.valueOf(16390))
+//            .build();
+//        purchaseRepository.save(PurchaseFactory.pending(1L, product.getProductId(),
+//            product.getTitle(), product.getPrice(),
+//            product.getAvailableDays(), product.getType()));
+//    }
 }
