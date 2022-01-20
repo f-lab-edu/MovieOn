@@ -3,6 +3,7 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
@@ -64,6 +65,12 @@ public class Order extends AbstractAggregateRoot {
 
     void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Long> getProductIds() {
+        return products.stream()
+            .map(OrderProduct::getProductId)
+            .collect(Collectors.toList());
     }
 
     public enum OrderStatus {
