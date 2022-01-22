@@ -19,7 +19,7 @@ public final class OrderCompletedEvent implements DomainEvent {
     public OrderCompletedEvent(Order order) {
         this.orderId = order.getOrderId();
         this.customerId = order.getCustomer().getAccountId();
-        this.orderedAt = order.getOrderedAt();
+        this.orderedAt = order.getCompletedAt();
         this.products = order.getProducts().stream()
             .map(OrderProduct::getProductId)
             .collect(Collectors.toList());

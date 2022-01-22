@@ -4,30 +4,57 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @EqualsAndHashCode(of = "id", callSuper = false)
+@Entity
 public class Order extends AbstractAggregateRoot {
 
     private static final String PREFIX = "ord_";
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String orderId;
 
     private Customer customer;
 
+    @Column(nullable = false)
     private String payMethod;
+
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderProduct> products;
 
+    @Column(nullable = false)
+    private BigDecimal totalAmount;
+
+    @Column(nullable = false)
     private BigDecimal useOfPoint;
-    private LocalDateTime orderedAt;
+
+    private LocalDateTime completedAt;
+
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
     private Order(Customer customer, String payMethod, OrderStatus status,
@@ -38,6 +65,7 @@ public class Order extends AbstractAggregateRoot {
         this.status = status;
         this.useOfPoint = useOfPoint;
         this.products = products;
+        this.totalAmount = calculateTotalPrice();
         registerEvent(new OrderCreatedEvent(this));
     }
 
@@ -46,16 +74,31 @@ public class Order extends AbstractAggregateRoot {
         return new Order(customer, payMethod, OrderStatus.CREATED, useOfPoint, products);
     }
 
-    public BigDecimal calculateTotalPrice() {
+    private BigDecimal calculateTotalPrice() {
         return this.products.stream()
             .map(OrderProduct::getPrice)
             .reduce(BigDecimal.ZERO, BigDecimal::add)
             .subtract(this.useOfPoint);
     }
 
-    public void complete() {
+    public void payed(BigDecimal payedAmount) {
+        verifyPayed(payedAmount);
+        verifyNotCanceled();
         this.status = OrderStatus.COMPLETED;
+        this.completedAt = LocalDateTime.now();
         registerEvent(new OrderCompletedEvent(this));
+    }
+
+    private void verifyNotCanceled() {
+        if (this.status == OrderStatus.CANCELED) {
+            throw new IllegalStateException("이미 취소된 주문입니다.");
+        }
+    }
+
+    private void verifyPayed(BigDecimal payedAmount) {
+        if (!this.totalAmount.equals(payedAmount)) {
+            throw new IllegalStateException("결제 금액과 주문 금액이 일치하지 않습니다.");
+        }
     }
 
     public void cancel() {
