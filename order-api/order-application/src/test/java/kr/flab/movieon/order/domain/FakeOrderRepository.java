@@ -19,4 +19,9 @@ public final class FakeOrderRepository implements OrderRepository {
             return data.putIfAbsent(entity.getId(), entity);
         }
     }
+
+    @Override
+    public Order findByOrderId(String orderId) {
+        return null;
+    }
 }

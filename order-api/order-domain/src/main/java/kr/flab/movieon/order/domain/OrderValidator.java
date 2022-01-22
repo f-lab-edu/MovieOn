@@ -16,7 +16,7 @@ public class OrderValidator {
     }
 
     public void validate(Order order) {
-        if (order.getProducts().isEmpty()) {
+        if (order.getProducts() == null || order.getProducts().isEmpty()) {
             throw new IllegalStateException("주문 항목이 비어 있습니다");
         }
 
