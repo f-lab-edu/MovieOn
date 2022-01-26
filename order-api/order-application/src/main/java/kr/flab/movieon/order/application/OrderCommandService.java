@@ -9,6 +9,7 @@ import kr.flab.movieon.order.domain.Order;
 import kr.flab.movieon.order.domain.OrderProduct;
 import kr.flab.movieon.order.domain.OrderRepository;
 import kr.flab.movieon.order.domain.OrderValidator;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -30,13 +31,13 @@ public class OrderCommandService {
         this.publisher = publisher;
     }
 
-    public Order create(Long accountId, CreateOrderCommand command) {
+    public OrderInfo create(Long accountId, CreateOrderCommand command) {
         var order = Order.create(new Customer(accountId), command.getPayMethod(),
             command.getUseOfPoint(), mapFrom(command.getProducts()));
         orderValidator.validate(order);
         orderRepository.save(order);
         order.pollAllEvents().forEach(publisher::publishEvent);
-        return order;
+        return new OrderInfo(order.getOrderId());
     }
 
     private List<OrderProduct> mapFrom(List<CreateOrderProduct> products) {
@@ -46,11 +47,21 @@ public class OrderCommandService {
     }
 
     @Getter
+    public static final class OrderInfo {
+        private final String orderId;
+
+        public OrderInfo(String orderId) {
+            this.orderId = orderId;
+        }
+    }
+
+    @Getter
     public static final class CreateOrderCommand {
         private final String payMethod;
         private final BigDecimal useOfPoint;
         private final List<CreateOrderProduct> products;
 
+        @Builder
         public CreateOrderCommand(String payMethod, BigDecimal useOfPoint,
             List<CreateOrderProduct> products) {
             this.payMethod = payMethod;
