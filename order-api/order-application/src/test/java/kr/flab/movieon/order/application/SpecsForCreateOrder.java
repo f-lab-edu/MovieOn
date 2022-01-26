@@ -10,7 +10,6 @@ import java.util.List;
 import kr.flab.movieon.order.application.OrderCommandService.CreateOrderCommand;
 import kr.flab.movieon.order.application.OrderCommandService.CreateOrderCommand.CreateOrderProduct;
 import kr.flab.movieon.order.domain.FakeOrderRepository;
-import kr.flab.movieon.order.domain.Order.OrderStatus;
 import kr.flab.movieon.order.domain.OrderCreatedEvent;
 import kr.flab.movieon.order.domain.OrderValidator;
 import org.junit.jupiter.api.DisplayName;
@@ -32,10 +31,10 @@ final class SpecsForCreateOrder {
             publisher);
 
         // Act
-        var order = sut.create(1L, getCommand());
+        var orderInfo = sut.create(1L, getCommand());
 
         // Assert
-        assertThat(order.getStatus()).isEqualTo(OrderStatus.CREATED);
+        assertThat(orderInfo).isNotNull();
         verify(publisher, times(1))
             .publishEvent(Mockito.any(OrderCreatedEvent.class));
     }
