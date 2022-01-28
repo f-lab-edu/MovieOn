@@ -11,7 +11,11 @@ import lombok.Getter;
 public final class Customer {
 
     @Column(nullable = false)
-    private final Long accountId;
+    private Long accountId;
+
+    protected Customer() {
+
+    }
 
     public Customer(Long accountId) {
         this.accountId = accountId;

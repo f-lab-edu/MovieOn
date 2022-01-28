@@ -12,7 +12,7 @@ class PaymentCompletedProcessorTest {
 
     @Test
     @DisplayName("결제 금액과 주문 금액이 다른 경우 주문의 상태가 취소됨으로 변경")
-    void name() {
+    void sut_payed_if_payment_amount_is_diff_from_order_amount_the_order_status_is_cancel() {
         // Arrange
         var sut = new PaymentCompletedProcessor(new OrderRepositoryStub());
 

@@ -12,7 +12,7 @@ final class OrderValidatorTest {
 
     @Test
     @DisplayName("주문을 검사하여 주문 항목이 비어있는 경우 예외가 발생합니다.")
-    void name() {
+    void sut_validate_an_exception_will_occur_if_the_orderProducts_isEmpty() {
         // Arrange
         var sut = new OrderValidator(new ProductRepositoryStub(), new DummyPointManager());
 
@@ -23,7 +23,7 @@ final class OrderValidatorTest {
 
     @Test
     @DisplayName("주문을 검사하여 상품 정보가 변경된 경우 예외가 발생합니다.")
-    void ss() {
+    void sut_validate_an_exception_will_occur_if_the_product_information_is_changed() {
         // Arrange
         var sut = new OrderValidator(new ProductRepositoryStub(), new DummyPointManager());
 

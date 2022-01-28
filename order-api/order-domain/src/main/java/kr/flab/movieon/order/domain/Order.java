@@ -57,6 +57,10 @@ public class Order extends AbstractAggregateRoot {
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
+    protected Order() {
+
+    }
+
     private Order(Customer customer, String payMethod, OrderStatus status,
         BigDecimal useOfPoint, List<OrderProduct> products) {
         this.orderId = IdGenerator.generate(PREFIX);
