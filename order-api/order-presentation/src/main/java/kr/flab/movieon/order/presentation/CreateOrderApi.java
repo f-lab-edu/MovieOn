@@ -15,7 +15,6 @@ import kr.flab.movieon.order.application.OrderCommandService.CreateOrderCommand.
 import kr.flab.movieon.order.application.OrderCommandService.OrderInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/api/order",
     produces = MediaType.APPLICATION_JSON_VALUE,

@@ -19,6 +19,10 @@ public class OrderProduct {
     private String name;
     private BigDecimal price;
 
+    protected OrderProduct() {
+
+    }
+
     public OrderProduct(Long productId, String name, BigDecimal price) {
         if (price.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("주문 상품에 대한 가격이 잘못되었습니다.");

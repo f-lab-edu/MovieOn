@@ -31,7 +31,7 @@ final class CreateOrderApiTest {
     @Mock
     private OrderCommandService commandService;
     @InjectMocks
-    CreateOrderApi orderApi;
+    private CreateOrderApi orderApi;
 
     @BeforeEach
     void setUp() {
@@ -42,7 +42,7 @@ final class CreateOrderApiTest {
 
     @Test
     @DisplayName("주문 생성 요청 시 요청 파라미터가 null인 경우 400 에러를 리턴한다.")
-    void name() throws Exception {
+    void param_is_null_return_http_status_400() throws Exception {
         // Arrange
         var request = new CreateOrderRequest(null, null, null);
 
@@ -61,7 +61,7 @@ final class CreateOrderApiTest {
 
     @Test
     @DisplayName("주문 생성 요청 시 요청 파라미터가 최소 범위를 만족하지 못한 경우 400 에러를 리턴한다.")
-    void ss() throws Exception {
+    void param_is_not_satisfied_minimum_range_return_http_status_400() throws Exception {
         // Arrange
         var request = new CreateOrderRequest("CARD", -1L, Collections.emptyList());
 
@@ -80,7 +80,7 @@ final class CreateOrderApiTest {
 
     @Test
     @DisplayName("주문 생성 요청 시 주문 상품 항목의 최소 금액을 만족하지 못한 경우 400 에러를 리턴한다.")
-    void aaaa() throws Exception {
+    void if_minimum_amount_orderProduct_is_not_satisfied_return_http_status_400() throws Exception {
         // Arrange
         var request = new CreateOrderRequest("CARD", 12L,
             List.of(new CreateOrderProductRequest(1L, "보이스", -1L)));
@@ -100,7 +100,7 @@ final class CreateOrderApiTest {
 
     @Test
     @DisplayName("주문 생성 요청 시 주문 상품 항목이 null인 경우 400 에러를 리턴한다.")
-    void aaaa11() throws Exception {
+    void if_the_order_product_item_is_null_return_http_status_400() throws Exception {
         // Arrange
         var request = new CreateOrderRequest("CARD", 12L,
             List.of(new CreateOrderProductRequest(null, null, null)));

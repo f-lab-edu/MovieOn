@@ -2,8 +2,6 @@ apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
 dependencies {
-    api project(":purchase-api:purchase-domain")
-    api project(":purchase-api:purchase-application")
     api project(":product-api:product-domain")
     api project(":payment-api:payment-application")
     api project(":payment-api:payment-domain")
@@ -14,6 +12,11 @@ dependencies {
     api project(":account-api:account-application")
     api project(":account-api:account-domain")
     api project(":account-api:account-infrastructure")
+    api project(":account-api:account-presentation")
+    api project(":order-api:order-application")
+    api project(":order-api:order-domain")
+    api project(":order-api:order-infrastructure")
+    api project(":order-api:order-presentation")
     api project(":common")
 
     implementation "org.springframework.boot:spring-boot-starter-web"
@@ -23,12 +26,12 @@ dependencies {
     implementation "io.jsonwebtoken:jjwt-api:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-impl:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-jackson:${JJWT_VERSION}"
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation "org.apache.commons:commons-lang3:3.12.0"
     implementation "com.h2database:h2"
     testImplementation "com.h2database:h2"
     testImplementation "org.springframework.security:spring-security-test"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 bootJar {
