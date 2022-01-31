@@ -10,7 +10,6 @@ spring:
         timeout: 5000
         starttls:
           enable: true
-
 app:
   mail:
     host: http://localhost:8080

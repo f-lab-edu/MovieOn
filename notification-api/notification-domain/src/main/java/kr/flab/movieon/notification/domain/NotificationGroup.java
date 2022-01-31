@@ -3,12 +3,17 @@ package kr.flab.movieon.notification.domain;
 import java.util.Arrays;
 import java.util.Set;
 import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Getter;
 
 @Getter
+@Entity
 public class NotificationGroup {
 
     public enum NotificationGroupType {
@@ -22,11 +27,15 @@ public class NotificationGroup {
         }
     }
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Enumerated(EnumType.STRING)
     private NotificationGroupType type;
     private boolean disabled;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<NotificationOption> options;
+
+    protected NotificationGroup() {}
 
     public NotificationGroup(NotificationGroupType type,
         Set<NotificationOption> options) {

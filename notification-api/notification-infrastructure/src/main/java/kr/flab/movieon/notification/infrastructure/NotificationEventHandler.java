@@ -11,14 +11,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class EventHandler {
+public final class NotificationEventHandler {
 
     private final NotificationSettingRepository settingRepository;
     private final NotificationRepository notificationRepository;
     private final NotificationSenderDelegator senderDelegator;
     private final ExternalEventNotificationProcessDelegator processDelegator;
 
-    public EventHandler(
+    public NotificationEventHandler(
         NotificationSettingRepository settingRepository,
         NotificationRepository notificationRepository,
         NotificationSenderDelegator senderDelegator,

@@ -14,6 +14,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  config:
+    import: "classpath:/notification.yml"
 logging:
   level:
     org.hibernate.SQL: debug

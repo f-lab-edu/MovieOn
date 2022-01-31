@@ -9,12 +9,12 @@ import static kr.flab.movieon.notification.domain.NotificationType.SMS;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,13 +32,17 @@ public class NotificationSetting {
 
     private Receiver receiver;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<NotificationGroup> groups;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
+
+    protected NotificationSetting() {
+
+    }
 
     private NotificationSetting(Receiver receiver, Set<NotificationGroup> groups) {
         this.receiver = receiver;
