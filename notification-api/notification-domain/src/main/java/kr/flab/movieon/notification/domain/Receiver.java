@@ -7,9 +7,13 @@ import lombok.Getter;
 @EqualsAndHashCode
 @Embeddable
 @Getter
-public final class Receiver {
+public class Receiver {
 
     private Long accountId;
+
+    protected Receiver() {
+
+    }
 
     public Receiver(Long accountId) {
         this.accountId = accountId;

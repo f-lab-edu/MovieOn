@@ -3,11 +3,11 @@ package kr.flab.movieon.notification.integrate;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class AccountRepositoryAdapter implements AccountRepository {
+public final class AccountRepositoryAdapterInNotificationModule implements AccountRepository {
 
     private final kr.flab.movieon.account.domain.AccountRepository accountRepository;
 
-    public AccountRepositoryAdapter(
+    public AccountRepositoryAdapterInNotificationModule(
         kr.flab.movieon.account.domain.AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }

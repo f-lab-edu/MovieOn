@@ -8,12 +8,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EventHandler {
+public class OrderEventHandler {
 
     private final PaymentCompletedProcessor processor;
     private final ApplicationEventPublisher publisher;
 
-    public EventHandler(PaymentCompletedProcessor processor,
+    public OrderEventHandler(PaymentCompletedProcessor processor,
         ApplicationEventPublisher publisher) {
         this.processor = processor;
         this.publisher = publisher;

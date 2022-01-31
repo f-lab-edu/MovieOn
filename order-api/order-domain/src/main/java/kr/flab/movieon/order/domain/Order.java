@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Getter
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Entity
+@Table(name = "orders")
 public class Order extends AbstractAggregateRoot {
 
     private static final String PREFIX = "ord_";

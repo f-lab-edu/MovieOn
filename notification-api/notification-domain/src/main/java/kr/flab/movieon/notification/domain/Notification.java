@@ -31,6 +31,10 @@ public abstract class Notification {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    protected Notification() {
+
+    }
+
     protected Notification(Receiver receiver, String message) {
         this.receiver = receiver;
         this.message = message;
