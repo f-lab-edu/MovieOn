@@ -1,4 +1,4 @@
-package testcase;
+package modules.account;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -12,10 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest(classes = MovieOnApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
+    classes = MovieOnApplication.class)
 @AutoConfigureMockMvc
 final class AccountIntegrationTest {
 
@@ -41,6 +43,5 @@ final class AccountIntegrationTest {
             action.andDo(print())
                 .andExpect(status().isUnauthorized());
         }
-
     }
 }

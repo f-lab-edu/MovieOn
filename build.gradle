@@ -9,6 +9,8 @@ plugins {
     id "java"
 }
 
+apply from: "$project.rootDir/gradle/scripts/test-aggregator.gradle"
+
 subprojects {
     apply plugin: "org.ec4j.editorconfig"
     apply plugin: "com.github.spotbugs"
@@ -18,8 +20,7 @@ subprojects {
 
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-    compileJava.options.encoding = "UTF-8"
-    compileTestJava.options.encoding = "UTF-8"
+    [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
     configurations {
         compileOnly {

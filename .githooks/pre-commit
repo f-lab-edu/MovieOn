@@ -2,7 +2,7 @@
 
 echo "****Running App Clean Build****"
 
-./gradlew clean build
+./gradlew --parallel clean build
 
 status=$?
 
