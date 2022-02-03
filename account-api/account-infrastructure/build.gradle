@@ -1,6 +1,9 @@
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
+group "kr.flab.movieon"
+version "0.0.1"
+
 dependencies {
     api project(":common")
     api project(":account-api:account-domain")

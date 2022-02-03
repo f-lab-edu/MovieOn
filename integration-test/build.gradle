@@ -1,5 +1,6 @@
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
+apply plugin: "idea"
 
 group "kr.flab.movieon"
 version "0.0.1"
@@ -14,8 +15,16 @@ sourceSets {
 }
 
 configurations {
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+idea {
+    module {
+        testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
+        testSourceDirs += project.sourceSets.integrationTest.resources.srcDirs
+    }
 }
 
 dependencies {
@@ -34,6 +43,7 @@ task integrationTest(type: Test) {
     description = 'Runs integration tests.'
     group = 'verification'
 
+    useJUnitPlatform()
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     outputs.upToDateWhen { false }
