@@ -1,10 +1,42 @@
-## Introduce
+## Table of Contents
 
-MovieOn 프로젝트는 [Modular Monolithic](!https://www.youtube.com/watch?v=5OjqD-ow8GE) 기반의 E-Commerce 애플리케이션입니다.
+1. [Introduce](#Introduce)
+2. [Build & Run](#Build-&-Run)
+3. [Testing](#Testing)
+4. [Architecture](#Architecture)
+5. [Setup](#Setup)
+
+### Introduce
+
+MovieOn 프로젝트는 [Modular Monolithic](https://www.youtube.com/watch?v=5OjqD-ow8GE) 기반의 E-Commerce 애플리케이션입니다.
+
+### Build & Run
+
+Build Command
+
+`$ ./gradlew --parallel clean build -x test -x integrationTest`
+
+Run Command
+
+`$ java -jar app/build/libs/app-0.0.1.jar`
+
+### Testing
+
+Unit Test Command
+
+`$ ./gradlew test`
+
+Integration Test Command
+
+`$ ./gradlew integrationTest`
+
+All Test Command
+
+`$ ./gradlew --parallel clean test integrationTest`
 
 ### Architecture
 
-Modular Monolithic 기반의 아키텍처이므로, 다음과 같은 모듈들로 구성되어 있습니다.
+Modular Monolithic 아키텍처이므로, 다음과 같은 모듈들로 구성되어 있습니다.
 
 | Modules          | Description                                  |
 |------------------|----------------------------------------------|
@@ -30,14 +62,6 @@ Modular Monolithic 기반의 아키텍처이므로, 다음과 같은 모듈들�
 |Order-Domain|주문 로직에 대한 추상화 및 구현이 담겨 있는 핵심 모듈입니다.|
 |Order-Infrastructure|외부 구성 요소, Spring, 영속 관리를 DIP를 사용하여 의존성의 방향을 역전시키고 동작을 보장하도록 하는 모듈입니다.|
 
-### Testing
-
-### Run
-
-Build & Testing Command
-
-`./gradlew --parallel clean build`
-
 ### Setup
 
-`git config core.hooksPath .githooks`
+`$ git config core.hooksPath .githooks`
