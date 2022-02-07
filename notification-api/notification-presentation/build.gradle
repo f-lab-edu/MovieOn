@@ -5,11 +5,12 @@ group "kr.flab.movieon"
 version "0.0.1"
 
 dependencies {
+    api project(":notification-api:notification-application")
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-security"
-    api project(":notification-api:notification-application")
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${JUNIT_JUPITER_VERSION}"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    testImplementation "org.springframework.security:spring-security-test"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
 test {
