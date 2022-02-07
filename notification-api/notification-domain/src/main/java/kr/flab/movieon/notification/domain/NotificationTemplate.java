@@ -43,8 +43,9 @@ public class NotificationTemplate {
         this.contents = contents;
     }
 
-    public NotificationTemplate toEmail(String templateName, String title, String contents) {
-        return new NotificationTemplate(new NotificationTemplateType(NotificationType.EMAIL,
-            templateName), title, contents);
+    public static NotificationTemplate create(String typeName, String templateName,
+        String title, String contents) {
+        return new NotificationTemplate(new NotificationTemplateType(
+            NotificationType.findByType(typeName), templateName), title, contents);
     }
 }
