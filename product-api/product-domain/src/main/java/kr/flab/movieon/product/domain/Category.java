@@ -3,7 +3,7 @@ package kr.flab.movieon.product.domain;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(of = "id")
-public final class Category {
+public class Category {
 
     private Long id;
     private String name;

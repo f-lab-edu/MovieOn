@@ -1,61 +1,22 @@
 package kr.flab.movieon.product.domain;
 
-import java.math.BigDecimal;
-import java.time.Period;
+import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @EqualsAndHashCode(of = "id")
-public final class Product {
-
-    public enum ProductType {
-        PURCHASE, RENTAL
-    }
+@Builder
+@Getter
+public class Product {
 
     private Long id;
+    private String name;
+    private String description;
+    private String thumbnails;
     private Category category;
-    private MovieDisplay display;
-    private BigDecimal price;
-    private int purchaseCount;
-    private Period availableDays;
-    private ProductType productType;
+    private ProductContentsDetail contentsDetail;
 
-    public Product(Category category,
-        MovieDisplay display, BigDecimal price,
-        Period availableDays, ProductType productType) {
-        this.category = category;
-        this.display = display;
-        this.price = price;
-        this.purchaseCount = 0;
-        this.availableDays = availableDays;
-        this.productType = productType;
-    }
-
-    void setId(Long id) {
-        this.id = id;
-    }
-
-    public ProductType getType() {
-        return this.productType;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return this.display.getTitle();
-    }
-
-    public void purchased() {
-        this.purchaseCount++;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Period getAvailableDays() {
-        return availableDays;
-    }
-
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }
