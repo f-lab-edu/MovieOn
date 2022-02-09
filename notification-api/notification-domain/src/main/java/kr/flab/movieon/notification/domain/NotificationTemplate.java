@@ -48,4 +48,9 @@ public class NotificationTemplate {
         return new NotificationTemplate(new NotificationTemplateType(
             NotificationType.findByType(typeName), templateName), title, contents);
     }
+
+    public void update(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }

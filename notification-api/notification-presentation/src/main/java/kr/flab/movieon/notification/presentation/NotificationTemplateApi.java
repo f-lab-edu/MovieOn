@@ -7,7 +7,9 @@ import kr.flab.movieon.notification.application.NotificationTemplateManager.Crea
 import lombok.Data;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,13 @@ public class NotificationTemplateApi {
         templateManager.create(request.toCommand());
     }
 
+    @PutMapping("/{templateId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void update(@PathVariable Long templateId,
+        @RequestBody @Valid UpdateTemplateRequest request) {
+        templateManager.update(templateId, request.getTitle(), request.getContents());
+    }
+
     @Data
     public static final class CreateTemplateRequest {
 
@@ -46,5 +55,13 @@ public class NotificationTemplateApi {
             return new CreateTemplateCommand(this.typeName, this.templateName, this.title,
                 this.contents);
         }
+    }
+
+    @Data
+    public static final class UpdateTemplateRequest {
+
+        private String title;
+        @NotEmpty
+        private String contents;
     }
 }
