@@ -3,6 +3,7 @@ package kr.flab.movieon.product.domain;
 import java.time.Duration;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
@@ -38,6 +39,7 @@ public class ProductContentsDetail {
         this.images = images;
     }
 
+    @Getter
     public enum Rate {
         GENERAL(0, "전체 이용가"),
         PARENTAL_GUIDANCE_12(12, "12세 이용가"),
@@ -50,6 +52,13 @@ public class ProductContentsDetail {
         Rate(int age, String description) {
             this.age = age;
             this.description = description;
+        }
+
+        public static Rate findByRate(String rateDescription) {
+            return Arrays.stream(values())
+                .filter(r -> r.getDescription().equals(rateDescription))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("일치하는 이용 등급을 찾을 수 없습니다."));
         }
     }
 }
