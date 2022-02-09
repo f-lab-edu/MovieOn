@@ -2,26 +2,40 @@ package kr.flab.movieon.product.domain;
 
 import java.time.Duration;
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
+@Getter
+@Embeddable
 @EqualsAndHashCode
-public final class ProductContentsDetail {
+public class ProductContentsDetail {
 
-    private final Rate rate;
-    private final Year release;
-    private final Duration runningTime;
-    private final String director;
-    private final String actors;
+    private Rate rate;
+    private Year release;
+    private Duration runningTime;
+    private String director;
+    private String actors;
+    @ElementCollection
+    private List<String> images = new ArrayList<>();
+
+    protected ProductContentsDetail() {
+
+    }
 
     @Builder
     public ProductContentsDetail(Rate rate, Year release, Duration runningTime, String director,
-        String actors) {
+        String actors, List<String> images) {
         this.rate = rate;
         this.release = release;
         this.runningTime = runningTime;
         this.director = director;
         this.actors = actors;
+        this.images = images;
     }
 
     public enum Rate {
