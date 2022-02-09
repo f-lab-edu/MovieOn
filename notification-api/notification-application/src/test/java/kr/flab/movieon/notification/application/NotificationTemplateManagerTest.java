@@ -38,5 +38,10 @@ final class NotificationTemplateManagerTest {
             NotificationTemplateType templateType) {
             return null;
         }
+
+        @Override
+        public NotificationTemplate findById(Long templateId) {
+            return null;
+        }
     }
 }

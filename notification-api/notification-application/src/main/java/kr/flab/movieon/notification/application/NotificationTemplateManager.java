@@ -24,6 +24,12 @@ public class NotificationTemplateManager {
         templateRepository.save(template);
     }
 
+    @Transactional
+    public void update(Long templateId, String title, String contents) {
+        var template = templateRepository.findById(templateId);
+        template.update(title, contents);
+    }
+
     @Getter
     public static final class CreateTemplateCommand {
 

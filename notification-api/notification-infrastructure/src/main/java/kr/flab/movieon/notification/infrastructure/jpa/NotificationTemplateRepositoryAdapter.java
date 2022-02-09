@@ -26,4 +26,10 @@ public class NotificationTemplateRepositoryAdapter implements NotificationTempla
     public NotificationTemplate findByTemplateType(NotificationTemplateType templateType) {
         return templateRepository.findByTemplateType(templateType);
     }
+
+    @Override
+    public NotificationTemplate findById(Long templateId) {
+        return templateRepository.findById(templateId)
+            .orElseThrow(IllegalArgumentException::new);
+    }
 }
