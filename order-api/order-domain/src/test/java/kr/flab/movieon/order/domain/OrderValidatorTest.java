@@ -46,14 +46,6 @@ final class OrderValidatorTest {
             Collections.emptyList());
     }
 
-    private static final class DummyPointManager implements PointManager {
-
-        @Override
-        public void canUseOfPoint(Long customerId, BigDecimal useOfPoint) {
-
-        }
-    }
-
     private static final class ProductRepositoryStub implements ProductRepository {
 
         @Override
@@ -65,4 +57,5 @@ final class OrderValidatorTest {
             );
         }
     }
+
 }
