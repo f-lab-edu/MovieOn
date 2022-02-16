@@ -2,9 +2,7 @@ package kr.flab.movieon.order.infrastructure.jpa;
 
 import kr.flab.movieon.order.domain.Order;
 import kr.flab.movieon.order.domain.OrderRepository;
-import org.springframework.stereotype.Component;
 
-@Component
 public final class OrderRepositoryAdapter implements OrderRepository {
 
     private final JpaOrderRepository jpaOrderRepository;
