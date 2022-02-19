@@ -2,14 +2,13 @@ package kr.flab.movieon.product.application;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import kr.flab.movieon.product.application.ProductManager.RegisterProductCommand;
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
 import kr.flab.movieon.product.domain.Product;
 import kr.flab.movieon.product.domain.ProductRepository;
 import org.javaunit.autoparams.AutoSource;
 import org.javaunit.autoparams.customization.Customization;
-import org.javaunit.autoparams.lombok.BuilderCustomizer;
+import org.javaunit.autoparams.customization.SettablePropertyWriter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 
@@ -17,7 +16,7 @@ final class SpecsForProduct {
 
     @ParameterizedTest
     @AutoSource
-    @Customization(BuilderCustomizer.class)
+    @Customization(SettablePropertyWriter.class)
     @DisplayName("상품 등록 과정에서 이용 등급이 잘못된 경우 에러가 발생합니다.")
     void name(RegisterProductCommand command) {
         // Arrange
