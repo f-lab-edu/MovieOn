@@ -10,9 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.Getter;
 
-@Getter
 @Entity
 public class NotificationGroup {
 
@@ -74,5 +72,21 @@ public class NotificationGroup {
     public boolean isDisabledOption(NotificationType notificationType) {
         return options.stream()
             .anyMatch(o -> o.isEqualTo(notificationType) && o.isDisabled());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public NotificationGroupType getType() {
+        return type;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public Set<NotificationOption> getOptions() {
+        return options;
     }
 }

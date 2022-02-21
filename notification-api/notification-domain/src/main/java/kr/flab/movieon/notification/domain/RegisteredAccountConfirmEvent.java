@@ -2,9 +2,7 @@ package kr.flab.movieon.notification.domain;
 
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
-import lombok.Getter;
 
-@Getter
 public final class RegisteredAccountConfirmEvent implements DomainEvent {
 
     private final Long accountId;
@@ -23,5 +21,17 @@ public final class RegisteredAccountConfirmEvent implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getEmailCheckToken() {
+        return emailCheckToken;
     }
 }

@@ -5,11 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public final class RegisterProductCommand {
 
     @NotNull(message = "카테고리 ID가 없습니다.")
@@ -34,4 +30,84 @@ public final class RegisterProductCommand {
     private String actors;
     @Size(min = 1, max = 25, message = "등록할 상품의 상세 이미지는 1개 이상 25개 이하만 가능합니다.")
     private List<@NotBlank String> images;
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getThumbnails() {
+        return thumbnails;
+    }
+
+    public void setThumbnails(String thumbnails) {
+        this.thumbnails = thumbnails;
+    }
+
+    public String getRateDescription() {
+        return rateDescription;
+    }
+
+    public void setRateDescription(String rateDescription) {
+        this.rateDescription = rateDescription;
+    }
+
+    public Integer getRelease() {
+        return release;
+    }
+
+    public void setRelease(Integer release) {
+        this.release = release;
+    }
+
+    public Integer getRunningTime() {
+        return runningTime;
+    }
+
+    public void setRunningTime(Integer runningTime) {
+        this.runningTime = runningTime;
+    }
+
+    public String getDirectors() {
+        return directors;
+    }
+
+    public void setDirectors(String directors) {
+        this.directors = directors;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
 }

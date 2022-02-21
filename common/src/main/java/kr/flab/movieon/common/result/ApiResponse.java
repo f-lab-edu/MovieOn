@@ -2,9 +2,7 @@ package kr.flab.movieon.common.result;
 
 import java.util.Map;
 import kr.flab.movieon.common.error.ErrorCode;
-import lombok.Getter;
 
-@Getter
 public final class ApiResponse<T> {
 
     private final boolean success;
@@ -30,5 +28,17 @@ public final class ApiResponse<T> {
     public static ApiResponse<Map<String, Object>> error(ErrorCode error) {
         return new ApiResponse<>(false, Map.of("status", error.getStatus(),
             "code", error.getCode(), "message", error.getMessage()), error.getMessage());
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

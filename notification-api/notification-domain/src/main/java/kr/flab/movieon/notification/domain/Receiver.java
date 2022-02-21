@@ -1,12 +1,9 @@
 package kr.flab.movieon.notification.domain;
 
+import java.util.Objects;
 import javax.persistence.Embeddable;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
-@EqualsAndHashCode
 @Embeddable
-@Getter
 public class Receiver {
 
     private Long accountId;
@@ -17,5 +14,26 @@ public class Receiver {
 
     public Receiver(Long accountId) {
         this.accountId = accountId;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Receiver receiver = (Receiver) o;
+        return Objects.equals(accountId, receiver.accountId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountId);
     }
 }

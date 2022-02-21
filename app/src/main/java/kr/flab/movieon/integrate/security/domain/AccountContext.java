@@ -7,12 +7,10 @@ import java.util.stream.Collectors;
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.common.AuthenticatedUser;
 import kr.flab.movieon.common.Role;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-@Getter
 public final class AccountContext extends User implements AuthenticatedUser {
 
     private final Account account;

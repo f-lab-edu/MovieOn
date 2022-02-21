@@ -3,9 +3,7 @@ package kr.flab.movieon.notification.domain;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import lombok.Getter;
 
-@Getter
 @Embeddable
 public class NotificationOption {
 
@@ -31,5 +29,13 @@ public class NotificationOption {
 
     public boolean isEqualTo(NotificationType type) {
         return this.type.equals(type);
+    }
+
+    public NotificationType getType() {
+        return type;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
     }
 }

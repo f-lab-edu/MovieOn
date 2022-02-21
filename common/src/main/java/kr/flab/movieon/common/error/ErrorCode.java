@@ -1,8 +1,5 @@
 package kr.flab.movieon.common.error;
 
-import lombok.Getter;
-
-@Getter
 public enum ErrorCode {
     INVALID_INPUT(400, "001", "Invalid Input"),
     UN_AUTHORIZED(401, "002", "UnAuthorized"),
@@ -23,5 +20,17 @@ public enum ErrorCode {
         this.status = status;
         this.code = code;
         this.message = message;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

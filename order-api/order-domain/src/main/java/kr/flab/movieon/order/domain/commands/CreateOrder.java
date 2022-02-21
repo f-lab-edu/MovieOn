@@ -2,17 +2,13 @@ package kr.flab.movieon.order.domain.commands;
 
 import java.math.BigDecimal;
 import java.util.List;
-import lombok.Builder;
-import lombok.Getter;
 
-@Getter
 public final class CreateOrder {
 
     private final String payMethod;
     private final BigDecimal useOfPoint;
     private final List<CreateOrderProduct> products;
 
-    @Builder
     public CreateOrder(String payMethod, BigDecimal useOfPoint,
         List<CreateOrderProduct> products) {
         this.payMethod = payMethod;
@@ -20,7 +16,18 @@ public final class CreateOrder {
         this.products = products;
     }
 
-    @Getter
+    public String getPayMethod() {
+        return payMethod;
+    }
+
+    public BigDecimal getUseOfPoint() {
+        return useOfPoint;
+    }
+
+    public List<CreateOrderProduct> getProducts() {
+        return products;
+    }
+
     public static final class CreateOrderProduct {
 
         private final Long productId;
@@ -31,6 +38,18 @@ public final class CreateOrder {
             this.productId = productId;
             this.productName = productName;
             this.price = price;
+        }
+
+        public Long getProductId() {
+            return productId;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public BigDecimal getPrice() {
+            return price;
         }
     }
 }

@@ -1,20 +1,17 @@
 package kr.flab.movieon.notification.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Getter
-@EqualsAndHashCode(of = "id")
 public class NotificationTemplate {
 
     @Id
@@ -52,5 +49,46 @@ public class NotificationTemplate {
     public void update(String title, String contents) {
         this.title = title;
         this.contents = contents;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public NotificationTemplateType getTemplateType() {
+        return templateType;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContents() {
+        return contents;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NotificationTemplate that = (NotificationTemplate) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

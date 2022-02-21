@@ -3,6 +3,7 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,13 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Getter
-@EqualsAndHashCode(of = "id", callSuper = false)
 @Entity
 @Table(name = "orders")
 public class Order extends AbstractAggregateRoot {
@@ -132,5 +129,66 @@ public class Order extends AbstractAggregateRoot {
         OrderStatus(String description) {
             this.description = description;
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public String getPayMethod() {
+        return payMethod;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public List<OrderProduct> getProducts() {
+        return products;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public BigDecimal getUseOfPoint() {
+        return useOfPoint;
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import kr.flab.movieon.common.domain.model.DomainEvent;
-import lombok.Getter;
 
-@Getter
 public final class OrderCompletedEvent implements DomainEvent {
 
     private final String orderId;
@@ -29,5 +27,21 @@ public final class OrderCompletedEvent implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public LocalDateTime getOrderedAt() {
+        return orderedAt;
+    }
+
+    public List<Long> getProducts() {
+        return products;
     }
 }

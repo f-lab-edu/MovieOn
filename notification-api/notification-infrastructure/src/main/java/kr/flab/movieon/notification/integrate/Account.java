@@ -1,8 +1,5 @@
 package kr.flab.movieon.notification.integrate;
 
-import lombok.Getter;
-
-@Getter
 public final class Account {
 
     private final String email;
@@ -11,5 +8,13 @@ public final class Account {
     public Account(String email, String userId) {
         this.email = email;
         this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }

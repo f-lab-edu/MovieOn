@@ -5,15 +5,11 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
-@Getter
 @Embeddable
-@EqualsAndHashCode
 public class ProductContentsDetail {
 
     private Rate rate;
@@ -28,7 +24,6 @@ public class ProductContentsDetail {
 
     }
 
-    @Builder
     public ProductContentsDetail(Rate rate, Year release, Duration runningTime, String director,
         String actors, List<String> images) {
         this.rate = rate;
@@ -39,7 +34,6 @@ public class ProductContentsDetail {
         this.images = images;
     }
 
-    @Getter
     public enum Rate {
         GENERAL(0, "전체 이용가"),
         PARENTAL_GUIDANCE_12(12, "12세 이용가"),
@@ -60,5 +54,57 @@ public class ProductContentsDetail {
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("일치하는 이용 등급을 찾을 수 없습니다."));
         }
+
+        public int getAge() {
+            return age;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
+    public Year getRelease() {
+        return release;
+    }
+
+    public Duration getRunningTime() {
+        return runningTime;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProductContentsDetail that = (ProductContentsDetail) o;
+        return rate == that.rate && Objects.equals(release, that.release)
+            && Objects.equals(runningTime, that.runningTime) && Objects.equals(
+            director, that.director) && Objects.equals(actors, that.actors)
+            && Objects.equals(images, that.images);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rate, release, runningTime, director, actors, images);
     }
 }

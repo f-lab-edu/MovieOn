@@ -8,6 +8,7 @@ import static kr.flab.movieon.notification.domain.NotificationType.PUSH;
 import static kr.flab.movieon.notification.domain.NotificationType.SMS;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,14 +17,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Getter
-@EqualsAndHashCode(of = "id")
 public class NotificationSetting {
 
     @Id
@@ -123,5 +120,42 @@ public class NotificationSetting {
                 new NotificationOption(PUSH)
             ))
         ));
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Receiver getReceiver() {
+        return receiver;
+    }
+
+    public Set<NotificationGroup> getGroups() {
+        return groups;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NotificationSetting that = (NotificationSetting) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

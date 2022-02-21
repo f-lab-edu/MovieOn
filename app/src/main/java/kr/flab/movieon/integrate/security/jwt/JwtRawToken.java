@@ -9,10 +9,12 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import java.nio.charset.StandardCharsets;
 import kr.flab.movieon.account.domain.Token;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public final class JwtRawToken implements Token {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtRawToken.class);
 
     private final String token;
 
