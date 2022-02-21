@@ -1,0 +1,4 @@
+toss:
+  payments:
+    secretKey: test_ak_mnRQoOaPz8LwjZD1Oljry47BMw6v
+    url: https://api.tosspayments.com/v1/payments/
