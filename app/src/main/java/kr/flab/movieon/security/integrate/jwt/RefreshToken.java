@@ -1,11 +1,11 @@
-package kr.flab.movieon.integrate.security.jwt;
+package kr.flab.movieon.security.integrate.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import java.util.List;
 import java.util.Optional;
 import kr.flab.movieon.account.domain.Token;
-import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
+import kr.flab.movieon.security.integrate.exception.InvalidTokenException;
 
 public final class RefreshToken implements Token {
 

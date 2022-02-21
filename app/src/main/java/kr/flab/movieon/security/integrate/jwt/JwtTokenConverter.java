@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.jwt;
+package kr.flab.movieon.security.integrate.jwt;
 
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
@@ -6,11 +6,11 @@ import kr.flab.movieon.account.domain.TokenConverter;
 import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.Tokens;
 import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
-import kr.flab.movieon.integrate.security.SecurityAppProperties;
-import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
-import kr.flab.movieon.integrate.security.domain.TokenExtractor;
-import kr.flab.movieon.integrate.security.domain.TokenVerifier;
-import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
+import kr.flab.movieon.security.integrate.SecurityAppProperties;
+import kr.flab.movieon.security.integrate.domain.RefreshTokenInfoRepository;
+import kr.flab.movieon.security.integrate.domain.TokenExtractor;
+import kr.flab.movieon.security.integrate.domain.TokenVerifier;
+import kr.flab.movieon.security.integrate.exception.InvalidTokenException;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,8 +1,8 @@
-package kr.flab.movieon.integrate.security.jwt;
+package kr.flab.movieon.security.integrate.jwt;
 
-import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
-import kr.flab.movieon.integrate.security.domain.TokenVerifier;
-import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
+import kr.flab.movieon.security.integrate.domain.RefreshTokenInfoRepository;
+import kr.flab.movieon.security.integrate.domain.TokenVerifier;
+import kr.flab.movieon.security.integrate.exception.InvalidTokenException;
 import org.springframework.stereotype.Component;
 
 @Component

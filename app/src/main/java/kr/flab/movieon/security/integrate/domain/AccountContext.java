@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.domain;
+package kr.flab.movieon.security.integrate.domain;
 
 import java.util.Collection;
 import java.util.Objects;

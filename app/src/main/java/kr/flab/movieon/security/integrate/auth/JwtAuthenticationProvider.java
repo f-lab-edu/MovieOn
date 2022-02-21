@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.auth;
+package kr.flab.movieon.security.integrate.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -6,9 +6,9 @@ import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.SystemException;
-import kr.flab.movieon.integrate.security.SecurityAppProperties;
-import kr.flab.movieon.integrate.security.domain.AccountContext;
-import kr.flab.movieon.integrate.security.jwt.JwtRawToken;
+import kr.flab.movieon.security.integrate.SecurityAppProperties;
+import kr.flab.movieon.security.integrate.domain.AccountContext;
+import kr.flab.movieon.security.integrate.jwt.JwtRawToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;

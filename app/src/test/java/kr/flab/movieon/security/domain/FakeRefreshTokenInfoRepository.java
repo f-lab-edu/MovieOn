@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import kr.flab.movieon.integrate.security.domain.RefreshTokenInfo;
-import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
+import kr.flab.movieon.security.integrate.domain.RefreshTokenInfo;
+import kr.flab.movieon.security.integrate.domain.RefreshTokenInfoRepository;
 
 final class FakeRefreshTokenInfoRepository implements RefreshTokenInfoRepository {
 

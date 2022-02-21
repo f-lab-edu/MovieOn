@@ -1,8 +1,8 @@
-package kr.flab.movieon.integrate.security.auth;
+package kr.flab.movieon.security.integrate.auth;
 
 import java.util.Collection;
-import kr.flab.movieon.integrate.security.domain.AccountContext;
-import kr.flab.movieon.integrate.security.jwt.JwtRawToken;
+import kr.flab.movieon.security.integrate.domain.AccountContext;
+import kr.flab.movieon.security.integrate.jwt.JwtRawToken;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 

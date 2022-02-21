@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.domain;
+package kr.flab.movieon.security.integrate.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;

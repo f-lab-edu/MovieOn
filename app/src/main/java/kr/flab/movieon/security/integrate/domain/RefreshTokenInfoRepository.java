@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.domain;
+package kr.flab.movieon.security.integrate.domain;
 
 import java.util.Optional;
 
@@ -8,7 +8,8 @@ public interface RefreshTokenInfoRepository {
 
     Optional<RefreshTokenInfo> findByRefreshTokenJti(String refreshTokenJti);
 
-    RefreshTokenInfo save(RefreshTokenInfo entity);
+    RefreshTokenInfo save(
+        RefreshTokenInfo entity);
 
     void delete(RefreshTokenInfo entity);
 }

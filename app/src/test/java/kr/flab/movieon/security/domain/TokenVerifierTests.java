@@ -2,7 +2,7 @@ package kr.flab.movieon.security.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import kr.flab.movieon.integrate.security.jwt.JwtTokenVerifier;
+import kr.flab.movieon.security.integrate.jwt.JwtTokenVerifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

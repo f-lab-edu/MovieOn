@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security;
+package kr.flab.movieon.security.integrate;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -1,15 +1,15 @@
-package kr.flab.movieon.integrate.security;
+package kr.flab.movieon.security.integrate;
 
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.POST;
 
 import java.util.List;
-import kr.flab.movieon.integrate.security.auth.JwtAuthenticationFilter;
-import kr.flab.movieon.integrate.security.auth.JwtAuthenticationProvider;
-import kr.flab.movieon.integrate.security.auth.TokenAccessDeniedHandler;
-import kr.flab.movieon.integrate.security.auth.TokenAuthenticationEntryPoint;
-import kr.flab.movieon.integrate.security.domain.AccountDetailsService;
-import kr.flab.movieon.integrate.security.domain.TokenExtractor;
+import kr.flab.movieon.security.integrate.auth.JwtAuthenticationFilter;
+import kr.flab.movieon.security.integrate.auth.JwtAuthenticationProvider;
+import kr.flab.movieon.security.integrate.auth.TokenAccessDeniedHandler;
+import kr.flab.movieon.security.integrate.auth.TokenAuthenticationEntryPoint;
+import kr.flab.movieon.security.integrate.domain.AccountDetailsService;
+import kr.flab.movieon.security.integrate.domain.TokenExtractor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

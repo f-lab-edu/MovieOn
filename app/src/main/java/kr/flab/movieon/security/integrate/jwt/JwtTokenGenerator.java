@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.jwt;
+package kr.flab.movieon.security.integrate.jwt;
 
 import static java.util.stream.Collectors.toList;
 
@@ -15,10 +15,10 @@ import java.util.UUID;
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.Token;
 import kr.flab.movieon.account.domain.TokenGenerator;
-import kr.flab.movieon.integrate.security.SecurityAppProperties;
-import kr.flab.movieon.integrate.security.domain.AccountContext;
-import kr.flab.movieon.integrate.security.domain.RefreshTokenInfo;
-import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
+import kr.flab.movieon.security.integrate.SecurityAppProperties;
+import kr.flab.movieon.security.integrate.domain.AccountContext;
+import kr.flab.movieon.security.integrate.domain.RefreshTokenInfo;
+import kr.flab.movieon.security.integrate.domain.RefreshTokenInfoRepository;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -2,7 +2,7 @@ package kr.flab.movieon.security.domain;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import kr.flab.movieon.integrate.security.jwt.JwtTokenExtractor;
+import kr.flab.movieon.security.integrate.jwt.JwtTokenExtractor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.AuthenticationServiceException;

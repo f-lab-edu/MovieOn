@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.jwt;
+package kr.flab.movieon.security.integrate.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.jsonwebtoken.Claims;
