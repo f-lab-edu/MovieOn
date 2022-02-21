@@ -3,9 +3,7 @@ package kr.flab.movieon.payment.domain.event;
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
 import kr.flab.movieon.payment.domain.Payment;
-import lombok.Getter;
 
-@Getter
 public final class PaymentCompletedEvent implements DomainEvent {
 
     private final Long orderId;
@@ -25,5 +23,21 @@ public final class PaymentCompletedEvent implements DomainEvent {
     @Override
     public Date occurredOn() {
         return occurredOn;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getPrice() {
+        return price;
     }
 }

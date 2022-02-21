@@ -2,6 +2,7 @@ package kr.flab.movieon.order.application.request;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -10,15 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import kr.flab.movieon.order.domain.commands.CreateOrder;
 import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderProduct;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
 public final class CreateOrderRequest {
 
     @NotBlank(message = "주문 요청 이후 결제할 결제 방법이 필요합니다")
@@ -32,14 +25,57 @@ public final class CreateOrderRequest {
     private List<CreateOrderProductRequest> products;
 
     public CreateOrder toCommand() {
-        return CreateOrder.builder()
-            .payMethod(this.payMethod)
-            .useOfPoint(BigDecimal.valueOf(this.useOfPoint))
-            .products(this.products.stream()
-                .map(p -> new CreateOrderProduct(p.getProductId(), p.getProductName(),
-                    BigDecimal.valueOf(p.getPrice())))
-                .collect(Collectors.toList()))
-            .build();
+        return new CreateOrder(this.payMethod, BigDecimal.valueOf(this.useOfPoint),
+            this.products.stream().map(
+                p -> new CreateOrderProduct(p.getProductId(), p.getProductName(),
+                    BigDecimal.valueOf(p.getPrice()))).collect(Collectors.toList()));
     }
 
+    public String getPayMethod() {
+        return payMethod;
+    }
+
+    public void setPayMethod(String payMethod) {
+        this.payMethod = payMethod;
+    }
+
+    public Long getUseOfPoint() {
+        return useOfPoint;
+    }
+
+    public void setUseOfPoint(Long useOfPoint) {
+        this.useOfPoint = useOfPoint;
+    }
+
+    public List<CreateOrderProductRequest> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CreateOrderProductRequest> products) {
+        this.products = products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateOrderRequest that = (CreateOrderRequest) o;
+        return Objects.equals(payMethod, that.payMethod) && Objects.equals(useOfPoint,
+            that.useOfPoint) && Objects.equals(products, that.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(payMethod, useOfPoint, products);
+    }
+
+    @Override
+    public String toString() {
+        return "CreateOrderRequest{" + "payMethod='" + payMethod + '\'' + ", useOfPoint="
+            + useOfPoint + ", products=" + products + '}';
+    }
 }

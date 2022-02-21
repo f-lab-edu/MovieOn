@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import kr.flab.movieon.account.domain.Token;
 import kr.flab.movieon.integrate.security.exception.InvalidTokenException;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public final class RefreshToken implements Token {
 
     private final Jws<Claims> claims;

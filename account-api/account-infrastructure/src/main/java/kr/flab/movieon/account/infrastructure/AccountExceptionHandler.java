@@ -6,15 +6,17 @@ import kr.flab.movieon.account.domain.exception.InvalidEmailTokenException;
 import kr.flab.movieon.account.domain.exception.RegisterAccountConflictException;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.result.ApiResponse;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@Slf4j
 @RestControllerAdvice(basePackages = "kr.flab.movieon.account")
 public final class AccountExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(AccountExceptionHandler.class);
 
     @ExceptionHandler(AccountNotFoundException.class)
     private ResponseEntity<ApiResponse<?>> handleAccountNotFound(

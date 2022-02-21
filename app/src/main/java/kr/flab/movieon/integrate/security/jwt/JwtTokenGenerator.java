@@ -19,10 +19,8 @@ import kr.flab.movieon.integrate.security.SecurityAppProperties;
 import kr.flab.movieon.integrate.security.domain.AccountContext;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfo;
 import kr.flab.movieon.integrate.security.domain.RefreshTokenInfoRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Component
 public final class JwtTokenGenerator implements TokenGenerator {
 

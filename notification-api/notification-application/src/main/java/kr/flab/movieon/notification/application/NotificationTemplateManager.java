@@ -2,7 +2,6 @@ package kr.flab.movieon.notification.application;
 
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +29,6 @@ public class NotificationTemplateManager {
         template.update(title, contents);
     }
 
-    @Getter
     public static final class CreateTemplateCommand {
 
         private final String typeName;
@@ -44,6 +42,22 @@ public class NotificationTemplateManager {
             this.templateName = templateName;
             this.title = title;
             this.contents = contents;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
+
+        public String getTemplateName() {
+            return templateName;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getContents() {
+            return contents;
         }
     }
 }

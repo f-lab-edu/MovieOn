@@ -5,15 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-@Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshTokenInfo {
+
+    protected RefreshTokenInfo() {
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +30,21 @@ public class RefreshTokenInfo {
 
     public void expire() {
         isExpired = true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getRefreshTokenJti() {
+        return refreshTokenJti;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 }

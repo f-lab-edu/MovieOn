@@ -1,8 +1,5 @@
 package kr.flab.movieon.account.domain;
 
-import lombok.Getter;
-
-@Getter
 public final class Tokens {
 
     private final Token accessToken;
@@ -11,5 +8,18 @@ public final class Tokens {
     public Tokens(Token accessToken, Token refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+    }
+
+    public Token getAccessToken() {
+        return accessToken;
+    }
+
+    public Token getRefreshToken() {
+        return refreshToken;
+    }
+
+    @Override
+    public String toString() {
+        return "Tokens{" + "accessToken=" + accessToken + ", refreshToken=" + refreshToken + '}';
     }
 }

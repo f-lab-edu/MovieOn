@@ -60,7 +60,7 @@ public final class PaymentCompletedEventNotificationProcessor
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("username", account.getUserId());
-        variables.put("message", "고객님께서 " + event.getOccurredOn() + " MovieOn에서 결제한 내역을 안내해 드립니다.");
+        variables.put("message", "고객님께서 " + event.occurredOn() + " MovieOn에서 결제한 내역을 안내해 드립니다.");
         variables.put("productName", event.getProductName());
         variables.put("price", event.getPrice());
         variables.put("discount", event.getDiscount());

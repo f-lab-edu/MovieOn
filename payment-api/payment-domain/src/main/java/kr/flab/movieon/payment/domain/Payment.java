@@ -9,16 +9,15 @@ import javax.persistence.Id;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import kr.flab.movieon.payment.domain.event.PaymentCompletedEvent;
 import kr.flab.movieon.payment.domain.exception.InvalidPaymentStatusException;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Payment extends AbstractAggregateRoot {
+
+    protected Payment() {
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -106,5 +105,41 @@ public class Payment extends AbstractAggregateRoot {
 
     public enum Type {
         CARD, TOSS, KAKAO_PAY, NAVER_PAY
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public Long getPurchaserId() {
+        return purchaserId;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
     }
 }

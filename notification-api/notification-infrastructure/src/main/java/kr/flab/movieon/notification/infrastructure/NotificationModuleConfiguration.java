@@ -9,7 +9,6 @@ import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessDeleg
 import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessor;
 import kr.flab.movieon.notification.domain.NotificationSender;
 import kr.flab.movieon.notification.domain.NotificationSenderDelegator;
-import lombok.Getter;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;
@@ -49,7 +48,6 @@ public class NotificationModuleConfiguration {
         return cacheManager;
     }
 
-    @Getter
     enum CachePolicy {
         TEMPLATE("template", 10000, 24 * 60 * 60);
 
@@ -61,6 +59,18 @@ public class NotificationModuleConfiguration {
             this.cacheName = cacheName;
             this.maxSize = maxSize;
             this.maxTimeToLive = maxTimeToLive;
+        }
+
+        public String getCacheName() {
+            return cacheName;
+        }
+
+        public long getMaxSize() {
+            return maxSize;
+        }
+
+        public int getMaxTimeToLive() {
+            return maxTimeToLive;
         }
     }
 }

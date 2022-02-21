@@ -3,9 +3,7 @@ package kr.flab.movieon.notification.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
-import lombok.Getter;
 
-@Getter
 public final class PaymentCompletedEvent implements DomainEvent {
 
     private final Long accountId;
@@ -26,5 +24,21 @@ public final class PaymentCompletedEvent implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
     }
 }

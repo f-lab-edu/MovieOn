@@ -2,10 +2,8 @@ package kr.flab.movieon.notification.domain;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import lombok.EqualsAndHashCode;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("EMAIL")
 public class EmailNotification extends Notification {
 

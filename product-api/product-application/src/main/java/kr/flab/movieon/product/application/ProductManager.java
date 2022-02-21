@@ -5,8 +5,9 @@ import java.time.Year;
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
 import kr.flab.movieon.product.domain.Product;
-import kr.flab.movieon.product.domain.ProductContentsDetail;
+import kr.flab.movieon.product.domain.ProductBuilder;
 import kr.flab.movieon.product.domain.ProductContentsDetail.Rate;
+import kr.flab.movieon.product.domain.ProductContentsDetailBuilder;
 import kr.flab.movieon.product.domain.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +32,12 @@ public class ProductManager {
     }
 
     private Product mapFrom(RegisterProductCommand command, Category category) {
-        return Product.builder()
+        return ProductBuilder.builder()
             .category(category)
             .name(command.getName())
             .description(command.getDescription())
             .thumbnails(command.getThumbnails())
-            .contentsDetail(ProductContentsDetail.builder()
+            .contentsDetail(ProductContentsDetailBuilder.builder()
                 .rate(Rate.findByRate(command.getRateDescription()))
                 .release(Year.of(command.getRelease()))
                 .director(command.getDirectors())

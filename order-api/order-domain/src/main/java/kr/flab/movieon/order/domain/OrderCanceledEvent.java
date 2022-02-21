@@ -3,9 +3,7 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
-import lombok.Getter;
 
-@Getter
 public final class OrderCanceledEvent implements DomainEvent {
 
     private final String orderId;
@@ -23,5 +21,17 @@ public final class OrderCanceledEvent implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public Date getOccurredOn() {
+        return occurredOn;
     }
 }

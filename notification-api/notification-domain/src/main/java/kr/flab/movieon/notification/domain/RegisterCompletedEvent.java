@@ -2,9 +2,7 @@ package kr.flab.movieon.notification.domain;
 
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
-import lombok.Getter;
 
-@Getter
 public final class RegisterCompletedEvent implements DomainEvent {
 
     private final Long id;
@@ -18,5 +16,9 @@ public final class RegisterCompletedEvent implements DomainEvent {
     @Override
     public Date occurredOn() {
         return this.occurredOn;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
