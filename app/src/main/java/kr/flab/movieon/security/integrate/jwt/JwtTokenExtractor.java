@@ -1,6 +1,6 @@
-package kr.flab.movieon.integrate.security.jwt;
+package kr.flab.movieon.security.integrate.jwt;
 
-import kr.flab.movieon.integrate.security.domain.TokenExtractor;
+import kr.flab.movieon.security.integrate.domain.TokenExtractor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Component;

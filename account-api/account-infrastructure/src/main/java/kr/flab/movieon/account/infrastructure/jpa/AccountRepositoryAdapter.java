@@ -3,9 +3,7 @@ package kr.flab.movieon.account.infrastructure.jpa;
 import java.util.Optional;
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;
-import org.springframework.stereotype.Component;
 
-@Component
 public final class AccountRepositoryAdapter implements AccountRepository {
 
     private final JpaAccountRepository jpaAccountRepository;

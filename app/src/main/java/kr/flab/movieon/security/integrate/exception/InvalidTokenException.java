@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.exception;
+package kr.flab.movieon.security.integrate.exception;
 
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.SystemException;

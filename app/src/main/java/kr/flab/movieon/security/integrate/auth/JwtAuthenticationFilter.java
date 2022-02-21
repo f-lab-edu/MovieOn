@@ -1,13 +1,13 @@
-package kr.flab.movieon.integrate.security.auth;
+package kr.flab.movieon.security.integrate.auth;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import kr.flab.movieon.integrate.security.SecurityAppProperties;
-import kr.flab.movieon.integrate.security.domain.TokenExtractor;
-import kr.flab.movieon.integrate.security.jwt.JwtRawToken;
+import kr.flab.movieon.security.integrate.SecurityAppProperties;
+import kr.flab.movieon.security.integrate.domain.TokenExtractor;
+import kr.flab.movieon.security.integrate.jwt.JwtRawToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;

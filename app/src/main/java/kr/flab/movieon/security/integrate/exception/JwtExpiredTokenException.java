@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.exception;
+package kr.flab.movieon.security.integrate.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

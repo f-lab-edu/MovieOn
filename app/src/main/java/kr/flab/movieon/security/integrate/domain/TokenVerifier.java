@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.domain;
+package kr.flab.movieon.security.integrate.domain;
 
 public interface TokenVerifier {
 

@@ -1,4 +1,4 @@
-package kr.flab.movieon.integrate.security.domain;
+package kr.flab.movieon.security.integrate.domain;
 
 import kr.flab.movieon.account.domain.AccountRepository;
 import org.springframework.security.core.userdetails.UserDetails;
