@@ -11,6 +11,10 @@ public final class TossPaymentsPaymentCompletedResponse {
     private String type;
     private String method;
     private String mid;
+    private String currency;
+    private boolean useEscrow;
+    private boolean cultureExpense;
+    private String secret;
     private Integer totalAmount;
     private Integer balanceAmount;
     private Integer suppliedAmount;
@@ -76,6 +80,38 @@ public final class TossPaymentsPaymentCompletedResponse {
 
     public void setMid(String mid) {
         this.mid = mid;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public boolean isUseEscrow() {
+        return useEscrow;
+    }
+
+    public void setUseEscrow(boolean useEscrow) {
+        this.useEscrow = useEscrow;
+    }
+
+    public boolean isCultureExpense() {
+        return cultureExpense;
+    }
+
+    public void setCultureExpense(boolean cultureExpense) {
+        this.cultureExpense = cultureExpense;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     public Integer getTotalAmount() {

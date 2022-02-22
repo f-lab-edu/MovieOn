@@ -1,6 +1,5 @@
 package kr.flab.movieon.payment.domain;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
 

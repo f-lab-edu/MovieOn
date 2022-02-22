@@ -1,8 +1,7 @@
 package kr.flab.movieon.payment.infrastructure;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
+import java.util.Map;
 import kr.flab.movieon.payment.domain.TossPaymentsPaymentApprovalCommand;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,13 +11,11 @@ import org.springframework.web.client.RestTemplate;
 public final class TossPaymentsPaymentApprovalProcessor {
 
     private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
     private final TossPaymentsProperties tossPaymentsProperties;
 
     public TossPaymentsPaymentApprovalProcessor(RestTemplate restTemplate,
-        ObjectMapper objectMapper, TossPaymentsProperties tossPaymentsProperties) {
+        TossPaymentsProperties tossPaymentsProperties) {
         this.restTemplate = restTemplate;
-        this.objectMapper = objectMapper;
         this.tossPaymentsProperties = tossPaymentsProperties;
     }
 
@@ -32,18 +29,12 @@ public final class TossPaymentsPaymentApprovalProcessor {
         return result.getBody();
     }
 
-    private HttpEntity<String> createRequest(HttpHeaders headers,
+    private HttpEntity<Map<String, String>> createRequest(HttpHeaders headers,
         TossPaymentsPaymentApprovalCommand command) {
         var payloadMap = new HashMap<String, String>();
         payloadMap.put("orderId", command.getOrderId());
         payloadMap.put("amount", String.valueOf(command.getAmount()));
-        var payload = "";
-        try {
-            payload = objectMapper.writeValueAsString(payloadMap);
-        } catch (JsonProcessingException ex) {
-            throw new RuntimeException(ex);
-        }
-        return new HttpEntity<>(payload, headers);
+        return new HttpEntity<>(payloadMap, headers);
     }
 
     private HttpHeaders createHeaders() {
