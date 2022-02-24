@@ -1,6 +1,8 @@
 package kr.flab.movieon.product.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,14 +18,20 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 public class Item {
 
+    protected Item() {
+
+    }
+
+    public enum ItemType {
+        RENTAL, PURCHASE
+    }
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long productId;
-    private String name;
-    private String availableDevices;
-    private String providedQuality;
-    private boolean drm;
-
+    private Period availableDays;
+    private BigDecimal basePrice;
+    private ItemType type;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<ItemOption> options = new HashSet<>();
     @CreationTimestamp
@@ -31,57 +39,16 @@ public class Item {
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
-    protected Item() {
-
-    }
-
-    public Item(Long productId, String name, String availableDevices, String providedQuality,
-        boolean drm) {
+    public Item(Long productId, Period availableDays, BigDecimal basePrice,
+        ItemType type) {
         this.productId = productId;
-        this.name = name;
-        this.availableDevices = availableDevices;
-        this.providedQuality = providedQuality;
-        this.drm = drm;
+        this.availableDays = availableDays;
+        this.basePrice = basePrice;
+        this.type = type;
     }
 
-    public void addOption(ItemOption itemOption) {
-        options.add(itemOption);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAvailableDevices() {
-        return availableDevices;
-    }
-
-    public String getProvidedQuality() {
-        return providedQuality;
-    }
-
-    public boolean isDrm() {
-        return drm;
-    }
-
-    public Set<ItemOption> getOptions() {
-        return options;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getModifiedAt() {
-        return modifiedAt;
+    public void addOption(ItemOption option) {
+        this.options.add(option);
     }
 
     @Override

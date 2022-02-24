@@ -20,7 +20,9 @@ public final class RegisterProductCommand {
     private String rateDescription;
     @NotNull(message = "등록할 상품 릴리즈 년도가 없습니다.")
     @Min(value = 1970, message = "등록할 상품 릴리즈 년도는 1970년 이후만 가능합니다.")
-    private Integer release;
+    private Integer year;
+    private Integer month;
+    private Integer days;
     @NotNull(message = "등록할 상품 상영 시간이 없습니다.")
     @Min(value = 15, message = "등록할 상품의 최소 상영 시간은 15분 이상만 가능합니다.")
     private Integer runningTime;
@@ -71,12 +73,28 @@ public final class RegisterProductCommand {
         this.rateDescription = rateDescription;
     }
 
-    public Integer getRelease() {
-        return release;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setRelease(Integer release) {
-        this.release = release;
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
     }
 
     public Integer getRunningTime() {
