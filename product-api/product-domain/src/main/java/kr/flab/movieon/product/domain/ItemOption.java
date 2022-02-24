@@ -1,42 +1,30 @@
 package kr.flab.movieon.product.domain;
 
 import java.math.BigDecimal;
-import java.time.Period;
 import java.util.Objects;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class ItemOption {
 
-    private BigDecimal salesPrice;
-    private Period availableDays;
-    private ItemType type;
-
     protected ItemOption() {
 
     }
 
-    public ItemOption(BigDecimal salesPrice, Period availableDays,
-        ItemType type) {
+    private String optionName;  // TODO Enum(화질) 리팩토링
+    private BigDecimal salesPrice;
+
+    public ItemOption(String optionName, BigDecimal salesPrice) {
+        this.optionName = optionName;
         this.salesPrice = salesPrice;
-        this.availableDays = availableDays;
-        this.type = type;
     }
 
-    public enum ItemType {
-        RENTAL, PURCHASE
+    public String getOptionName() {
+        return optionName;
     }
 
     public BigDecimal getSalesPrice() {
         return salesPrice;
-    }
-
-    public Period getAvailableDays() {
-        return availableDays;
-    }
-
-    public ItemType getType() {
-        return type;
     }
 
     @Override
@@ -48,12 +36,12 @@ public class ItemOption {
             return false;
         }
         ItemOption that = (ItemOption) o;
-        return Objects.equals(salesPrice, that.salesPrice) && Objects.equals(
-            availableDays, that.availableDays) && type == that.type;
+        return Objects.equals(optionName, that.optionName) && Objects.equals(
+            salesPrice, that.salesPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(salesPrice, availableDays, type);
+        return Objects.hash(optionName, salesPrice);
     }
 }

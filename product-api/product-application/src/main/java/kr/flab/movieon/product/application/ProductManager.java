@@ -1,7 +1,7 @@
 package kr.flab.movieon.product.application;
 
 import java.time.Duration;
-import java.time.Year;
+import java.time.LocalDate;
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
 import kr.flab.movieon.product.domain.Product;
@@ -39,7 +39,7 @@ public class ProductManager {
             .thumbnails(command.getThumbnails())
             .contentsDetail(ProductContentsDetailBuilder.builder()
                 .rate(Rate.findByRate(command.getRateDescription()))
-                .release(Year.of(command.getRelease()))
+                .release(LocalDate.of(command.getYear(), command.getMonth(), command.getDays()))
                 .director(command.getDirectors())
                 .actors(command.getActors())
                 .runningTime(Duration.ofMinutes(command.getRunningTime()))

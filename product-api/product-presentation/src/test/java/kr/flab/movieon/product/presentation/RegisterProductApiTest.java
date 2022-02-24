@@ -71,7 +71,9 @@ final class RegisterProductApiTest {
         command.setName("보이스");
         command.setDescription("보이스 설명");
         command.setCategoryId(1L);
-        command.setRelease(1969);
+        command.setYear(1969);
+        command.setMonth(12);
+        command.setDays(2);
         command.setRunningTime(14);
         command.setActors("장혁");
         command.setDirectors("김땡땡");
@@ -86,7 +88,9 @@ final class RegisterProductApiTest {
         command.setName(null);
         command.setDescription(null);
         command.setCategoryId(null);
-        command.setRelease(null);
+        command.setYear(null);
+        command.setMonth(null);
+        command.setDays(null);
         command.setRunningTime(null);
         command.setActors(null);
         command.setDirectors(null);

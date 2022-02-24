@@ -1,7 +1,7 @@
 package kr.flab.movieon.product.domain;
 
 import java.time.Duration;
-import java.time.Year;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,10 +13,13 @@ import javax.persistence.Embeddable;
 public class ProductContentsDetail {
 
     private Rate rate;
-    private Year release;
+    private LocalDate release; // TODO 리팩토링 값 객체(개봉년도, 입고날짜)
     private Duration runningTime;
     private String director;
     private String actors;
+    private String availableDevices;
+    private String providedQuality;
+    private boolean drm;
     @ElementCollection
     private List<String> images = new ArrayList<>();
 
@@ -24,13 +27,17 @@ public class ProductContentsDetail {
 
     }
 
-    public ProductContentsDetail(Rate rate, Year release, Duration runningTime, String director,
-        String actors, List<String> images) {
+    public ProductContentsDetail(Rate rate, LocalDate release, Duration runningTime,
+        String director, String actors, String availableDevices, String providedQuality,
+        boolean drm, List<String> images) {
         this.rate = rate;
         this.release = release;
         this.runningTime = runningTime;
         this.director = director;
         this.actors = actors;
+        this.availableDevices = availableDevices;
+        this.providedQuality = providedQuality;
+        this.drm = drm;
         this.images = images;
     }
 
@@ -68,7 +75,7 @@ public class ProductContentsDetail {
         return rate;
     }
 
-    public Year getRelease() {
+    public LocalDate getRelease() {
         return release;
     }
 
@@ -84,6 +91,18 @@ public class ProductContentsDetail {
         return actors;
     }
 
+    public String getAvailableDevices() {
+        return availableDevices;
+    }
+
+    public String getProvidedQuality() {
+        return providedQuality;
+    }
+
+    public boolean isDrm() {
+        return drm;
+    }
+
     public List<String> getImages() {
         return images;
     }
@@ -97,14 +116,17 @@ public class ProductContentsDetail {
             return false;
         }
         ProductContentsDetail that = (ProductContentsDetail) o;
-        return rate == that.rate && Objects.equals(release, that.release)
+        return drm == that.drm && rate == that.rate && Objects.equals(release, that.release)
             && Objects.equals(runningTime, that.runningTime) && Objects.equals(
             director, that.director) && Objects.equals(actors, that.actors)
+            && Objects.equals(availableDevices, that.availableDevices)
+            && Objects.equals(providedQuality, that.providedQuality)
             && Objects.equals(images, that.images);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rate, release, runningTime, director, actors, images);
+        return Objects.hash(rate, release, runningTime, director, actors, availableDevices,
+            providedQuality, drm, images);
     }
 }
