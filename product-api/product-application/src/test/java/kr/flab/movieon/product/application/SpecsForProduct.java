@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
+import kr.flab.movieon.product.domain.Item;
+import kr.flab.movieon.product.domain.ItemRepository;
 import kr.flab.movieon.product.domain.Product;
 import kr.flab.movieon.product.domain.ProductRepository;
 import org.javaunit.autoparams.AutoSource;
@@ -20,11 +22,20 @@ final class SpecsForProduct {
     @DisplayName("상품 등록 과정에서 이용 등급이 잘못된 경우 에러가 발생합니다.")
     void name(RegisterProductCommand command) {
         // Arrange
-        var sut = new ProductManager(new DummyProductRepository(), new DummyCategoryRepository());
+        var sut = new ProductManager(new DummyProductRepository(), new DummyCategoryRepository(),
+            new DummyItemRepository());
 
         // Act & Assert
         assertThatExceptionOfType(IllegalStateException.class)
             .isThrownBy(() -> sut.register(command));
+    }
+
+    private static final class DummyItemRepository implements ItemRepository {
+
+        @Override
+        public Item save(Item entity) {
+            return null;
+        }
     }
 
     private static final class DummyProductRepository implements ProductRepository {

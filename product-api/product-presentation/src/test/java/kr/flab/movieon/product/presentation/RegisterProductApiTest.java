@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
+import kr.flab.movieon.product.application.RegisterItemCommand;
 import kr.flab.movieon.product.application.RegisterProductCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -67,6 +68,10 @@ final class RegisterProductApiTest {
     }
 
     private RegisterProductCommand toInvalidCommand() {
+        var itemCommand = new RegisterItemCommand();
+        itemCommand.setBasePrice(0);
+        itemCommand.setAvailableDays(0);
+        itemCommand.setType("RENTAL");
         var command = new RegisterProductCommand();
         command.setName("보이스");
         command.setDescription("보이스 설명");
@@ -80,6 +85,7 @@ final class RegisterProductApiTest {
         command.setRateDescription("GENERAL");
         command.setImages(Collections.emptyList());
         command.setThumbnails("섬네일.png");
+        command.setItem(itemCommand);
         return command;
     }
 
@@ -97,6 +103,7 @@ final class RegisterProductApiTest {
         command.setRateDescription(null);
         command.setImages(null);
         command.setThumbnails(null);
+        command.setItem(null);
         return command;
     }
 }

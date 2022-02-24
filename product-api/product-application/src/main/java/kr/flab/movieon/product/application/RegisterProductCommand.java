@@ -32,6 +32,8 @@ public final class RegisterProductCommand {
     private String actors;
     @Size(min = 1, max = 25, message = "등록할 상품의 상세 이미지는 1개 이상 25개 이하만 가능합니다.")
     private List<@NotBlank String> images;
+    @NotNull
+    private RegisterItemCommand item;
 
     public Long getCategoryId() {
         return categoryId;
@@ -127,5 +129,13 @@ public final class RegisterProductCommand {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public RegisterItemCommand getItem() {
+        return item;
+    }
+
+    public void setItem(RegisterItemCommand item) {
+        this.item = item;
     }
 }
