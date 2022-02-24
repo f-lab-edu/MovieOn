@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/products")
-public final class RegisterProductApi {
+public class RegisterProductApi {
 
     private final ProductManager productManager;
 
@@ -22,6 +22,7 @@ public final class RegisterProductApi {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void register(@RequestBody @Valid RegisterProductCommand command) {
+        // TODO request 값 확인 할 수 있도록 예외 처리 시 BindingResult 조작
         productManager.register(command);
     }
 }

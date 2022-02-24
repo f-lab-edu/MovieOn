@@ -40,11 +40,12 @@ public class Item {
     private LocalDateTime modifiedAt;
 
     public Item(Long productId, Period availableDays, BigDecimal basePrice,
-        ItemType type) {
+        ItemType type, Set<ItemOption> options) {
         this.productId = productId;
         this.availableDays = availableDays;
         this.basePrice = basePrice;
         this.type = type;
+        this.options = options;
     }
 
     public void addOption(ItemOption option) {
