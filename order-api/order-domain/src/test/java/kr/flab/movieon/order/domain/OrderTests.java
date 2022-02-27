@@ -16,6 +16,7 @@ final class OrderTests {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
             Order.create(new Customer(1L), "CARD",
                 BigDecimal.valueOf(2000), List.of(
-                    new OrderProduct(1L, "보이스", BigDecimal.valueOf(-1)))));
+                    new OrderLineItem(1L, "보이스", BigDecimal.valueOf(-1),
+                        List.of(new OrderItemOption("480P", BigDecimal.valueOf(2000)))))));
     }
 }

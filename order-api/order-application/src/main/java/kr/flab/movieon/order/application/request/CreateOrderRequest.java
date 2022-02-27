@@ -10,7 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import kr.flab.movieon.order.domain.commands.CreateOrder;
-import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderProduct;
+import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderItemOption;
+import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderLineItem;
 
 public final class CreateOrderRequest {
 
@@ -22,13 +23,26 @@ public final class CreateOrderRequest {
     @NotNull(message = "주문 항목은 비어있을 수 없습니다")
     @Size(min = 1, message = "주문 항목은 반드시 하나 이상이어야만 합니다")
     @Valid
-    private List<CreateOrderProductRequest> products;
+    private List<CreateOrderLineItemRequest> lineItems;
 
     public CreateOrder toCommand() {
-        return new CreateOrder(this.payMethod, BigDecimal.valueOf(this.useOfPoint),
-            this.products.stream().map(
-                p -> new CreateOrderProduct(p.getProductId(), p.getProductName(),
-                    BigDecimal.valueOf(p.getPrice()))).collect(Collectors.toList()));
+        return new CreateOrder(this.payMethod, BigDecimal.valueOf(this.useOfPoint), toLineItems());
+    }
+
+    private List<CreateOrderLineItem> toLineItems() {
+        return this.lineItems.stream()
+            .map(lineItemRequest -> new CreateOrderLineItem(lineItemRequest.getItemId(),
+                lineItemRequest.getProductName(),
+                BigDecimal.valueOf(lineItemRequest.getBasePrice()),
+                toItemOptions(lineItemRequest)))
+            .collect(Collectors.toList());
+    }
+
+    private List<CreateOrderItemOption> toItemOptions(CreateOrderLineItemRequest lineItemRequest) {
+        return lineItemRequest.getOptions().stream()
+            .map(itemOptionRequest -> new CreateOrderItemOption(itemOptionRequest.getOptionName(),
+                BigDecimal.valueOf(itemOptionRequest.getSalesPrice())))
+            .collect(Collectors.toList());
     }
 
     public String getPayMethod() {
@@ -47,12 +61,12 @@ public final class CreateOrderRequest {
         this.useOfPoint = useOfPoint;
     }
 
-    public List<CreateOrderProductRequest> getProducts() {
-        return products;
+    public List<CreateOrderLineItemRequest> getLineItems() {
+        return lineItems;
     }
 
-    public void setProducts(List<CreateOrderProductRequest> products) {
-        this.products = products;
+    public void setLineItems(List<CreateOrderLineItemRequest> lineItems) {
+        this.lineItems = lineItems;
     }
 
     @Override
@@ -65,17 +79,17 @@ public final class CreateOrderRequest {
         }
         CreateOrderRequest that = (CreateOrderRequest) o;
         return Objects.equals(payMethod, that.payMethod) && Objects.equals(useOfPoint,
-            that.useOfPoint) && Objects.equals(products, that.products);
+            that.useOfPoint) && Objects.equals(lineItems, that.lineItems);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(payMethod, useOfPoint, products);
+        return Objects.hash(payMethod, useOfPoint, lineItems);
     }
 
     @Override
     public String toString() {
         return "CreateOrderRequest{" + "payMethod='" + payMethod + '\'' + ", useOfPoint="
-            + useOfPoint + ", products=" + products + '}';
+            + useOfPoint + ", products=" + lineItems + '}';
     }
 }

@@ -7,37 +7,40 @@ import java.util.Map;
 
 public class OrderValidator {
 
-    private final ProductRepository productRepository;
+    private final ItemRepository itemRepository;
     private final PointManager pointManager;
 
-    public OrderValidator(ProductRepository productRepository, PointManager pointManager) {
-        this.productRepository = productRepository;
+    public OrderValidator(ItemRepository itemRepository, PointManager pointManager) {
+        this.itemRepository = itemRepository;
         this.pointManager = pointManager;
     }
 
     public void validate(Order order) {
-        if (order.getProducts() == null || order.getProducts().isEmpty()) {
-            throw new IllegalStateException("주문 항목이 비어 있습니다");
+        if (order.getLineItems() == null || order.getLineItems().isEmpty()) {
+            throw new IllegalStateException("주문 항목이 비어 있습니다.");
         }
 
-        var products = getProducts(order);
+        var items = getItems(order);
 
-        for (OrderProduct orderProduct : order.getProducts()) {
-            validateOrderProduct(orderProduct, products.get(orderProduct.getProductId()));
+        for (OrderLineItem orderLineItem : order.getLineItems()) {
+            validateOrderLineItem(orderLineItem, items.get(orderLineItem.getItemId()));
         }
 
         pointManager.canUseOfPoint(order.getCustomer().getAccountId(), order.getUseOfPoint());
     }
 
-    private void validateOrderProduct(OrderProduct orderProduct, Product product) {
-        if (!product.isSatisfiedBy(orderProduct.getName(), orderProduct.getPrice())) {
-            throw new IllegalStateException("상품 정보가 변경되었습니다");
+    private void validateOrderLineItem(OrderLineItem orderLineItem, Item item) {
+        if (!item.isSatisfiedBy(orderLineItem.getName(), orderLineItem.getBasePrice())) {
+            throw new IllegalStateException("기본 상품 정보가 변경되었습니다.");
+        }
+        if (!item.isSatisfiedBy(orderLineItem.getOptions())) {
+            throw new IllegalStateException("상품 옵션 정보가 변경되었습니다.");
         }
     }
 
-    private Map<Long, Product> getProducts(Order order) {
-        return productRepository.findAllById(order.getProductIds())
+    private Map<Long, Item> getItems(Order order) {
+        return itemRepository.findAllById(order.getItemIds())
             .stream()
-            .collect(toMap(Product::getId, identity()));
+            .collect(toMap(Item::getId, identity()));
     }
 }

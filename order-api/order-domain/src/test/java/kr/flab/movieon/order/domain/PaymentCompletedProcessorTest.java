@@ -34,7 +34,11 @@ class PaymentCompletedProcessorTest {
         @Override
         public Order findByOrderId(String orderId) {
             return Order.create(new Customer(1L), "CARD", BigDecimal.ZERO,
-                List.of(new OrderProduct(1L, "보이스", BigDecimal.valueOf(13000))));
+                List.of(new OrderLineItem(1L, "보이스", BigDecimal.valueOf(13000),
+                        List.of(new OrderItemOption("480P", BigDecimal.valueOf(1200)))
+                    )
+                )
+            );
         }
     }
 }

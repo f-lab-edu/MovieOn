@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.List;
-import kr.flab.movieon.order.application.request.CreateOrderProductRequest;
+import kr.flab.movieon.order.application.request.CreateOrderLineItemRequest;
 import kr.flab.movieon.order.application.request.CreateOrderRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +40,7 @@ final class CreateOrderApiTest {
     void param_is_null_return_http_status_400() throws Exception {
         // Arrange
         var request = new CreateOrderRequest();
-        request.setProducts(null);
+        request.setLineItems(null);
         request.setPayMethod(null);
         request.setUseOfPoint(null);
 
@@ -59,7 +59,7 @@ final class CreateOrderApiTest {
     void param_is_not_satisfied_minimum_range_return_http_status_400() throws Exception {
         // Arrange
         var request = new CreateOrderRequest();
-        request.setProducts(Collections.emptyList());
+        request.setLineItems(Collections.emptyList());
         request.setPayMethod("CARD");
         request.setUseOfPoint(-1L);
 
@@ -77,14 +77,14 @@ final class CreateOrderApiTest {
     @DisplayName("주문 생성 요청 시 주문 상품 항목의 최소 금액을 만족하지 못한 경우 400 에러를 리턴한다.")
     void if_minimum_amount_orderProduct_is_not_satisfied_return_http_status_400() throws Exception {
         // Arrange
-        var productRequest = new CreateOrderProductRequest();
-        productRequest.setProductId(1L);
+        var productRequest = new CreateOrderLineItemRequest();
+        productRequest.setItemId(1L);
         productRequest.setProductName("보이스");
-        productRequest.setPrice(-1L);
+        productRequest.setBasePrice(-1L);
         var request = new CreateOrderRequest();
         request.setPayMethod("CARD");
         request.setUseOfPoint(12L);
-        request.setProducts(List.of(productRequest));
+        request.setLineItems(List.of(productRequest));
 
         // Act
         final var actions = mockMvc.perform(
@@ -100,14 +100,14 @@ final class CreateOrderApiTest {
     @DisplayName("주문 생성 요청 시 주문 상품 항목이 null인 경우 400 에러를 리턴한다.")
     void if_the_order_product_item_is_null_return_http_status_400() throws Exception {
         // Arrange
-        var productRequest = new CreateOrderProductRequest();
-        productRequest.setProductId(null);
+        var productRequest = new CreateOrderLineItemRequest();
+        productRequest.setItemId(null);
         productRequest.setProductName(null);
-        productRequest.setPrice(null);
+        productRequest.setBasePrice(null);
         var request = new CreateOrderRequest();
         request.setPayMethod("CARD");
         request.setUseOfPoint(12L);
-        request.setProducts(List.of(productRequest));
+        request.setLineItems(List.of(productRequest));
 
         // Act
         final var actions = mockMvc.perform(
