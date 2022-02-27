@@ -41,7 +41,7 @@ public class Order extends AbstractAggregateRoot {
     private OrderStatus status;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderProduct> products;
+    private List<OrderLineItem> lineItems;
 
     @Column(nullable = false)
     private BigDecimal totalAmount;
@@ -61,25 +61,25 @@ public class Order extends AbstractAggregateRoot {
     }
 
     private Order(Customer customer, String payMethod, OrderStatus status,
-        BigDecimal useOfPoint, List<OrderProduct> products) {
+        BigDecimal useOfPoint, List<OrderLineItem> lineItems) {
         this.orderId = IdGenerator.generate(PREFIX);
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;
         this.useOfPoint = useOfPoint;
-        this.products = products;
+        this.lineItems = lineItems;
         this.totalAmount = calculateTotalPrice();
         registerEvent(new OrderCreatedEvent(this));
     }
 
     public static Order create(Customer customer, String payMethod,
-        BigDecimal useOfPoint, List<OrderProduct> products) {
+        BigDecimal useOfPoint, List<OrderLineItem> products) {
         return new Order(customer, payMethod, OrderStatus.CREATED, useOfPoint, products);
     }
 
     private BigDecimal calculateTotalPrice() {
-        return this.products.stream()
-            .map(OrderProduct::getPrice)
+        return this.lineItems.stream()
+            .map(OrderLineItem::calculatePrice)
             .reduce(BigDecimal.ZERO, BigDecimal::add)
             .subtract(this.useOfPoint);
     }
@@ -113,9 +113,9 @@ public class Order extends AbstractAggregateRoot {
         this.id = id;
     }
 
-    public List<Long> getProductIds() {
-        return products.stream()
-            .map(OrderProduct::getProductId)
+    public List<Long> getItemIds() {
+        return lineItems.stream()
+            .map(OrderLineItem::getItemId)
             .collect(Collectors.toList());
     }
 
@@ -151,8 +151,8 @@ public class Order extends AbstractAggregateRoot {
         return status;
     }
 
-    public List<OrderProduct> getProducts() {
-        return products;
+    public List<OrderLineItem> getLineItems() {
+        return lineItems;
     }
 
     public BigDecimal getTotalAmount() {

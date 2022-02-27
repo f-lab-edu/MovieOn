@@ -7,13 +7,13 @@ public final class CreateOrder {
 
     private final String payMethod;
     private final BigDecimal useOfPoint;
-    private final List<CreateOrderProduct> products;
+    private final List<CreateOrderLineItem> lineItems;
 
     public CreateOrder(String payMethod, BigDecimal useOfPoint,
-        List<CreateOrderProduct> products) {
+        List<CreateOrderLineItem> lineItems) {
         this.payMethod = payMethod;
         this.useOfPoint = useOfPoint;
-        this.products = products;
+        this.lineItems = lineItems;
     }
 
     public String getPayMethod() {
@@ -24,32 +24,58 @@ public final class CreateOrder {
         return useOfPoint;
     }
 
-    public List<CreateOrderProduct> getProducts() {
-        return products;
+    public List<CreateOrderLineItem> getLineItems() {
+        return lineItems;
     }
 
-    public static final class CreateOrderProduct {
+    public static final class CreateOrderLineItem {
 
-        private final Long productId;
+        private final Long itemId;
         private final String productName;
-        private final BigDecimal price;
+        private final BigDecimal basePrice;
+        private final List<CreateOrderItemOption> options;
 
-        public CreateOrderProduct(Long productId, String productName, BigDecimal price) {
-            this.productId = productId;
+        public CreateOrderLineItem(Long itemId, String productName, BigDecimal basePrice,
+            List<CreateOrderItemOption> options) {
+            this.itemId = itemId;
             this.productName = productName;
-            this.price = price;
+            this.basePrice = basePrice;
+            this.options = options;
         }
 
-        public Long getProductId() {
-            return productId;
+        public Long getItemId() {
+            return itemId;
         }
 
         public String getProductName() {
             return productName;
         }
 
-        public BigDecimal getPrice() {
-            return price;
+        public BigDecimal getBasePrice() {
+            return basePrice;
+        }
+
+        public List<CreateOrderItemOption> getOptions() {
+            return options;
+        }
+    }
+
+    public static final class CreateOrderItemOption {
+
+        private final String optionName;
+        private final BigDecimal salesPrice;
+
+        public CreateOrderItemOption(String optionName, BigDecimal salesPrice) {
+            this.optionName = optionName;
+            this.salesPrice = salesPrice;
+        }
+
+        public String getOptionName() {
+            return optionName;
+        }
+
+        public BigDecimal getSalesPrice() {
+            return salesPrice;
         }
     }
 }
