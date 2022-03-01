@@ -44,7 +44,7 @@ final class OrderCommandHandlerTest {
     private static final class ItemRepositoryStub implements ItemRepository {
 
         @Override
-        public List<Item> findAllById(List<Long> productIds) {
+        public List<Item> findAllById(List<Long> itemIds) {
             return List.of(
                 new Item(1L, "보이스", BigDecimal.valueOf(10000),
                     List.of(new ItemOption("480P", BigDecimal.valueOf(2000)))),

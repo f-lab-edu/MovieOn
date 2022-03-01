@@ -2,6 +2,7 @@ package kr.flab.movieon.product.application;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import java.util.List;
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
 import kr.flab.movieon.product.domain.Item;
@@ -34,6 +35,11 @@ final class SpecsForProduct {
 
         @Override
         public Item save(Item entity) {
+            return null;
+        }
+
+        @Override
+        public List<Item> findAllById(List<Long> itemIds) {
             return null;
         }
     }

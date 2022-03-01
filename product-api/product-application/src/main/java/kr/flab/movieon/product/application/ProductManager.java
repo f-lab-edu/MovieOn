@@ -43,7 +43,7 @@ public class ProductManager {
     }
 
     private Item mapFrom(Long productId, RegisterItemCommand command) {
-        return new Item(productId, Period.ofDays(command.getAvailableDays()),
+        return new Item(productId, command.getName(), Period.ofDays(command.getAvailableDays()),
             BigDecimal.valueOf(command.getBasePrice()), ItemType.valueOf(command.getType()),
             command.getOptions().stream()
                 .map(o -> new ItemOption(o.getOptionName(), BigDecimal.valueOf(o.getSalesPrice())))

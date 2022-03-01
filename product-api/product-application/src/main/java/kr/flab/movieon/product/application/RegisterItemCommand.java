@@ -6,12 +6,22 @@ import javax.validation.constraints.NotBlank;
 
 public final class RegisterItemCommand {
 
+    @NotBlank
+    private String name;
     @Min(value = 1)
     private Integer availableDays;
     private Integer basePrice;
     @NotBlank
     private String type;
     private List<RegisterItemOptionCommand> options;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getAvailableDays() {
         return availableDays;

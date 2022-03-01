@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ItemRepository {
 
-    List<Item> findAllById(List<Long> productIds);
+    List<Item> findAllById(List<Long> itemIds);
 }
