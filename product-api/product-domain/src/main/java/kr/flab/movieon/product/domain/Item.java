@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,8 +31,10 @@ public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long productId;
+    private String name;
     private Period availableDays;
     private BigDecimal basePrice;
+    @Enumerated(EnumType.STRING)
     private ItemType type;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<ItemOption> options = new HashSet<>();
@@ -39,9 +43,11 @@ public class Item {
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
-    public Item(Long productId, Period availableDays, BigDecimal basePrice,
+    public Item(Long productId, String name,
+        Period availableDays, BigDecimal basePrice,
         ItemType type, Set<ItemOption> options) {
         this.productId = productId;
+        this.name = name;
         this.availableDays = availableDays;
         this.basePrice = basePrice;
         this.type = type;
@@ -50,6 +56,42 @@ public class Item {
 
     public void addOption(ItemOption option) {
         this.options.add(option);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Period getAvailableDays() {
+        return availableDays;
+    }
+
+    public BigDecimal getBasePrice() {
+        return basePrice;
+    }
+
+    public ItemType getType() {
+        return type;
+    }
+
+    public Set<ItemOption> getOptions() {
+        return options;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
     }
 
     @Override
