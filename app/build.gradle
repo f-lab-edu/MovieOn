@@ -17,6 +17,10 @@ dependencies {
     api project(":order-api:order-domain")
     api project(":order-api:order-infrastructure")
     api project(":order-api:order-presentation")
+    api project(":payment-api:payment-application")
+    api project(":payment-api:payment-domain")
+    api project(":payment-api:payment-infrastructure")
+    api project(":payment-api:payment-presentation")
     api project(":common")
 
     implementation "org.springframework.boot:spring-boot-starter-web"

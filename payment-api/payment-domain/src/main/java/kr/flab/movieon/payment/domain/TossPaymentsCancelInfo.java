@@ -14,15 +14,15 @@ public class TossPaymentsCancelInfo {
     private Integer cancelAmount;
     private Integer refundableAmount;
     private String cancelReason;
-    private Integer taxFreeAmount;
+    private Integer taxFreeAmountCancel;
     private LocalDateTime canceledAt;
 
     public TossPaymentsCancelInfo(Integer cancelAmount, Integer refundableAmount,
-        String cancelReason, Integer taxFreeAmount, LocalDateTime canceledAt) {
+        String cancelReason, Integer taxFreeAmountCancel, LocalDateTime canceledAt) {
         this.cancelAmount = cancelAmount;
         this.refundableAmount = refundableAmount;
         this.cancelReason = cancelReason;
-        this.taxFreeAmount = taxFreeAmount;
+        this.taxFreeAmountCancel = taxFreeAmountCancel;
         this.canceledAt = canceledAt;
     }
 
@@ -38,8 +38,8 @@ public class TossPaymentsCancelInfo {
         return cancelReason;
     }
 
-    public Integer getTaxFreeAmount() {
-        return taxFreeAmount;
+    public Integer getTaxFreeAmountCancel() {
+        return taxFreeAmountCancel;
     }
 
     public LocalDateTime getCanceledAt() {
@@ -57,13 +57,13 @@ public class TossPaymentsCancelInfo {
         TossPaymentsCancelInfo that = (TossPaymentsCancelInfo) o;
         return Objects.equals(cancelAmount, that.cancelAmount) && Objects.equals(
             refundableAmount, that.refundableAmount) && Objects.equals(cancelReason,
-            that.cancelReason) && Objects.equals(taxFreeAmount, that.taxFreeAmount)
+            that.cancelReason) && Objects.equals(taxFreeAmountCancel, that.taxFreeAmountCancel)
             && Objects.equals(canceledAt, that.canceledAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cancelAmount, refundableAmount, cancelReason, taxFreeAmount,
+        return Objects.hash(cancelAmount, refundableAmount, cancelReason, taxFreeAmountCancel,
             canceledAt);
     }
 }

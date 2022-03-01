@@ -15,7 +15,7 @@ spring:
       hibernate:
         format_sql: true
   config:
-    import: "classpath:/notification.yml"
+    import: classpath:notification.yml, classpath:payments.yml
 logging:
   level:
     org.hibernate.SQL: debug

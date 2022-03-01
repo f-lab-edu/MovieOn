@@ -1,10 +1,15 @@
 package kr.flab.movieon.payment.application;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import kr.flab.movieon.payment.domain.TossPaymentsPaymentApprovalCommand;
 
 public final class TossPaymentsPaymentApprovalRequest {
+    @NotBlank
     private String orderId;
+    @NotBlank
     private String paymentKey;
+    @Min(value = 0)
     private Integer amount;
 
     public TossPaymentsPaymentApprovalCommand toCommand() {
