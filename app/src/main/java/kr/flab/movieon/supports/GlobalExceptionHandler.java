@@ -1,89 +1,84 @@
 package kr.flab.movieon.supports;
 
+import java.util.stream.Collectors;
+import kr.flab.movieon.MovieOnApplication;
 import kr.flab.movieon.common.error.ErrorCode;
+import kr.flab.movieon.common.error.ResourceNotFoundException;
 import kr.flab.movieon.common.result.ApiResponse;
+import kr.flab.movieon.common.result.ApiResponse.ErrorBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackageClasses = MovieOnApplication.class)
 public final class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    private ResponseEntity<ApiResponse<?>> handleArgumentNotValid(
-        MethodArgumentNotValidException e) {
-        log.error("MethodArgumentNotValidException: ", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_INPUT),
-            HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> onError(
+        ResourceNotFoundException exception) {
+        return ResponseEntity
+            .status(exception.getErrorCode().getStatus())
+            .body(ApiResponse.error(exception.getErrorCode()));
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    private ResponseEntity<ApiResponse<?>> handleMethodNotSupported(
-        HttpRequestMethodNotSupportedException e) {
-        log.error("HttpRequestMethodNotSupportedException", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.METHOD_NOW_ALLOWED),
-            HttpStatus.METHOD_NOT_ALLOWED);
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    private ResponseEntity<ApiResponse<?>> handleArgumentException(
-        IllegalArgumentException e) {
-        log.error("IllegalArgumentException", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_INPUT),
-            HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    private ResponseEntity<ApiResponse<?>> handleIllegalState(IllegalStateException e) {
-        log.error("IllegalStateException", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_INPUT),
-            HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<ErrorBody>> onError(
+        HttpRequestMethodNotSupportedException exception) {
+        return ResponseEntity
+            .status(HttpStatus.METHOD_NOT_ALLOWED)
+            .body(ApiResponse.error(ErrorCode.METHOD_NOT_ALLOWED));
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    private ResponseEntity<ApiResponse<?>> handleMediaTypeNotSupported(
-        HttpMediaTypeNotSupportedException e) {
-        log.error("HttpMediaTypeNotSupportedException", e);
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.UNSUPPORTED_MEDIA_TYPE),
-            HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    public ResponseEntity<ApiResponse<ErrorBody>> onError(
+        HttpMediaTypeNotSupportedException exception) {
+        return ResponseEntity
+            .status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+            .body(ApiResponse.error(ErrorCode.UNSUPPORTED_MEDIA_TYPE));
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    private ResponseEntity<ApiResponse<?>> handleAuthenticationException(
-        AuthenticationException e) {
-        log.error("AuthenticationException", e);
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.UN_AUTHORIZED),
-            HttpStatus.UNAUTHORIZED);
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<ErrorBody>> onError(
+        MethodArgumentNotValidException exception) {
+        log.error("MethodArgumentNotValidException: {}",
+            loggingField(exception.getBindingResult()));
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ApiResponse.error(ErrorCode.INVALID_INPUT));
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    private ResponseEntity<ApiResponse<?>> handleAccessDenied(
-        AccessDeniedException e) {
-        log.error("AccessDeniedException", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.FORBIDDEN),
-            HttpStatus.FORBIDDEN);
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<ApiResponse<ErrorBody>> onError(
+        BindException exception) {
+        log.error("MethodArgumentNotValidException: {}",
+            loggingField(exception.getBindingResult()));
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ApiResponse.error(ErrorCode.INVALID_INPUT));
     }
 
-    @ExceptionHandler(Exception.class)
-    private ResponseEntity<ApiResponse<?>> handleException(Exception e) {
-        log.error("Unknown Exception", e);
+    private String loggingField(BindingResult bindingResult) {
+        return bindingResult.getFieldErrors()
+            .stream()
+            .map(this::format)
+            .collect(Collectors.joining("  "));
+    }
 
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.SYSTEM_ERROR),
-            HttpStatus.INTERNAL_SERVER_ERROR);
+    private String format(FieldError f) {
+        if (f.getField().equals("password")) {
+            return "Field : [" + f.getField() + "] " + "Reason: [" + f.getDefaultMessage() + "]";
+        }
+        return "Field : [" + f.getField() + "] " + "Value: [" + f.getRejectedValue() + "]";
     }
 }

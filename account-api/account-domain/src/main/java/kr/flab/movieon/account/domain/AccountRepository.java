@@ -1,18 +1,14 @@
 package kr.flab.movieon.account.domain;
 
-import java.util.Optional;
-
 public interface AccountRepository {
+
+    boolean existsByEmail(String email);
 
     Account save(Account account);
 
-    Optional<Account> findById(Long accountId);
+    Account findByEmail(String email);
 
-    Optional<Account> findByUserId(String userId);
+    Account findById(Long accountId);
 
-    Optional<Account> findByEmail(String email);
-
-    boolean existsByUserId(String userId);
-
-    boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
 }

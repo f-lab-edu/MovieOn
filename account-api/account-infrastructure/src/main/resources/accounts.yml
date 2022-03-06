@@ -1,0 +1,5 @@
+app.security.jwt:
+  tokenExpirationSec: 1800
+  refreshExpirationSec: 604800 # 7 * 24 * 3600
+  tokenIssuer: movieon
+  base64TokenSigningKey: c2VjcmV0S2V5LXRlc3QtYXV0aG9yaXphdGlvbi1qd3QtbWFuYWdlLXRva2Vu

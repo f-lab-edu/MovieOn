@@ -2,24 +2,19 @@ package kr.flab.movieon.account.domain;
 
 public final class Tokens {
 
-    private final Token accessToken;
-    private final Token refreshToken;
+    private final String accessToken;
+    private final String refreshToken;
 
-    public Tokens(Token accessToken, Token refreshToken) {
+    public Tokens(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
 
-    public Token getAccessToken() {
+    public String getAccessToken() {
         return accessToken;
     }
 
-    public Token getRefreshToken() {
+    public String getRefreshToken() {
         return refreshToken;
-    }
-
-    @Override
-    public String toString() {
-        return "Tokens{" + "accessToken=" + accessToken + ", refreshToken=" + refreshToken + '}';
     }
 }

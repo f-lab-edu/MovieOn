@@ -1,7 +1,6 @@
 package kr.flab.movieon.account.domain;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -16,38 +15,30 @@ public final class FakeAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Optional<Account> findById(Long accountId) {
-        if (!data.containsKey(accountId)) {
-            return Optional.empty();
-        }
-        return Optional.ofNullable(data.get(accountId));
-    }
-
-    @Override
-    public Optional<Account> findByUserId(
-        String userId) {
-        return data.values().stream()
-            .filter(account -> userId.equals(account.getUserId()))
-            .findAny();
-    }
-
-    @Override
-    public Optional<Account> findByEmail(
-        String email) {
-        return data.values().stream()
-            .filter(account -> email.equals(account.getEmail()))
-            .findAny();
-    }
-
-    @Override
-    public boolean existsByUserId(String userId) {
-        return data.values().stream()
-            .anyMatch(account -> account.getUserId().equals(userId));
-    }
-
-    @Override
     public boolean existsByEmail(String email) {
         return data.values().stream()
             .anyMatch(account -> account.getEmail().equals(email));
+    }
+
+    @Override
+    public Account findByEmail(String email) {
+        return data.values().stream()
+            .filter(account -> account.getEmail().equals(email))
+            .findFirst()
+            .get();
+    }
+
+    @Override
+    public Account findById(Long accountId) {
+        return data.values().stream()
+            .filter(account -> account.getId().equals(accountId))
+            .findFirst()
+            .get();
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return data.values().stream()
+            .anyMatch(account -> account.getUsername().equals(username));
     }
 }

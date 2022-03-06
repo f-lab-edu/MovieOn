@@ -1,10 +1,14 @@
 package kr.flab.movieon.account.infrastructure;
 
-import kr.flab.movieon.account.domain.exception.AccountNotFoundException;
-import kr.flab.movieon.account.domain.exception.AccountNotVerifiedException;
-import kr.flab.movieon.account.domain.exception.InvalidEmailTokenException;
-import kr.flab.movieon.account.domain.exception.RegisterAccountConflictException;
+import kr.flab.movieon.account.domain.DuplicatedEmailException;
+import kr.flab.movieon.account.domain.InvalidAccountException;
+import kr.flab.movieon.account.domain.PasswordNotMatchedException;
+import kr.flab.movieon.account.infrastructure.jwt.RefreshTokenNotFoundException;
+import kr.flab.movieon.account.infrastructure.jwt.TokenExpiredException;
 import kr.flab.movieon.common.error.ErrorCode;
+import kr.flab.movieon.common.error.InvalidArgumentException;
+import kr.flab.movieon.common.error.InvalidTokenException;
+import kr.flab.movieon.common.error.SystemException;
 import kr.flab.movieon.common.result.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,39 +22,28 @@ public final class AccountExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(AccountExceptionHandler.class);
 
-    @ExceptionHandler(AccountNotFoundException.class)
-    private ResponseEntity<ApiResponse<?>> handleAccountNotFound(
-        AccountNotFoundException e) {
-        log.error("AccountNotFoundException: ", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_INPUT),
-            HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(value = {
+        TokenExpiredException.class,
+        RefreshTokenNotFoundException.class,
+        InvalidTokenException.class,
+        DuplicatedEmailException.class,
+        PasswordNotMatchedException.class,
+        InvalidArgumentException.class,
+        InvalidAccountException.class
+    })
+    public ResponseEntity<ApiResponse<?>> onError(SystemException e) {
+        log.error("SystemError: ", e);
+        if (e.getMessage() != null) {
+            return ResponseEntity
+                .status(toStatus(e.getErrorCode()))
+                .body(ApiResponse.error(e.getErrorCode(), e));
+        }
+        return ResponseEntity
+            .status(toStatus(e.getErrorCode()))
+            .body(ApiResponse.error(e.getErrorCode()));
     }
 
-    @ExceptionHandler(RegisterAccountConflictException.class)
-    private ResponseEntity<ApiResponse<?>> handleRegisterAccountConflict(
-        RegisterAccountConflictException e) {
-        log.error("RegisterAccountConflictException: ", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.CONFLICT_WITH_EXISTING_VALUES),
-            HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(AccountNotVerifiedException.class)
-    private ResponseEntity<ApiResponse<?>> handleAccountNotVerified(
-        AccountNotVerifiedException e) {
-        log.error("AccountNotVerifiedException: ", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.UN_AUTHORIZED),
-            HttpStatus.UNAUTHORIZED);
-    }
-
-    @ExceptionHandler(InvalidEmailTokenException.class)
-    private ResponseEntity<ApiResponse<?>> handleInvalidEmailToken(
-        InvalidEmailTokenException e) {
-        log.error("InvalidEmailTokenException: ", e);
-
-        return new ResponseEntity<>(ApiResponse.error(ErrorCode.INVALID_TOKEN),
-            HttpStatus.BAD_REQUEST);
+    private HttpStatus toStatus(ErrorCode errorCode) {
+        return HttpStatus.valueOf(errorCode.getStatus());
     }
 }
