@@ -5,21 +5,16 @@ group "kr.flab.movieon"
 version "0.0.1"
 
 dependencies {
-    api project(":common")
     api project(":account-api:account-domain")
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-    implementation "org.springframework.boot:spring-boot-starter-security"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "io.jsonwebtoken:jjwt-api:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-impl:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-jackson:${JJWT_VERSION}"
-    testImplementation "org.springframework.security:spring-security-test"
-    testImplementation "com.h2database:h2"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-security"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "io.github.javaunit:autoparams:0.3.1"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    implementation "org.springframework.boot:spring-boot-configuration-processor"
-    implementation "org.apache.commons:commons-lang3:3.12.0"
 }
 
 bootJar {

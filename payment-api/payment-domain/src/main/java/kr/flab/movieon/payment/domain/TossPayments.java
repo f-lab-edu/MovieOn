@@ -35,6 +35,7 @@ public class TossPayments extends AbstractAggregateRoot {
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
+    // TODO this 참조 유출 가능성이 있으므로, 정적 팩토리 메서드 사용.
     public TossPayments(TossPaymentsInfo info,
         TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
         PayMethod payMethod) {

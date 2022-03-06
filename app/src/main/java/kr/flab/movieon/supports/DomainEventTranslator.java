@@ -1,8 +1,6 @@
 package kr.flab.movieon.supports;
 
-import kr.flab.movieon.account.domain.event.RegisteredAccountConfirmEvent;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,15 +13,5 @@ class DomainEventTranslator {
 
     DomainEventTranslator(ApplicationEventPublisher publisher) {
         this.publisher = publisher;
-    }
-
-    @EventListener
-    public void translate(RegisteredAccountConfirmEvent event) {
-        publisher.publishEvent(
-            new kr.flab.movieon.notification.domain.RegisteredAccountConfirmEvent(
-                event.getAccountId(), event.getEmail(),
-                event.getEmailValidationToken(), event.occurredOn()
-            )
-        );
     }
 }

@@ -32,6 +32,7 @@ dependencies {
 
     integrationTestImplementation "com.h2database:h2"
     integrationTestImplementation "org.springframework.security:spring-security-test"
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-web"
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 

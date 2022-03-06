@@ -14,8 +14,7 @@ public final class AccountRepositoryAdapterInNotificationModule implements Accou
 
     @Override
     public Account findById(Long accountId) {
-        var account = accountRepository.findById(accountId)
-            .orElseThrow(IllegalArgumentException::new);
-        return new Account(account.getEmail(), account.getUserId());
+        var account = accountRepository.findById(accountId);
+        return new Account(account.getEmail(), account.getUsername());
     }
 }

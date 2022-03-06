@@ -1,6 +1,6 @@
 package kr.flab.movieon.account.domain;
 
-import kr.flab.movieon.account.domain.exception.RegisterAccountConflictException;
+import kr.flab.movieon.common.error.InvalidTokenException;
 
 public final class RegisterAccountProcessor {
 
@@ -13,17 +13,25 @@ public final class RegisterAccountProcessor {
         this.encrypter = encrypter;
     }
 
-    public void register(String userId, String email, String password) {
-        if (accountRepository.existsByUserId(userId)) {
-            throw new RegisterAccountConflictException("Error: User id is already in use");
-        }
-
+    public Account register(String email, String password, String username) {
         if (accountRepository.existsByEmail(email)) {
-            throw new RegisterAccountConflictException("Error: Email is already in use");
+            throw new DuplicatedEmailException();
+        }
+        if (accountRepository.existsByUsername(username)) {
+            throw new DuplicatedUsernameException();
         }
 
-        var account = Account.create(userId, email, encrypter.encode(password));
-
+        var account = Account.register(email, encrypter.encode(password), username);
         accountRepository.save(account);
+
+        return account;
+    }
+
+    public void registerConfirm(String token, String email) {
+        var account = accountRepository.findByEmail(email);
+        if (!account.isValidToken(token)) {
+            throw new InvalidTokenException();
+        }
+        account.completeRegister();
     }
 }

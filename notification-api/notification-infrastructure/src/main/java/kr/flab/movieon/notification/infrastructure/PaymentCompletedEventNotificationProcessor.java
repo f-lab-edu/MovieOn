@@ -59,7 +59,7 @@ public final class PaymentCompletedEventNotificationProcessor
             .findByTemplateType(new NotificationTemplateType(EMAIL, "결제 완료 메일"));
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("username", account.getUserId());
+        variables.put("username", account.getUsername());
         variables.put("message", "고객님께서 " + event.occurredOn() + " MovieOn에서 결제한 내역을 안내해 드립니다.");
         variables.put("productName", event.getProductName());
         variables.put("price", event.getPrice());
