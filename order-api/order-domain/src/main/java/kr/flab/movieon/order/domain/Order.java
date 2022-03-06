@@ -21,7 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "ORDERS")
 public class Order extends AbstractAggregateRoot {
 
     private static final String PREFIX = "ord_";

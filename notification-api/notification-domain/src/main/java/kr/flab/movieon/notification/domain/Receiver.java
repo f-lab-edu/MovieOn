@@ -1,11 +1,13 @@
 package kr.flab.movieon.notification.domain;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Receiver {
 
+    @Column(nullable = false)
     private Long accountId;
 
     protected Receiver() {

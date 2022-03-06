@@ -9,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Inheritance
 @DiscriminatorColumn(name = "notification_type")
+@Table(name = "NOTIFICATIONS")
 public abstract class Notification {
 
     @Id

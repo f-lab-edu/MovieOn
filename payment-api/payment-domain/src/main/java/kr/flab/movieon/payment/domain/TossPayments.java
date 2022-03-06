@@ -35,8 +35,7 @@ public class TossPayments extends AbstractAggregateRoot {
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
-    // TODO this 참조 유출 가능성이 있으므로, 정적 팩토리 메서드 사용.
-    public TossPayments(TossPaymentsInfo info,
+    private TossPayments(TossPaymentsInfo info,
         TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
         PayMethod payMethod) {
         this.info = info;
@@ -44,6 +43,12 @@ public class TossPayments extends AbstractAggregateRoot {
         this.card = card;
         this.payMethod = payMethod;
         registerEvent(new TossPaymentsPaymentApprovalCompleted(this));
+    }
+
+    public static TossPayments create(TossPaymentsInfo info,
+        TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
+        PayMethod payMethod) {
+        return new TossPayments(info, cancels, card, payMethod);
     }
 
     public Long getId() {
