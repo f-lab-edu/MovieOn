@@ -15,7 +15,7 @@ public final class TossPaymentsFactory {
     }
 
     public static TossPayments create(TossPaymentsPaymentCompletedResponse body) {
-        return new TossPayments(createInfo(body), null,
+        return TossPayments.create(createInfo(body), null,
             createCardInfo(body.getCard()), PayMethod.valueOf(body.getMethod()));
     }
 

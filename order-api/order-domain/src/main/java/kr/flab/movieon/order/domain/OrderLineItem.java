@@ -3,21 +3,27 @@ package kr.flab.movieon.order.domain;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "ORDER_LINE_ITEMS")
 public class OrderLineItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private Long itemId;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private BigDecimal basePrice;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<OrderItemOption> options;
