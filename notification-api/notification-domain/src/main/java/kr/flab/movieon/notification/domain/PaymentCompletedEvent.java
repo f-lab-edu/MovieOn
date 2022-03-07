@@ -6,14 +6,14 @@ import kr.flab.movieon.common.domain.model.DomainEvent;
 
 public final class PaymentCompletedEvent implements DomainEvent {
 
-    private final Long accountId;
+    private final String accountId;
     private final String productName;
     private final BigDecimal price;
     private final BigDecimal discount;
     private final Date occurredOn;
 
-    public PaymentCompletedEvent(Long accountId, String productName,
-        BigDecimal price, BigDecimal discount, Date occurredOn) {
+    public PaymentCompletedEvent(String accountId, String productName, BigDecimal price,
+        BigDecimal discount, Date occurredOn) {
         this.accountId = accountId;
         this.productName = productName;
         this.price = price;
@@ -26,7 +26,7 @@ public final class PaymentCompletedEvent implements DomainEvent {
         return this.occurredOn;
     }
 
-    public Long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
@@ -40,5 +40,12 @@ public final class PaymentCompletedEvent implements DomainEvent {
 
     public BigDecimal getDiscount() {
         return discount;
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentCompletedEvent{" + "accountId='" + accountId + '\'' + ", productName='"
+            + productName + '\'' + ", price=" + price + ", discount=" + discount + ", occurredOn="
+            + occurredOn + '}';
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
  * Receives all domain events and Convert to other module's domain events.
  */
 @Component
-class DomainEventTranslator {
+final class DomainEventTranslator {
 
     private final ApplicationEventPublisher publisher;
 

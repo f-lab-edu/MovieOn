@@ -8,17 +8,17 @@ import javax.persistence.Embeddable;
 public class Receiver {
 
     @Column(nullable = false)
-    private Long accountId;
+    private String accountId;
 
     protected Receiver() {
 
     }
 
-    public Receiver(Long accountId) {
+    public Receiver(String accountId) {
         this.accountId = accountId;
     }
 
-    public Long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 

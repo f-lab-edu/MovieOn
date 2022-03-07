@@ -24,7 +24,7 @@ public abstract class Notification {
 
     private Receiver receiver;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
     @CreationTimestamp
@@ -70,5 +70,11 @@ public abstract class Notification {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" + "id=" + id + ", receiver=" + receiver + ", message='" + message
+            + '\'' + ", createdAt=" + createdAt + '}';
     }
 }

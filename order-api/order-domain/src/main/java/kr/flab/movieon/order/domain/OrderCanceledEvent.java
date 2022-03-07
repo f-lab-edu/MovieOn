@@ -7,7 +7,7 @@ import kr.flab.movieon.common.domain.model.DomainEvent;
 public final class OrderCanceledEvent implements DomainEvent {
 
     private final String orderId;
-    private final Long accountId;
+    private final String accountId;
     private final Date occurredOn;
     private final BigDecimal useOfPoint;
 
@@ -27,7 +27,7 @@ public final class OrderCanceledEvent implements DomainEvent {
         return orderId;
     }
 
-    public Long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 

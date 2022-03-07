@@ -7,6 +7,7 @@ create table account_roles
 create table accounts
 (
     id                             bigint       not null auto_increment comment '계정 ID',
+    account_id                     varchar(255) not null comment '계정 대체키',
     email                          varchar(255) not null comment '이메일',
     email_check_token              varchar(255) comment '이메일 검증 토큰',
     email_check_token_generated_at datetime(6) comment '이메일 검증 토큰 생성일',
@@ -214,22 +215,25 @@ create table toss_payments
 );
 
 alter table accounts
-    add constraint UK_n7ihswpy07ci568w34q0oi8he unique (email);
+    add constraint UK_IDX_ACCOUNT_EMAIL unique (email);
+
+alter table accounts
+    add constraint UK_IDX_ACCOUNT_ALTERNATIVE_KEY unique (account_id);
 
 alter table notification_settings_groups
-    add constraint UK_mx5j9f2w28xnalnmuaffpfu5s unique (groups_id);
+    add constraint UK_IDX_NOTIFICATION_SETTING_GROUP_ID unique (groups_id);
 
 alter table notification_templates
-    add constraint UK_l0y8ajrytw3f9bj1kxa6r6w9e unique (name);
+    add constraint UK_IDX_NOTIFICATION_TEMPLATE_NAME unique (name);
 
 alter table orders
-    add constraint UK_hmsk25beh6atojvle1xuymjj0 unique (order_id);
+    add constraint UK_IDX_ORDER_ALTERNATIVE_KEY unique (order_id);
 
 alter table orders_line_items
-    add constraint UK_frp259x5fvoyc35w6dd1rnj84 unique (line_items_id);
+    add constraint UK_IDX_ORDER_LINE_ITEM_ID unique (line_items_id);
 
 alter table refresh_token_infos
-    add constraint UK_p8p55sga11xx7671sdpdlvgv5 unique (refresh_token_jti);
+    add constraint UK_IDX_REFRESH_INFO_JTI unique (refresh_token_jti);
 
 alter table account_roles
     add constraint FK61h48dsir3h82pxbq3cwgp0ce

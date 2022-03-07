@@ -17,7 +17,7 @@ public final class OrderCommandHandler {
         this.orderValidator = orderValidator;
     }
 
-    public Order create(Long accountId, CreateOrder command) {
+    public Order create(String accountId, CreateOrder command) {
         var order = Order.create(new Customer(accountId), command.getPayMethod(),
             command.getUseOfPoint(), mapFrom(command.getLineItems()));
         orderValidator.validate(order);

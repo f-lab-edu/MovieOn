@@ -9,20 +9,22 @@ import kr.flab.movieon.order.domain.Order.OrderStatus;
 import kr.flab.movieon.order.domain.commands.CreateOrder;
 import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderItemOption;
 import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderLineItem;
+import org.javaunit.autoparams.AutoSource;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 final class OrderCommandHandlerTest {
 
-    @Test
+    @ParameterizedTest
+    @AutoSource
     @DisplayName("주문 생성 명령을 처리하고 이벤트가 발행된다.")
-    void sut_create_order_command_handle() {
+    void sut_create_order_command_handle(String accountId) {
         // Arrange
         var sut = new OrderCommandHandler(new FakeOrderRepository(),
             new OrderValidator(new ItemRepositoryStub(), new DummyPointManager()));
 
         // Act
-        var order = sut.create(1L, createOrderCommand());
+        var order = sut.create(accountId, createOrderCommand());
 
         // Assert
         assertThat(order.getTotalAmount()).isEqualTo(BigDecimal.valueOf(16000));

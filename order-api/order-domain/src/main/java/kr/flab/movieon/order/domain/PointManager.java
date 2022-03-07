@@ -4,5 +4,5 @@ import java.math.BigDecimal;
 
 public interface PointManager {
 
-    void canUseOfPoint(Long customerId, BigDecimal useOfPoint);
+    void canUseOfPoint(String customerId, BigDecimal useOfPoint);
 }

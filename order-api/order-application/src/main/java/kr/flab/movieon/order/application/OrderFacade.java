@@ -21,7 +21,7 @@ public final class OrderFacade {
         this.publisher = publisher;
     }
 
-    public String create(Long accountId, CreateOrderRequest request) {
+    public String create(String accountId, CreateOrderRequest request) {
         var order = transactionTemplate.execute(status ->
             orderCommandHandler.create(accountId, request.toCommand()));
         order.pollAllEvents().forEach(publisher::publishEvent);

@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.Role;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,6 +27,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "ACCOUNTS")
 public class Account extends AbstractAggregateRoot {
 
+    private static final String PREFIX = "act_";
+
     protected Account() {
 
     }
@@ -33,6 +36,8 @@ public class Account extends AbstractAggregateRoot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
+    private String accountId;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
@@ -52,11 +57,11 @@ public class Account extends AbstractAggregateRoot {
     private Set<Role> roles = new HashSet<>();
 
     private Account(String email, String password, String username) {
+        this.accountId = IdGenerator.generate(PREFIX);
         this.email = email;
         this.password = password;
         this.username = username;
         this.roles = Set.of(Role.USER);
-        registerEvent(new RegisteredAccountEvent(this));
     }
 
     public static Account register(String email, String password, String username) {
@@ -68,11 +73,13 @@ public class Account extends AbstractAggregateRoot {
     private void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
+        registerEvent(new RegisteredAccountEvent(this));
     }
 
     public void completeRegister() {
         this.emailVerified = true;
         this.joinedAt = LocalDateTime.now();
+        registerEvent(new RegisterCompletedEvent(this));
     }
 
     public boolean isValidToken(String token) {
@@ -115,6 +122,10 @@ public class Account extends AbstractAggregateRoot {
 
     public String getEmailCheckToken() {
         return emailCheckToken;
+    }
+
+    public String getAccountId() {
+        return accountId;
     }
 
     @Override

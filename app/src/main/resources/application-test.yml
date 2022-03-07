@@ -14,6 +14,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
     open-in-view: false
   config:
     import: classpath:notifications.yml, classpath:payments.yml, classpath:accounts.yml
@@ -23,4 +24,6 @@ spring:
 
 logging:
   level:
+    kr.flab.movieon: debug
     org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

@@ -8,17 +8,17 @@ import javax.persistence.Embeddable;
 public class Customer {
 
     @Column(nullable = false)
-    private Long accountId;
+    private String accountId;
 
     protected Customer() {
 
     }
 
-    public Customer(Long accountId) {
+    public Customer(String accountId) {
         this.accountId = accountId;
     }
 
-    public Long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 

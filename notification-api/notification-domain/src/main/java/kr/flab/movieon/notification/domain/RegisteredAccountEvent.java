@@ -5,13 +5,13 @@ import kr.flab.movieon.common.domain.model.DomainEvent;
 
 public final class RegisteredAccountEvent implements DomainEvent {
 
-    private final Long accountId;
+    private final String accountId;
     private final String username;
     private final String email;
     private final String emailCheckToken;
     private final Date occurredOn;
 
-    public RegisteredAccountEvent(Long accountId, String username, String email,
+    public RegisteredAccountEvent(String accountId, String username, String email,
         String emailCheckToken, Date occurredOn) {
         this.accountId = accountId;
         this.username = username;
@@ -25,7 +25,7 @@ public final class RegisteredAccountEvent implements DomainEvent {
         return this.occurredOn;
     }
 
-    public Long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
@@ -39,5 +39,12 @@ public final class RegisteredAccountEvent implements DomainEvent {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisteredAccountEvent{" + "accountId='" + accountId + '\'' + ", username='"
+            + username + '\'' + ", email='" + email + '\'' + ", emailCheckToken='" + emailCheckToken
+            + '\'' + ", occurredOn=" + occurredOn + '}';
     }
 }

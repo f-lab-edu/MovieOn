@@ -1,4 +1,4 @@
-package modules;
+package kr.flab.movieon.notification.infrastructure;
 
 import kr.flab.movieon.notification.domain.EmailNotification;
 import kr.flab.movieon.notification.domain.NotificationSender;

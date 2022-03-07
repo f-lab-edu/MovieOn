@@ -34,7 +34,7 @@ class ExternalEventNotificationProcessorTest {
 
         @Override
         public Notification process(SampleDomainEvent event) {
-            return new EmailNotification(new Receiver(1L),
+            return new EmailNotification(new Receiver("accountId"),
                 "Test", "test@gmail.com", "test mail");
         }
     }

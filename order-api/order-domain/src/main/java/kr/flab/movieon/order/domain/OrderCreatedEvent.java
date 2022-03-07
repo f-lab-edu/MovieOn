@@ -7,7 +7,7 @@ import kr.flab.movieon.common.domain.model.DomainEvent;
 public final class OrderCreatedEvent implements DomainEvent {
 
     private final String orderId;
-    private final Long customerId;
+    private final String customerId;
     private final BigDecimal useOfPoint;
     private final Date occurredOn;
 
@@ -27,7 +27,7 @@ public final class OrderCreatedEvent implements DomainEvent {
         return orderId;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 

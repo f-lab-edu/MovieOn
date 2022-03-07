@@ -5,15 +5,15 @@ import java.util.Set;
 
 public final class AuthenticatedUser {
 
-    private final Long id;
+    private final String id;
     private final Set<Role> roles;
 
-    public AuthenticatedUser(Long id, Set<Role> roles) {
+    public AuthenticatedUser(String id, Set<Role> roles) {
         this.id = id;
         this.roles = roles;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
