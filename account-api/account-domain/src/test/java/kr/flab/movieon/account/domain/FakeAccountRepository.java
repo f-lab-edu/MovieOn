@@ -29,9 +29,9 @@ public final class FakeAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Account findById(Long accountId) {
+    public Account findById(String accountId) {
         return data.values().stream()
-            .filter(account -> account.getId().equals(accountId))
+            .filter(account -> account.getAccountId().equals(accountId))
             .findFirst()
             .get();
     }

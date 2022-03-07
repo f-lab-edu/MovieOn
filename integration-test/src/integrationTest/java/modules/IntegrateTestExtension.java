@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
-    classes = MovieOnApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = MovieOnApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public abstract class IntegrateTestExtension {

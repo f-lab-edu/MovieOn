@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 final class DummyPointManager implements PointManager {
 
     @Override
-    public void canUseOfPoint(Long customerId, BigDecimal useOfPoint) {
+    public void canUseOfPoint(String customerId, BigDecimal useOfPoint) {
 
     }
 }

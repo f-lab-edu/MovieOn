@@ -8,7 +8,7 @@ public interface AccountRepository {
 
     Account findByEmail(String email);
 
-    Account findById(Long accountId);
+    Account findById(String accountId);
 
     boolean existsByUsername(String username);
 }

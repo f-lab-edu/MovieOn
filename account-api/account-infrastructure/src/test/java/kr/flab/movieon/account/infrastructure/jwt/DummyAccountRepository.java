@@ -21,7 +21,7 @@ public final class DummyAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Account findById(Long accountId) {
+    public Account findById(String accountId) {
         return null;
     }
 

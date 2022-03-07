@@ -5,11 +5,11 @@ import kr.flab.movieon.common.domain.model.DomainEvent;
 
 public final class RegisterCompletedEvent implements DomainEvent {
 
-    private final Long id;
+    private final String accountId;
     private final Date occurredOn;
 
-    public RegisterCompletedEvent(Long id, Date occurredOn) {
-        this.id = id;
+    public RegisterCompletedEvent(String accountId, Date occurredOn) {
+        this.accountId = accountId;
         this.occurredOn = occurredOn;
     }
 
@@ -18,7 +18,13 @@ public final class RegisterCompletedEvent implements DomainEvent {
         return this.occurredOn;
     }
 
-    public Long getId() {
-        return id;
+    public String getAccountId() {
+        return accountId;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterCompletedEvent{" + "accountId='" + accountId + '\'' + ", occurredOn="
+            + occurredOn + '}';
     }
 }

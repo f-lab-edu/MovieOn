@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ final class OrderValidatorTest {
     }
 
     private Order isChangedItemOption() {
-        return Order.create(new Customer(1L), "CARD", BigDecimal.ZERO,
+        return Order.create(new Customer(UUID.randomUUID().toString()), "CARD", BigDecimal.ZERO,
             List.of(
                 new OrderLineItem(1L, "보이스", BigDecimal.valueOf(10000),
                     List.of(new OrderItemOption("480P", BigDecimal.valueOf(1200)))
@@ -63,7 +64,7 @@ final class OrderValidatorTest {
     }
 
     private Order isChangedItem() {
-        return Order.create(new Customer(1L), "CARD", BigDecimal.ZERO,
+        return Order.create(new Customer(UUID.randomUUID().toString()), "CARD", BigDecimal.ZERO,
             List.of(
                 new OrderLineItem(1L, "보이스", BigDecimal.valueOf(9000),
                     List.of(new OrderItemOption("480P", BigDecimal.valueOf(1200)))
@@ -79,7 +80,7 @@ final class OrderValidatorTest {
     }
 
     private Order isEmptyProduct() {
-        return Order.create(new Customer(1L), "CARD", BigDecimal.ZERO,
+        return Order.create(new Customer(UUID.randomUUID().toString()), "CARD", BigDecimal.ZERO,
             Collections.emptyList());
     }
 

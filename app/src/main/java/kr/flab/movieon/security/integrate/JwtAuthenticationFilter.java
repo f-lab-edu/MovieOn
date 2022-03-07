@@ -41,7 +41,7 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 var context = new UsernamePasswordAuthenticationToken(
-                    new AuthenticatedUser(account.getId(), account.getRoles()), null,
+                    new AuthenticatedUser(account.getAccountId(), account.getRoles()), null,
                     Collections.emptyList());
                 context.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(context);

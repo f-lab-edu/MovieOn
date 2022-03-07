@@ -17,6 +17,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 @Configuration
 @EnableCaching
@@ -27,6 +31,16 @@ public class NotificationModuleConfiguration {
     public NotificationSender<EmailNotification> emailNotificationSender(
         JavaMailSender javaMailSender) {
         return new EmailNotificationSender(javaMailSender);
+    }
+
+    @Bean
+    public TemplateEngine templateEngine() {
+        var templateEngine = new SpringTemplateEngine();
+        var templateResolver = new StringTemplateResolver();
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCacheable(true);
+        templateEngine.setTemplateResolver(templateResolver);
+        return templateEngine;
     }
 
     @Bean

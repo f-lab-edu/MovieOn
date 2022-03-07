@@ -13,7 +13,7 @@ public final class AccountRepositoryAdapterInNotificationModule implements Accou
     }
 
     @Override
-    public Account findById(Long accountId) {
+    public Account findById(String accountId) {
         var account = accountRepository.findById(accountId);
         return new Account(account.getEmail(), account.getUsername());
     }

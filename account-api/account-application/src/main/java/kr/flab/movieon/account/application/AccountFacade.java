@@ -53,7 +53,9 @@ public final class AccountFacade {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-                registerProcessor.registerConfirm(command.getToken(), command.getEmail());
+                var account = registerProcessor.registerConfirm(command.getToken(),
+                    command.getEmail());
+                account.pollAllEvents().forEach(publisher::publishEvent);
             }
         });
     }
@@ -71,7 +73,7 @@ public final class AccountFacade {
         return new TokenResponse(tokens.getAccessToken(), tokens.getRefreshToken());
     }
 
-    public AccountResponse find(Long id) {
+    public AccountResponse find(String id) {
         return null;
     }
 }

@@ -32,8 +32,8 @@ public final class AccountRepositoryAdapter implements AccountRepository {
     }
 
     @Override
-    public Account findById(Long accountId) {
-        return jpaAccountRepository.findById(accountId)
+    public Account findById(String accountId) {
+        return jpaAccountRepository.findByAccountId(accountId)
             .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.ACCOUNT_NOT_FOUND));
     }
 

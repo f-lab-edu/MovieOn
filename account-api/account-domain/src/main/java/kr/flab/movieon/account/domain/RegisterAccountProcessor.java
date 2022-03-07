@@ -27,11 +27,12 @@ public final class RegisterAccountProcessor {
         return account;
     }
 
-    public void registerConfirm(String token, String email) {
+    public Account registerConfirm(String token, String email) {
         var account = accountRepository.findByEmail(email);
         if (!account.isValidToken(token)) {
             throw new InvalidTokenException();
         }
         account.completeRegister();
+        return account;
     }
 }

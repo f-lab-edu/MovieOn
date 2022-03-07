@@ -16,14 +16,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class RegisteredCompletedEventNotificationProcessor
+public final class RegisteredAccountEventNotificationProcessor
     implements ExternalEventNotificationProcessor<RegisteredAccountEvent> {
 
     private final NotificationTemplateRepository templateRepository;
     private final NotificationTemplateProcessor notificationTemplateProcessor;
     private final String host;
 
-    public RegisteredCompletedEventNotificationProcessor(
+    public RegisteredAccountEventNotificationProcessor(
         NotificationTemplateRepository templateRepository,
         NotificationTemplateProcessor notificationTemplateProcessor,
         @Value("${app.mail.host}") String host) {

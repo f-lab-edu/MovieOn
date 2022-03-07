@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public final class DefaultPointManager implements PointManager {
 
     @Override
-    public void canUseOfPoint(Long customerId, BigDecimal useOfPoint) {
+    public void canUseOfPoint(String customerId, BigDecimal useOfPoint) {
 
     }
 }

@@ -104,7 +104,7 @@ public class NotificationSetting {
         group.enableOption(notificationType);
     }
 
-    public static NotificationSetting defaultSetting(Long accountId) {
+    public static NotificationSetting defaultSetting(String accountId) {
         return new NotificationSetting(new Receiver(accountId), Set.of(
             new NotificationGroup(PURCHASE_INFO, Set.of(
                 new NotificationOption(EMAIL),
