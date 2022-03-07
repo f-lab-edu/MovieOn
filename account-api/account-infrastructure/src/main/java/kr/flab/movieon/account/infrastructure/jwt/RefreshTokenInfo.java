@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "REFRESH_TOKEN_FINOS")
+@Table(name = "REFRESH_TOKEN_INFOS")
 public class RefreshTokenInfo {
 
     protected RefreshTokenInfo() {
