@@ -3,16 +3,18 @@ package kr.flab.movieon.notification.domain;
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
 
-public final class RegisteredAccountConfirmEvent implements DomainEvent {
+public final class RegisteredAccountEvent implements DomainEvent {
 
     private final Long accountId;
+    private final String username;
     private final String email;
     private final String emailCheckToken;
     private final Date occurredOn;
 
-    public RegisteredAccountConfirmEvent(Long accountId, String email,
+    public RegisteredAccountEvent(Long accountId, String username, String email,
         String emailCheckToken, Date occurredOn) {
         this.accountId = accountId;
+        this.username = username;
         this.email = email;
         this.emailCheckToken = emailCheckToken;
         this.occurredOn = occurredOn;
@@ -33,5 +35,9 @@ public final class RegisteredAccountConfirmEvent implements DomainEvent {
 
     public String getEmailCheckToken() {
         return emailCheckToken;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

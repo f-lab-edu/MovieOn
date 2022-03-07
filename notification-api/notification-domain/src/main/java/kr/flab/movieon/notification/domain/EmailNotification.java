@@ -20,4 +20,12 @@ public class EmailNotification extends Notification {
         this.email = email;
         this.title = title;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

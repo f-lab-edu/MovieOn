@@ -113,6 +113,10 @@ public class Account extends AbstractAggregateRoot {
         return password;
     }
 
+    public String getEmailCheckToken() {
+        return emailCheckToken;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -32,7 +32,7 @@ public final class AuthenticationApi {
         accountFacade.register(command);
     }
 
-    @GetMapping(value = "/api/v1/auth/authorize")
+    @GetMapping(value = "/api/v1/auth/confirm")
     public ResponseEntity<Void> registerConfirm(
         @ModelAttribute @Valid ConfirmRegisterAccountCommand command) throws Exception {
         accountFacade.registerConfirm(command);

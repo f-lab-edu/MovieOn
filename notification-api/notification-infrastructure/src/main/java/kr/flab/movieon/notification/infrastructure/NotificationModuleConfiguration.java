@@ -5,20 +5,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import kr.flab.movieon.notification.domain.EmailNotification;
 import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessDelegator;
 import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessor;
 import kr.flab.movieon.notification.domain.NotificationSender;
-import kr.flab.movieon.notification.domain.NotificationSenderDelegator;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 @EnableCaching
 public class NotificationModuleConfiguration {
+
+    @Bean
+    @Profile(value = {"local", "prod"})
+    public NotificationSender<EmailNotification> emailNotificationSender(
+        JavaMailSender javaMailSender) {
+        return new EmailNotificationSender(javaMailSender);
+    }
 
     @Bean
     public ExternalEventNotificationProcessDelegator externalEventNotificationProcessorDelegator(
@@ -37,13 +46,13 @@ public class NotificationModuleConfiguration {
         var cacheManager = new SimpleCacheManager();
         var caches = Arrays.stream(CachePolicy.values())
             .map(cache -> new CaffeineCache(cache.getCacheName(),
-                    Caffeine.newBuilder()
-                        .recordStats()
-                        .expireAfterWrite(cache.getMaxTimeToLive(), TimeUnit.MINUTES)
-                        .maximumSize(cache.getMaxSize())
-                        .build()
-                ))
-                .collect(Collectors.toList());
+                Caffeine.newBuilder()
+                    .recordStats()
+                    .expireAfterWrite(cache.getMaxTimeToLive(), TimeUnit.MINUTES)
+                    .maximumSize(cache.getMaxSize())
+                    .build()
+            ))
+            .collect(Collectors.toList());
         cacheManager.setCaches(caches);
         return cacheManager;
     }
