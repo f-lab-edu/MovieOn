@@ -1,29 +1,11 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
-  h2:
-    console:
-      enabled: true
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-    open-in-view: false
-  config:
-    import: classpath:notifications.yml, classpath:payments.yml, classpath:accounts.yml
-
-
-logging:
-  level:
-    org.hibernate.SQL: debug
+  application:
+    name: movieon
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
 
 server:
   error:
     whitelabel:
       enabled: false
+  shutdown: graceful

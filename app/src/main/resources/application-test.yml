@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  config:
+    import: classpath:notifications.yml, classpath:payments.yml, classpath:accounts.yml
+  flyway:
+    enabled: false
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug

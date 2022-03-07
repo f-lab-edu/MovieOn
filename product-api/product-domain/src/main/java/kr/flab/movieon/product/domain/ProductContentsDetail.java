@@ -13,7 +13,7 @@ import javax.persistence.Embeddable;
 public class ProductContentsDetail {
 
     private Rate rate;
-    private LocalDate release; // TODO 리팩토링 값 객체(개봉년도, 입고날짜)
+    private LocalDate releasedAt; // TODO 리팩토링 값 객체(개봉년도, 입고날짜)
     private Duration runningTime;
     private String director;
     private String actors;
@@ -27,11 +27,11 @@ public class ProductContentsDetail {
 
     }
 
-    public ProductContentsDetail(Rate rate, LocalDate release, Duration runningTime,
+    public ProductContentsDetail(Rate rate, LocalDate releasedAt, Duration runningTime,
         String director, String actors, String availableDevices, String providedQuality,
         boolean drm, List<String> images) {
         this.rate = rate;
-        this.release = release;
+        this.releasedAt = releasedAt;
         this.runningTime = runningTime;
         this.director = director;
         this.actors = actors;
@@ -75,8 +75,8 @@ public class ProductContentsDetail {
         return rate;
     }
 
-    public LocalDate getRelease() {
-        return release;
+    public LocalDate getReleasedAt() {
+        return releasedAt;
     }
 
     public Duration getRunningTime() {
@@ -116,7 +116,7 @@ public class ProductContentsDetail {
             return false;
         }
         ProductContentsDetail that = (ProductContentsDetail) o;
-        return drm == that.drm && rate == that.rate && Objects.equals(release, that.release)
+        return drm == that.drm && rate == that.rate && Objects.equals(releasedAt, that.releasedAt)
             && Objects.equals(runningTime, that.runningTime) && Objects.equals(
             director, that.director) && Objects.equals(actors, that.actors)
             && Objects.equals(availableDevices, that.availableDevices)
@@ -126,7 +126,7 @@ public class ProductContentsDetail {
 
     @Override
     public int hashCode() {
-        return Objects.hash(rate, release, runningTime, director, actors, availableDevices,
+        return Objects.hash(rate, releasedAt, runningTime, director, actors, availableDevices,
             providedQuality, drm, images);
     }
 }

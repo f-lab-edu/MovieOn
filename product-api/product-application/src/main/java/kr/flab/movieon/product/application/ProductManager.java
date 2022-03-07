@@ -58,7 +58,7 @@ public class ProductManager {
             .thumbnails(command.getThumbnails())
             .contentsDetail(ProductContentsDetailBuilder.builder()
                 .rate(Rate.findByRate(command.getRateDescription()))
-                .release(LocalDate.of(command.getYear(), command.getMonth(), command.getDays()))
+                .releasedAt(LocalDate.of(command.getYear(), command.getMonth(), command.getDays()))
                 .director(command.getDirectors())
                 .actors(command.getActors())
                 .runningTime(Duration.ofMinutes(command.getRunningTime()))

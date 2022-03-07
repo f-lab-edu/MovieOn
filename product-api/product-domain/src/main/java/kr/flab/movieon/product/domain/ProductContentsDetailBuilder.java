@@ -9,7 +9,7 @@ import kr.flab.movieon.product.domain.ProductContentsDetail.Rate;
 public final class ProductContentsDetailBuilder {
 
     private Rate rate;
-    private LocalDate release;
+    private LocalDate releasedAt;
     private Duration runningTime;
     private String director;
     private String actors;
@@ -30,8 +30,8 @@ public final class ProductContentsDetailBuilder {
         return this;
     }
 
-    public ProductContentsDetailBuilder release(LocalDate release) {
-        this.release = release;
+    public ProductContentsDetailBuilder releasedAt(LocalDate releasedAt) {
+        this.releasedAt = releasedAt;
         return this;
     }
 
@@ -71,7 +71,7 @@ public final class ProductContentsDetailBuilder {
     }
 
     public ProductContentsDetail build() {
-        return new ProductContentsDetail(rate, release, runningTime, director, actors,
+        return new ProductContentsDetail(rate, releasedAt, runningTime, director, actors,
             availableDevices, providedQuality, drm, images);
     }
 }
