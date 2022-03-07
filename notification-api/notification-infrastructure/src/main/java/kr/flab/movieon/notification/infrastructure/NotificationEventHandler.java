@@ -2,11 +2,10 @@ package kr.flab.movieon.notification.infrastructure;
 
 import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessDelegator;
 import kr.flab.movieon.notification.domain.NotificationRepository;
-import kr.flab.movieon.notification.domain.NotificationSenderDelegator;
 import kr.flab.movieon.notification.domain.NotificationSetting;
 import kr.flab.movieon.notification.domain.NotificationSettingRepository;
 import kr.flab.movieon.notification.domain.RegisterCompletedEvent;
-import kr.flab.movieon.notification.domain.RegisteredAccountConfirmEvent;
+import kr.flab.movieon.notification.domain.RegisteredAccountEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +29,7 @@ public final class NotificationEventHandler {
     }
 
     @EventListener
-    public void handle(RegisteredAccountConfirmEvent event) {
+    public void handle(RegisteredAccountEvent event) {
         var notification = notificationRepository.save(processDelegator.process(event));
         senderDelegator.send(notification);
     }

@@ -1,10 +1,13 @@
-package kr.flab.movieon.notification.domain;
+package kr.flab.movieon.notification.infrastructure;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import kr.flab.movieon.notification.domain.Notification;
+import kr.flab.movieon.notification.domain.NotificationSender;
+import org.springframework.scheduling.annotation.Async;
 
-public final class NotificationSenderDelegator {
+public class NotificationSenderDelegator {
 
     private final List<NotificationSender> senders;
 
@@ -22,6 +25,7 @@ public final class NotificationSenderDelegator {
         }
     }
 
+    @Async
     public void send(Notification notification) {
         senderMap.get(notification.getClass()).send(notification);
     }

@@ -30,7 +30,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String REGISTER_URL = "/api/v1/auth/register";
-    private static final String REGISTER_CONFIRM_URL = "/api/v1/auth/authorize";
+    private static final String REGISTER_CONFIRM_URL = "/api/v1/auth/confirm";
     private static final String LOGIN_URL = "/api/v1/auth/login";
     private static final String REFRESH_TOKEN_URL = "/api/v1/auth/refresh";
 

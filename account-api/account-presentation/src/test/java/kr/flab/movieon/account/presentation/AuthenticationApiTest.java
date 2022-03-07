@@ -102,7 +102,7 @@ class AuthenticationApiTest {
     @DisplayName("회원가입 이메일 검증 API")
     class RegisterConfirmApiTest {
 
-        private static final String CONFIRM_URL = "/api/v1/auth/authorize";
+        private static final String CONFIRM_URL = "/api/v1/auth/confirm";
 
         @ParameterizedTest
         @NullAndEmptySource
