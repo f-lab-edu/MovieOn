@@ -44,8 +44,10 @@ public final class AuthenticationApi {
     }
 
     @PostMapping("/api/v1/auth/login")
-    public void login(@RequestBody @Valid LoginAccountCommand command) {
-        accountFacade.login(command);
+    public ResponseEntity<ApiResponse<TokenResponse>> login(
+        @RequestBody @Valid LoginAccountCommand command) {
+        var response = accountFacade.login(command);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @PostMapping("/api/v1/auth/refresh")
