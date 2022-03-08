@@ -61,7 +61,7 @@ create table notification_settings
     id          bigint not null auto_increment comment '알림 설정 ID',
     created_at  datetime(6) comment '생성일',
     modified_at datetime(6) comment '수정일',
-    account_id  bigint not null comment '계정 ID',
+    account_id  varchar(255) not null comment '계정 ID',
     primary key (id)
 ) comment 'notification_settings' charset = utf8mb4;
 
@@ -97,7 +97,7 @@ create table notifications
     id                bigint       not null auto_increment comment '알림 ID',
     created_at        datetime(6) comment '알림 생성일',
     message           TEXT         not null comment '알림 메세지',
-    account_id        bigint       not null comment '계정 ID',
+    account_id        varchar(255) not null comment '계정 ID',
     email             varchar(255) comment '알림 발송 이메일',
     title             varchar(255) comment '알림 발송 이메일 제목',
     primary key (id)
@@ -124,7 +124,7 @@ create table orders
     id           bigint       not null auto_increment comment '주문 ID',
     completed_at datetime(6) comment '주문 완료일',
     created_at   datetime(6) comment '생성일',
-    account_id   bigint       not null comment '계정 ID',
+    account_id   varchar(255) not null comment '계정 ID',
     modified_at  datetime(6) comment '수정일',
     order_id     varchar(255) not null comment '주문 대체키',
     pay_method   varchar(255) not null comment '결제 옵션',

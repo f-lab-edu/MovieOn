@@ -43,7 +43,7 @@ public final class RegisteredAccountEventNotificationProcessor
             .findByTemplateType(new NotificationTemplateType(EMAIL, "계정 확인 메일"));
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("link", "/api/auth/confirm?token=" + event.getEmailCheckToken()
+        variables.put("link", "/api/v1/auth/confirm?token=" + event.getEmailCheckToken()
             + "&email=" + event.getEmail());
         variables.put("username", event.getUsername());
         variables.put("linkName", "이메일 인증하기");
