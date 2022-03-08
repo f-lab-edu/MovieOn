@@ -11,8 +11,6 @@ import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.TokenReIssuer;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @Service
@@ -39,25 +37,17 @@ public final class AccountFacade {
     }
 
     public void register(RegisterAccountCommand command) {
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                var account = registerProcessor.register(command.getEmail(), command.getPassword(),
-                    command.getUsername());
-                account.pollAllEvents().forEach(publisher::publishEvent);
-            }
-        });
+        var account = transactionTemplate.execute(
+            status -> registerProcessor.register(command.getEmail(), command.getPassword(),
+                command.getUsername()));
+        account.pollAllEvents().forEach(publisher::publishEvent);
     }
 
     public void registerConfirm(ConfirmRegisterAccountCommand command) {
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                var account = registerProcessor.registerConfirm(command.getToken(),
-                    command.getEmail());
-                account.pollAllEvents().forEach(publisher::publishEvent);
-            }
-        });
+        var account = transactionTemplate.execute(
+            status -> registerProcessor.registerConfirm(command.getToken(),
+                command.getEmail()));
+        account.pollAllEvents().forEach(publisher::publishEvent);
     }
 
     public TokenResponse login(LoginAccountCommand command) {
