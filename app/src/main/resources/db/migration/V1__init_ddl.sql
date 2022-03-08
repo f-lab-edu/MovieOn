@@ -96,7 +96,7 @@ create table notifications
     notification_type varchar(31)  not null comment '알림 타입',
     id                bigint       not null auto_increment comment '알림 ID',
     created_at        datetime(6) comment '알림 생성일',
-    message           varchar(255) not null comment '알림 메세지',
+    message           TEXT         not null comment '알림 메세지',
     account_id        bigint       not null comment '계정 ID',
     email             varchar(255) comment '알림 발송 이메일',
     title             varchar(255) comment '알림 발송 이메일 제목',

@@ -1,4 +1,6 @@
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration
   mail:
     host: smtp.gmail.com
     username: [ email ]
