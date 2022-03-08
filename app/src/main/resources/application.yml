@@ -3,8 +3,6 @@ spring:
     name: movieon
   lifecycle:
     timeout-per-shutdown-phase: 20s
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration
 
 server:
   error:

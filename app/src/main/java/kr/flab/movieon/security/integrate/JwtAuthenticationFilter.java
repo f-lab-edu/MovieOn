@@ -1,7 +1,9 @@
 package kr.flab.movieon.security.integrate;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +12,10 @@ import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.infrastructure.jwt.TokenExtractor;
 import kr.flab.movieon.account.infrastructure.jwt.TokenParser;
 import kr.flab.movieon.common.AuthenticatedUser;
+import kr.flab.movieon.common.Role;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -42,12 +47,18 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 var context = new UsernamePasswordAuthenticationToken(
                     new AuthenticatedUser(account.getAccountId(), account.getRoles()), null,
-                    Collections.emptyList());
+                    authorities(account.getRoles()));
                 context.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(context);
             }
         });
 
         filterChain.doFilter(request, response);
+    }
+
+    private Collection<? extends GrantedAuthority> authorities(Set<Role> roles) {
+        return roles.stream()
+            .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
+            .collect(Collectors.toList());
     }
 }
