@@ -5,6 +5,13 @@ values('act_202203081357591787178783', 'kitty@gmail.com', 'test-token', now(), f
        null, null, '$2a$10$9ibGcn661rKyysh6Y9R8VuKhXZCQG.gP8JGRMfaoBRMAPT6npq0qe',
        'kitty', false, null);
 
+insert into accounts(account_id, email, email_check_token, email_check_token_generated_at,
+                     email_verified, joined_at, last_modified_at, password, username, withdraw,
+                     withdrawal_at)
+values('act_202203081357591787172342', 'solomon@gmail.com', 'test-token', now(), true,
+       null, null, '$2a$10$9ibGcn661rKyysh6Y9R8VuKhXZCQG.gP8JGRMfaoBRMAPT6npq0qe',
+       'solomon', false, null);
+
 INSERT INTO notification_templates(contents, name, type, title, created_at)
     VALUES('<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
