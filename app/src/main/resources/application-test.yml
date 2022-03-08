@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:test
+    url: jdbc:h2:mem:test;MODE=MYSQL
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -10,16 +10,16 @@ spring:
       enabled: true
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
   config:
     import: classpath:notifications.yml, classpath:payments.yml, classpath:accounts.yml
   flyway:
-    enabled: false
+    placeholder-replacement: false
 
 
 logging:

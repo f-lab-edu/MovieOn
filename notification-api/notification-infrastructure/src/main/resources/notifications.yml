@@ -1,17 +1,7 @@
 spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration
-  mail:
-    host: smtp.gmail.com
-    username: [ email ]
-    password: [ password ]
-    port: 587
-    properties:
-      mail.smtp:
-        auth: true
-        timeout: 5000
-        starttls:
-          enable: true
+
 app:
   mail:
     host: http://localhost:8080
