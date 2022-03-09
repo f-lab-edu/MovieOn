@@ -31,10 +31,10 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String REGISTER_URL = "/api/v1/auth/register";
-    private static final String REGISTER_CONFIRM_URL = "/api/v1/auth/confirm";
-    private static final String LOGIN_URL = "/api/v1/auth/login";
-    private static final String REFRESH_TOKEN_URL = "/api/v1/auth/refresh";
+    private static final String REGISTER_URI = "/api/v1/auth/register";
+    private static final String REGISTER_CONFIRM_URI = "/api/v1/auth/confirm";
+    private static final String LOGIN_URI = "/api/v1/auth/login";
+    private static final String RE_ISSUANCE_URI = "/api/v1/auth/reIssuance";
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final FilterChainExceptionHelper filterChainExceptionHelper;
@@ -70,10 +70,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             .authorizeRequests()
             .antMatchers(OPTIONS).permitAll()
-            .antMatchers(POST, REGISTER_URL).permitAll()
-            .antMatchers(GET, REGISTER_CONFIRM_URL).permitAll()
-            .antMatchers(POST, LOGIN_URL).permitAll()
-            .antMatchers(POST, REFRESH_TOKEN_URL).permitAll()
+            .antMatchers(POST, REGISTER_URI).permitAll()
+            .antMatchers(GET, REGISTER_CONFIRM_URI).permitAll()
+            .antMatchers(POST, LOGIN_URI).permitAll()
+            .antMatchers(POST, RE_ISSUANCE_URI).permitAll()
             .anyRequest().authenticated()
 
             .and()

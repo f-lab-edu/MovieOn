@@ -50,9 +50,9 @@ public final class AuthenticationApi {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    @PostMapping("/api/v1/auth/refresh")
-    public ResponseEntity<ApiResponse<TokenResponse>> refresh(
+    @PostMapping("/api/v1/auth/reIssuance")
+    public ResponseEntity<ApiResponse<TokenResponse>> reIssuance(
         @RequestHeader("Authorization") String payload) {
-        return ResponseEntity.ok(ApiResponse.success(accountFacade.refresh(payload)));
+        return ResponseEntity.ok(ApiResponse.success(accountFacade.reIssuance(payload)));
     }
 }
