@@ -23,6 +23,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ExtendWith(MockitoExtension.class)
 final class CreateOrderApiTest {
 
+    private static final String REGISTER_ORDER_URI = "/api/v1/orders";
+
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
 
@@ -45,10 +47,10 @@ final class CreateOrderApiTest {
         request.setUseOfPoint(null);
 
         // Act
-        final var actions = mockMvc.perform(
-            post("/api/order").contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)));
+        final var actions = mockMvc.perform(post(REGISTER_ORDER_URI)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
 
         // Assert
         actions.andDo(print()).andExpect(status().isBadRequest());
@@ -64,10 +66,10 @@ final class CreateOrderApiTest {
         request.setUseOfPoint(-1L);
 
         // Act
-        final var actions = mockMvc.perform(
-            post("/api/order").contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)));
+        final var actions = mockMvc.perform(post(REGISTER_ORDER_URI)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
 
         // Assert
         actions.andDo(print()).andExpect(status().isBadRequest());
@@ -87,10 +89,10 @@ final class CreateOrderApiTest {
         request.setLineItems(List.of(productRequest));
 
         // Act
-        final var actions = mockMvc.perform(
-            post("/api/order").contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)));
+        final var actions = mockMvc.perform(post(REGISTER_ORDER_URI)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
 
         // Assert
         actions.andDo(print()).andExpect(status().isBadRequest());
@@ -110,10 +112,10 @@ final class CreateOrderApiTest {
         request.setLineItems(List.of(productRequest));
 
         // Act
-        final var actions = mockMvc.perform(
-            post("/api/order").contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)));
+        final var actions = mockMvc.perform(post(REGISTER_ORDER_URI)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
 
         // Assert
         actions.andDo(print()).andExpect(status().isBadRequest());

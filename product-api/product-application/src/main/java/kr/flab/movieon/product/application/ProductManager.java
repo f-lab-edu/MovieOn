@@ -1,9 +1,7 @@
 package kr.flab.movieon.product.application;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.stream.Collectors;
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
@@ -43,7 +41,7 @@ public class ProductManager {
     }
 
     private Item mapFrom(Long productId, RegisterItemCommand command) {
-        return new Item(productId, command.getName(), Period.ofDays(command.getAvailableDays()),
+        return new Item(productId, command.getName(), command.getAvailableDays(),
             BigDecimal.valueOf(command.getBasePrice()), ItemType.valueOf(command.getType()),
             command.getOptions().stream()
                 .map(o -> new ItemOption(o.getOptionName(), BigDecimal.valueOf(o.getSalesPrice())))
@@ -61,7 +59,7 @@ public class ProductManager {
                 .releasedAt(LocalDate.of(command.getYear(), command.getMonth(), command.getDays()))
                 .director(command.getDirectors())
                 .actors(command.getActors())
-                .runningTime(Duration.ofMinutes(command.getRunningTime()))
+                .runningTime(command.getRunningTime())
                 .images(command.getImages())
                 .build())
             .build();

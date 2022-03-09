@@ -1,6 +1,5 @@
 package kr.flab.movieon.product.domain;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,13 +7,16 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 public class ProductContentsDetail {
 
+    @Enumerated(EnumType.STRING)
     private Rate rate;
     private LocalDate releasedAt; // TODO 리팩토링 값 객체(개봉년도, 입고날짜)
-    private Duration runningTime;
+    private Integer runningTime;
     private String director;
     private String actors;
     private String availableDevices;
@@ -27,7 +29,7 @@ public class ProductContentsDetail {
 
     }
 
-    public ProductContentsDetail(Rate rate, LocalDate releasedAt, Duration runningTime,
+    public ProductContentsDetail(Rate rate, LocalDate releasedAt, Integer runningTime,
         String director, String actors, String availableDevices, String providedQuality,
         boolean drm, List<String> images) {
         this.rate = rate;
@@ -79,7 +81,7 @@ public class ProductContentsDetail {
         return releasedAt;
     }
 
-    public Duration getRunningTime() {
+    public Integer getRunningTime() {
         return runningTime;
     }
 

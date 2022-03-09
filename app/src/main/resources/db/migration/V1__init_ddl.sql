@@ -38,7 +38,7 @@ create table item_options
 create table items
 (
     id             bigint not null auto_increment comment '품목 ID',
-    available_days tinyblob comment '이용 기간',
+    available_days integer comment '이용 기간',
     base_price     bigint comment '품목 기본 가격',
     created_at     datetime(6) comment '생성일',
     modified_at    datetime(6) comment '수정일',
@@ -154,11 +154,11 @@ create table products
     director          varchar(255) comment '상품 감독 정보',
     drm               bit    not null comment 'DRM 여부',
     provided_quality  varchar(255) comment '상품 제공 화질',
-    rate              integer comment '상품 이용 연령가',
+    rate              varchar(255) comment '상품 이용 연령가',
     released_at       date comment '상품 출시 년도',
-    running_time      bigint comment '상품 이용 시간',
+    running_time      integer comment '상품 이용 시간',
     created_at        datetime(6) comment '생성일',
-    description       varchar(255) comment '상품 설명',
+    description       TEXT comment '상품 설명',
     modified_at       datetime(6) comment '수정일',
     name              varchar(255) comment '상품명',
     thumbnails        varchar(255) comment '상품 섬네일 이미지',
