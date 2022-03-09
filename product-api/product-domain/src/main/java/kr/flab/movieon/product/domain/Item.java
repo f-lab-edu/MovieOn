@@ -2,7 +2,6 @@ package kr.flab.movieon.product.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -34,7 +33,7 @@ public class Item {
     private Long id;
     private Long productId;
     private String name;
-    private Period availableDays;
+    private Integer availableDays;
     private BigDecimal basePrice;
     @Enumerated(EnumType.STRING)
     private ItemType type;
@@ -46,7 +45,7 @@ public class Item {
     private LocalDateTime modifiedAt;
 
     public Item(Long productId, String name,
-        Period availableDays, BigDecimal basePrice,
+        Integer availableDays, BigDecimal basePrice,
         ItemType type, Set<ItemOption> options) {
         this.productId = productId;
         this.name = name;
@@ -72,7 +71,7 @@ public class Item {
         return name;
     }
 
-    public Period getAvailableDays() {
+    public Integer getAvailableDays() {
         return availableDays;
     }
 

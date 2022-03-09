@@ -1,6 +1,5 @@
 package kr.flab.movieon.product.domain;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,7 @@ public final class ProductContentsDetailBuilder {
 
     private Rate rate;
     private LocalDate releasedAt;
-    private Duration runningTime;
+    private Integer runningTime;
     private String director;
     private String actors;
     private String availableDevices;
@@ -35,7 +34,7 @@ public final class ProductContentsDetailBuilder {
         return this;
     }
 
-    public ProductContentsDetailBuilder runningTime(Duration runningTime) {
+    public ProductContentsDetailBuilder runningTime(Integer runningTime) {
         this.runningTime = runningTime;
         return this;
     }
