@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-final class AccountIntegrationTest extends IntegrateTestExtension {
+final class AuthenticationIntegrationTest extends IntegrateTestExtension {
 
     @Nested
     @DisplayName("회원 등록 API")
@@ -80,6 +80,30 @@ final class AccountIntegrationTest extends IntegrateTestExtension {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command))
+            );
+
+            actions
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.body.accessToken").exists())
+                .andExpect(jsonPath("$.body.refreshToken").exists());
+        }
+    }
+
+    @Nested
+    @DisplayName("토큰 재발급 API")
+    class TokenReIssuerApiTest {
+
+        private static final String RE_ISSUANCE_URI = "/api/v1/auth/reIssuance";
+
+        @Test
+        @DisplayName("인증 헤더에 올바른 리프레시 토큰을 입력한 후, 토큰을 재발급 받는다.")
+        void input_refresh_token_processing_after_return_tokens() throws Exception {
+            final var actions = mockMvc.perform(post(RE_ISSUANCE_URI)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(AUTHORIZATION, BEARER + tokens.getRefreshToken())
             );
 
             actions

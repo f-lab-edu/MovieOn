@@ -37,15 +37,15 @@ class AuthenticationApiTest {
     }
 
     @Nested
-    @DisplayName("Refresh 토큰 변환 API")
-    class RefreshTokenApiTest {
+    @DisplayName("토큰 재발급 API")
+    class TokenReIssuerApiTest {
 
-        private static final String REFRESH_TOKEN_URL = "/api/v1/auth/refresh";
+        private static final String RE_ISSUANCE_URI = "/api/v1/auth/reIssuance";
 
         @Test
-        @DisplayName("refresh 요청 시 Authentication Header 가 비었다면 400 에러를 응답한다.")
+        @DisplayName("토큰 재발급 요청 시 Authentication Header 가 비었다면 400 에러를 응답한다.")
         void refresh_http_header_is_null_and_empty() throws Exception {
-            final var actions = mockMvc.perform(post(REFRESH_TOKEN_URL)
+            final var actions = mockMvc.perform(post(RE_ISSUANCE_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
             );
@@ -59,7 +59,7 @@ class AuthenticationApiTest {
     @DisplayName("로그인 API")
     class LoginApiTest {
 
-        private static final String LOGIN_URL = "/api/v1/auth/login";
+        private static final String LOGIN_URI = "/api/v1/auth/login";
 
         @ParameterizedTest
         @ValueSource(strings = {"@@@@@@@@@", "@naver.com", "jiwon"})
@@ -69,7 +69,7 @@ class AuthenticationApiTest {
             command.setEmail(arg);
             command.setPassword("password1!");
 
-            final var actions = mockMvc.perform(post(LOGIN_URL)
+            final var actions = mockMvc.perform(post(LOGIN_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command))
@@ -87,7 +87,7 @@ class AuthenticationApiTest {
             command.setEmail("jiwon@naver.com");
             command.setPassword(args);
 
-            final var actions = mockMvc.perform(post(LOGIN_URL)
+            final var actions = mockMvc.perform(post(LOGIN_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command))
@@ -102,13 +102,13 @@ class AuthenticationApiTest {
     @DisplayName("회원가입 이메일 검증 API")
     class RegisterConfirmApiTest {
 
-        private static final String CONFIRM_URL = "/api/v1/auth/confirm";
+        private static final String CONFIRM_URI = "/api/v1/auth/confirm";
 
         @ParameterizedTest
         @NullAndEmptySource
         @DisplayName("HTTP 입력이 비었거나 null 이라면 400 에러를 응답한다.")
         void http_parameter_is_null_and_empty(String arg) throws Exception {
-            final var actions = mockMvc.perform(get(CONFIRM_URL)
+            final var actions = mockMvc.perform(get(CONFIRM_URI)
                 .accept(MediaType.ALL_VALUE)
                 .contentType(MediaType.ALL_VALUE)
                 .param("token", arg)
@@ -123,7 +123,7 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"@@@@@@@@@", "@naver.com", "jiwon"})
         @DisplayName("요청 Body의 이메일 형식이 맞지 않는 경우 400 에러를 반환한다.")
         void http_parameter_is_invalid_email(String arg) throws Exception {
-            final var actions = mockMvc.perform(get(CONFIRM_URL)
+            final var actions = mockMvc.perform(get(CONFIRM_URI)
                 .accept(MediaType.ALL_VALUE)
                 .contentType(MediaType.ALL_VALUE)
                 .param("token", arg)
@@ -139,7 +139,7 @@ class AuthenticationApiTest {
     @DisplayName("회원가입 HTTP API")
     class RegisterApiTest {
 
-        private static final String SIGNUP_URL = "/api/v1/auth/register";
+        private static final String REGISTER_URI = "/api/v1/auth/register";
 
         @ParameterizedTest
         @NullAndEmptySource
@@ -150,7 +150,7 @@ class AuthenticationApiTest {
             command.setEmail(arg);
             command.setPassword(arg);
 
-            final var actions = mockMvc.perform(post(SIGNUP_URL)
+            final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command))
@@ -169,7 +169,7 @@ class AuthenticationApiTest {
             command.setEmail(arg);
             command.setPassword("password1!");
 
-            final var actions = mockMvc.perform(post(SIGNUP_URL)
+            final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command))
@@ -188,7 +188,7 @@ class AuthenticationApiTest {
             command.setEmail("jiwon@naver.com");
             command.setPassword(args);
 
-            final var actions = mockMvc.perform(post(SIGNUP_URL)
+            final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(command))

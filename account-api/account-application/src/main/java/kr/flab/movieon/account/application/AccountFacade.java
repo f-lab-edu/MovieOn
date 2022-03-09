@@ -58,7 +58,7 @@ public final class AccountFacade {
         return new TokenResponse(tokens.getAccessToken(), tokens.getRefreshToken());
     }
 
-    public TokenResponse refresh(String payload) {
+    public TokenResponse reIssuance(String payload) {
         var tokens = transactionTemplate.execute(status -> tokenReIssuer.reIssuance(payload));
         return new TokenResponse(tokens.getAccessToken(), tokens.getRefreshToken());
     }

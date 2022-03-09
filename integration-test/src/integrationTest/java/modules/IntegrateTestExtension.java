@@ -2,6 +2,10 @@ package modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.flab.movieon.MovieOnApplication;
+import kr.flab.movieon.account.domain.AccountRepository;
+import kr.flab.movieon.account.domain.TokenGenerator;
+import kr.flab.movieon.account.domain.Tokens;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +18,25 @@ import org.springframework.test.web.servlet.MockMvc;
 @ActiveProfiles("test")
 public abstract class IntegrateTestExtension {
 
+    protected static final String AUTHORIZATION = "Authorization";
+    protected static final String BEARER = "Bearer ";
+
     @Autowired
     protected MockMvc mockMvc;
 
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @Autowired
+    private TokenGenerator tokenGenerator;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    protected Tokens tokens;
+
+    @BeforeEach
+    void setUp() {
+        tokens = tokenGenerator.generate(accountRepository.findByEmail("jiwon@gmail.com"));
+    }
 }
