@@ -8,7 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-public final class TossPaymentsPaymentApprovalProcessor {
+public class TossPaymentsPaymentApprovalProcessor {
 
     private final RestTemplate restTemplate;
     private final TossPaymentsProperties tossPaymentsProperties;
