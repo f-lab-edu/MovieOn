@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-public final class TossPaymentsPaymentApprovalCommandVerifier {
+public class TossPaymentsPaymentApprovalCommandVerifier {
 
     private final RestTemplate restTemplate;
     private final TossPaymentsProperties tossPaymentsProperties;

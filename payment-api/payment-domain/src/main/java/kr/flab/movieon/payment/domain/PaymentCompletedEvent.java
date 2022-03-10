@@ -3,14 +3,14 @@ package kr.flab.movieon.payment.domain;
 import java.util.Date;
 import kr.flab.movieon.common.domain.model.DomainEvent;
 
-public final class TossPaymentsPaymentApprovalCompleted implements DomainEvent {
+public final class PaymentCompletedEvent implements DomainEvent {
 
     private final String orderId;
     private final String orderName;
     private final Integer payedAmount;
     private final Date occurredOn;
 
-    public TossPaymentsPaymentApprovalCompleted(TossPayments tossPayments) {
+    public PaymentCompletedEvent(TossPayments tossPayments) {
         this.orderId = tossPayments.getInfo().getOrderId();
         this.orderName = tossPayments.getInfo().getOrderName();
         this.payedAmount = tossPayments.getInfo().getTotalAmount();

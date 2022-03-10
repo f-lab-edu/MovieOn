@@ -3,6 +3,7 @@ package kr.flab.movieon.order.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import kr.flab.movieon.order.domain.Order.OrderStatus;
@@ -18,7 +19,8 @@ class PaymentCompletedProcessorTest {
         var sut = new PaymentCompletedProcessor(new OrderRepositoryStub());
 
         // Act
-        Order order = sut.payed(new PaymentCompletedEvent("testId", BigDecimal.valueOf(12000)));
+        Order order = sut.payed(new PaymentCompletedEvent(
+            "testId", "보이스", BigDecimal.valueOf(12000), new Date()));
 
         // Assert
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);

@@ -42,7 +42,7 @@ public class TossPayments extends AbstractAggregateRoot {
         this.cancels = cancels;
         this.card = card;
         this.payMethod = payMethod;
-        registerEvent(new TossPaymentsPaymentApprovalCompleted(this));
+        registerEvent(new PaymentCompletedEvent(this));
     }
 
     public static TossPayments create(TossPaymentsInfo info,
