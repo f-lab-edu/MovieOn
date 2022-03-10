@@ -27,6 +27,21 @@ class PaymentCompletedProcessorTest {
         assertThat(order.pollAllEvents()).isNotNull();
     }
 
+    @Test
+    @DisplayName("주문의 상태가 취소됨일 경우, 예외가 발생한다.")
+    void sut_payed_if_order_status_is_already_canceled_return_exception() {
+        // Arrange
+        var sut = new PaymentCompletedProcessor(new OrderRepositoryStub());
+
+        // Act
+        Order order = sut.payed(new PaymentCompletedEvent(
+            "testId", "보이스", BigDecimal.valueOf(12000), new Date()));
+
+        // Assert
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);
+        assertThat(order.pollAllEvents()).isNotNull();
+    }
+
     private static final class OrderRepositoryStub implements OrderRepository {
 
         @Override
@@ -36,12 +51,15 @@ class PaymentCompletedProcessorTest {
 
         @Override
         public Order findByOrderId(String orderId) {
-            return Order.create(new Customer(UUID.randomUUID().toString()), "CARD", BigDecimal.ZERO,
+            var order = Order.create(new Customer(UUID.randomUUID().toString()), "CARD",
+                BigDecimal.ZERO,
                 List.of(new OrderLineItem(1L, "보이스", BigDecimal.valueOf(13000),
                         List.of(new OrderItemOption("480P", BigDecimal.valueOf(1200)))
                     )
                 )
             );
+            order.cancel();
+            return order;
         }
     }
 }
