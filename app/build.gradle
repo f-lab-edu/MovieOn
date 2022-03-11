@@ -30,6 +30,8 @@ dependencies {
     api project(":product-api:product-domain")
     api project(":product-api:product-infrastructure")
 
+    api project(":query-api")
+
     api project(":common")
 
     implementation "org.springframework.boot:spring-boot-starter-web"

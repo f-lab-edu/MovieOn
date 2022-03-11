@@ -1,0 +1,25 @@
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+group "kr.flab.movieon"
+version "0.0.1"
+
+dependencies {
+    api project(":common")
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
