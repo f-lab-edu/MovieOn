@@ -52,4 +52,6 @@ task integrationTest(type: Test) {
     shouldRunAfter test
 }
 
+processIntegrationTestResources.duplicatesStrategy DuplicatesStrategy.INCLUDE
+
 check.dependsOn integrationTest
