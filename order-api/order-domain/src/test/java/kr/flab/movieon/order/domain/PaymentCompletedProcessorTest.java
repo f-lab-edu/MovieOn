@@ -35,7 +35,7 @@ class PaymentCompletedProcessorTest {
 
         // Act
         Order order = sut.payed(new PaymentCompletedEvent(
-            "testId", "보이스", BigDecimal.valueOf(12000), new Date()));
+            "testId", "보이스", BigDecimal.valueOf(13000), new Date()));
 
         // Assert
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);

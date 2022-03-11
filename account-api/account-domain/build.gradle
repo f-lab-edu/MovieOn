@@ -3,7 +3,6 @@ version "0.0.1"
 
 dependencies {
     api project(":common")
-    implementation 'org.slf4j:slf4j-api:1.7.32'
     implementation "jakarta.persistence:jakarta.persistence-api:2.2.3"
     implementation "org.hibernate:hibernate-core:5.4.32.Final"
     testImplementation "io.github.javaunit:autoparams:0.3.1"
