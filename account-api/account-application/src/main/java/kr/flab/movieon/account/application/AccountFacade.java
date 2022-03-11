@@ -3,7 +3,6 @@ package kr.flab.movieon.account.application;
 import kr.flab.movieon.account.application.command.ConfirmRegisterAccountCommand;
 import kr.flab.movieon.account.application.command.LoginAccountCommand;
 import kr.flab.movieon.account.application.command.RegisterAccountCommand;
-import kr.flab.movieon.account.application.response.AccountResponse;
 import kr.flab.movieon.account.application.response.TokenResponse;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
@@ -61,9 +60,5 @@ public final class AccountFacade {
     public TokenResponse reIssuance(String payload) {
         var tokens = transactionTemplate.execute(status -> tokenReIssuer.reIssuance(payload));
         return new TokenResponse(tokens.getAccessToken(), tokens.getRefreshToken());
-    }
-
-    public AccountResponse find(String id) {
-        return null;
     }
 }

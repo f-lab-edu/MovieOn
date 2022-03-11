@@ -44,4 +44,5 @@ include (
         'order-api:order-infrastructure',
 )
 include 'integration-test'
+include 'query-api'
 
