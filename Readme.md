@@ -14,7 +14,7 @@ MovieOn 프로젝트는 [Modular Monolithic](https://www.youtube.com/watch?v=5Oj
 
 Build Command
 
-`$ ./gradlew --parallel clean build -x test -x integrationTest`
+`$ ./gradlew clean build -x test -x integrationTest`
 
 Run Command
 
@@ -32,7 +32,7 @@ Integration Test Command
 
 All Test Command
 
-`$ ./gradlew --parallel clean test integrationTest`
+`$ ./gradlew clean test integrationTest`
 
 ### Architecture
 
