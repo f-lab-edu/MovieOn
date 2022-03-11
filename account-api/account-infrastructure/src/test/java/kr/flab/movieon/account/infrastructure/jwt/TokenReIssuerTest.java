@@ -18,15 +18,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 final class TokenReIssuerTest {
 
     private static final String PREFIX = "Bearer ";
-    private static final String ACCESS_TOKEN = PREFIX
-        + "eyJhbGciOiJIUzI1NiJ9.eyJzY29wZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibXNvbG8wMjEwMTVAZ21h"
-        + "aWwuY29tIiwiaXNzIjoibW92aWVPbiIsImlhdCI6MTY0NjU2MzU4OSwiZXhwIjoxNjQ2OTIzNTg5fQ._xfSkg"
-        + "xVs2Qvamjq-VF5t5T7B5ALgdj-zVPxx692GY0";
-    private static final String REFRESH_TOKEN = PREFIX
-        + "eyJhbGciOiJIUzI1NiJ9.eyJzY29wZXMiOlsiUk9MRV9SRUZSRVNIX1RPS0VOIl0sImVtYWlsIjoibXNvbG8w"
-        + "MjEwMTVAZ21haWwuY29tIiwiaXNzIjoibW92aWVPbiIsImp0aSI6IjYxOTE0YzA5LTIxN2ItNDFiNC1hMDYwL"
-        + "TZmMDA1NDVjNjBlNyIsImlhdCI6MTY0NjU2MzU4OSwiZXhwIjoxNjQ3MjgzNTg5fQ.gKGMEGiaSBmUxWjos62"
-        + "pIUKelh68OrchqozCFntIHyc";
 
     @ParameterizedTest
     @AutoSource
@@ -53,13 +44,15 @@ final class TokenReIssuerTest {
         TokenProperties tokenProperties, RefreshTokenInfoRepository tokenInfoRepository,
         TokenExtractor tokenExtractor) {
         // Arrange
-        var sut = new JwtTokenReIssuer(new JwtTokenGenerator(tokenInfoRepository, tokenProperties),
-            tokenExtractor, new JwtTokenParser(tokenProperties), tokenInfoRepository,
+        var tokenGenerator = new JwtTokenGenerator(tokenInfoRepository, tokenProperties);
+        var tokens = setUpTokens(tokenGenerator);
+        var sut = new JwtTokenReIssuer(tokenGenerator, tokenExtractor,
+            new JwtTokenParser(tokenProperties), tokenInfoRepository,
             new DummyAccountRepository());
 
         // Act & Assert
         assertThatExceptionOfType(InvalidTokenException.class)
-            .isThrownBy(() -> sut.reIssuance(ACCESS_TOKEN));
+            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.getAccessToken()));
     }
 
     @ParameterizedTest
@@ -67,17 +60,18 @@ final class TokenReIssuerTest {
     @Customization(JwtCustomization.class)
     @DisplayName("토큰 재발급시, Refresh Token의 Jti 값이 다른 경우 예외가 발생한다.")
     void sut_token_refreshing_but_refresh_token_is_not_equals_jti_throw_exception(
-        TokenProperties tokenProperties, RefreshTokenInfoRepository tokenInfoRepository,
-        TokenExtractor tokenExtractor, String jti) {
+        TokenProperties tokenProperties, TokenExtractor tokenExtractor) {
         // Arrange
-        tokenInfoRepository.save(new RefreshTokenInfo(jti));
-        var sut = new JwtTokenReIssuer(new JwtTokenGenerator(tokenInfoRepository, tokenProperties),
-            tokenExtractor, new JwtTokenParser(tokenProperties), tokenInfoRepository,
+        var tokenInfoRepository = new DummyRefreshTokenInfoRepository();
+        var tokenGenerator = new JwtTokenGenerator(tokenInfoRepository, tokenProperties);
+        var tokens = setUpTokens(tokenGenerator);
+        var sut = new JwtTokenReIssuer(tokenGenerator, tokenExtractor,
+            new JwtTokenParser(tokenProperties), tokenInfoRepository,
             new DummyAccountRepository());
 
         // Act & Assert
         assertThatExceptionOfType(RefreshTokenNotFoundException.class)
-            .isThrownBy(() -> sut.reIssuance(REFRESH_TOKEN));
+            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.getRefreshToken()));
     }
 
     @ParameterizedTest
@@ -113,5 +107,24 @@ final class TokenReIssuerTest {
         var refreshTokenInfo = tokenInfoRepository.findByRefreshTokenJti(
             rawToken.getJti());
         refreshTokenInfo.expire();
+    }
+
+    private static final class DummyRefreshTokenInfoRepository
+        implements RefreshTokenInfoRepository {
+
+        @Override
+        public RefreshTokenInfo save(RefreshTokenInfo entity) {
+            return null;
+        }
+
+        @Override
+        public boolean existsByRefreshTokenJti(String jti) {
+            return false;
+        }
+
+        @Override
+        public RefreshTokenInfo findByRefreshTokenJti(String jti) {
+            return null;
+        }
     }
 }
