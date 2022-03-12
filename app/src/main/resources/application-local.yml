@@ -1,4 +1,8 @@
 spring:
+  redis:
+    host: localhost
+    password:
+    port: 6379
   mail:
     host: smtp.gmail.com
     username: [email]

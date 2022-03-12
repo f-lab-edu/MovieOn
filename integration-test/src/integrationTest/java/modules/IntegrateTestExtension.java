@@ -5,11 +5,14 @@ import kr.flab.movieon.MovieOnApplication;
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.Tokens;
+import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentApprovalCommandVerifier;
+import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentApprovalProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,17 +24,13 @@ public abstract class IntegrateTestExtension {
     protected static final String AUTHORIZATION = "Authorization";
     protected static final String BEARER = "Bearer ";
 
-    @Autowired
-    protected MockMvc mockMvc;
+    @Autowired protected MockMvc mockMvc;
+    @Autowired protected ObjectMapper objectMapper;
+    @Autowired private TokenGenerator tokenGenerator;
+    @Autowired private AccountRepository accountRepository;
 
-    @Autowired
-    protected ObjectMapper objectMapper;
-
-    @Autowired
-    private TokenGenerator tokenGenerator;
-
-    @Autowired
-    private AccountRepository accountRepository;
+    @MockBean protected TossPaymentsPaymentApprovalCommandVerifier verifier;
+    @MockBean protected TossPaymentsPaymentApprovalProcessor approvalProcessor;
 
     protected Tokens tokens;
 

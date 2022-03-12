@@ -6,6 +6,7 @@ version "0.0.1"
 
 dependencies {
     api project(":common")
+    implementation "org.springframework.boot:spring-boot-starter-data-redis"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2"
