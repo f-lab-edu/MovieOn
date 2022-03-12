@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import kr.flab.movieon.common.error.InvalidArgumentException;
 
 @Entity
 @Table(name = "NOTIFICATION_GROUPS")
@@ -23,7 +24,7 @@ public class NotificationGroup {
             return Arrays.stream(values())
                 .filter(g -> g.name().equals(groupName))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("일치하는 group을 찾을 수 없습니다."));
+                .orElseThrow(() -> new InvalidArgumentException("일치하는 group을 찾을 수 없습니다."));
         }
     }
 
@@ -55,7 +56,7 @@ public class NotificationGroup {
         var option = options.stream()
             .filter(o -> o.isEqualTo(notificationType))
             .findFirst()
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(InvalidArgumentException::new);
         option.enable();
     }
 
@@ -67,7 +68,7 @@ public class NotificationGroup {
         var option = options.stream()
             .filter(o -> o.isEqualTo(notificationType))
             .findFirst()
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(InvalidArgumentException::new);
         option.disable();
     }
 

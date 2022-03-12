@@ -6,6 +6,7 @@ import static kr.flab.movieon.notification.domain.NotificationType.EMAIL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import kr.flab.movieon.common.error.InvalidArgumentException;
 import org.javaunit.autoparams.AutoSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -59,7 +60,7 @@ class NotificationSettingTest {
         sut.disableGroup(PURCHASE_INFO);
 
         // Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(IsDisabledNotificationGroupException.class)
             .isThrownBy(() -> sut.enableOptionInGroup(PURCHASE_INFO, EMAIL));
     }
 
@@ -73,7 +74,7 @@ class NotificationSettingTest {
         var sut = NotificationSetting.defaultSetting(accountId);
 
         // Act & Assert
-        assertThatExceptionOfType(IllegalArgumentException.class)
+        assertThatExceptionOfType(InvalidArgumentException.class)
             .isThrownBy(() -> sut.disableGroup(MARKETING));
     }
 
@@ -122,7 +123,7 @@ class NotificationSettingTest {
         sut.disableGroup(PURCHASE_INFO);
 
         // Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(IsDisabledNotificationGroupException.class)
             .isThrownBy(() -> sut.disableOptionInGroup(PURCHASE_INFO, EMAIL));
     }
 }

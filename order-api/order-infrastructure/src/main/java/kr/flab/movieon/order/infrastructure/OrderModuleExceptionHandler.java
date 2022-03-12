@@ -1,15 +1,14 @@
-package kr.flab.movieon.account.infrastructure;
+package kr.flab.movieon.order.infrastructure;
 
-import kr.flab.movieon.account.domain.DuplicatedEmailException;
-import kr.flab.movieon.account.domain.InvalidAccountException;
-import kr.flab.movieon.account.domain.PasswordNotMatchedException;
-import kr.flab.movieon.account.infrastructure.jwt.RefreshTokenNotFoundException;
-import kr.flab.movieon.account.infrastructure.jwt.TokenExpiredException;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.InvalidArgumentException;
-import kr.flab.movieon.common.error.InvalidTokenException;
 import kr.flab.movieon.common.error.SystemException;
 import kr.flab.movieon.common.result.ApiResponse;
+import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
+import kr.flab.movieon.order.domain.exception.AmountNotMatchedException;
+import kr.flab.movieon.order.domain.exception.IsChangedItemException;
+import kr.flab.movieon.order.domain.exception.IsChangedItemOptionException;
+import kr.flab.movieon.order.domain.exception.IsEmptyOrderItemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,19 +16,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackages = "kr.flab.movieon.account")
-public final class AccountExceptionHandler {
+@RestControllerAdvice(basePackages = "kr.flab.movieon.order")
+public final class OrderModuleExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(AccountExceptionHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(OrderModuleExceptionHandler.class);
 
     @ExceptionHandler(value = {
-        TokenExpiredException.class,
-        RefreshTokenNotFoundException.class,
-        InvalidTokenException.class,
-        DuplicatedEmailException.class,
-        PasswordNotMatchedException.class,
+        AmountNotMatchedException.class,
+        AlreadyCanceledException.class,
         InvalidArgumentException.class,
-        InvalidAccountException.class
+        IsEmptyOrderItemException.class,
+        IsChangedItemException.class,
+        IsChangedItemOptionException.class
     })
     public ResponseEntity<ApiResponse<?>> onError(SystemException e) {
         log.error("SystemError: ", e);

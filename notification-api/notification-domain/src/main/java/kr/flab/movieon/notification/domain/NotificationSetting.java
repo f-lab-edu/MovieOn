@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import kr.flab.movieon.common.error.InvalidArgumentException;
 import kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -56,7 +57,7 @@ public class NotificationSetting {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
             .findFirst()
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(InvalidArgumentException::new);
         group.disable();
     }
 
@@ -70,9 +71,9 @@ public class NotificationSetting {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
             .findFirst()
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(InvalidArgumentException::new);
         if (group.isDisabled()) {
-            throw new IllegalStateException("해당 알림 그룹이 비활성화되어 있습니다.");
+            throw new IsDisabledNotificationGroupException("해당 알림 그룹이 비활성화되어 있습니다.");
         }
         group.disableOption(notificationType);
     }
@@ -88,7 +89,7 @@ public class NotificationSetting {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
             .findFirst()
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(InvalidArgumentException::new);
         group.enable();
     }
 
@@ -97,9 +98,9 @@ public class NotificationSetting {
         var group = groups.stream()
             .filter(g -> g.isEqualTo(groupType))
             .findFirst()
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(InvalidArgumentException::new);
         if (group.isDisabled()) {
-            throw new IllegalStateException("해당 알림 그룹이 비활성화되어 있습니다.");
+            throw new IsDisabledNotificationGroupException("해당 알림 그룹이 비활성화되어 있습니다.");
         }
         group.enableOption(notificationType);
     }

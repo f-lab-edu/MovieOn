@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import kr.flab.movieon.common.error.InvalidArgumentException;
 
 @Entity
 @Table(name = "ORDER_LINE_ITEMS")
@@ -35,7 +36,7 @@ public class OrderLineItem {
     public OrderLineItem(Long itemId, String name, BigDecimal basePrice,
         List<OrderItemOption> options) {
         if (basePrice.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("주문 상품에 대한 가격이 잘못되었습니다.");
+            throw new InvalidArgumentException("주문 상품에 대한 가격이 잘못되었습니다.");
         }
         this.itemId = itemId;
         this.name = name;

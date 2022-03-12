@@ -3,6 +3,8 @@ package kr.flab.movieon.account.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import kr.flab.movieon.account.domain.exception.DuplicatedEmailException;
+import kr.flab.movieon.account.domain.exception.DuplicatedUsernameException;
 import kr.flab.movieon.common.error.InvalidTokenException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

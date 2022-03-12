@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
+import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
+import kr.flab.movieon.order.domain.exception.AmountNotMatchedException;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -94,13 +96,13 @@ public class Order extends AbstractAggregateRoot {
 
     private void verifyNotCanceled() {
         if (this.status == OrderStatus.CANCELED) {
-            throw new IllegalStateException("이미 취소된 주문입니다.");
+            throw new AlreadyCanceledException("이미 취소된 주문입니다.");
         }
     }
 
     private void verifyPayed(BigDecimal payedAmount) {
         if (!this.totalAmount.equals(payedAmount)) {
-            throw new IllegalStateException("결제 금액과 주문 금액이 일치하지 않습니다.");
+            throw new AmountNotMatchedException("결제 금액과 주문 금액이 일치하지 않습니다.");
         }
     }
 

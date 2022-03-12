@@ -2,6 +2,7 @@ package kr.flab.movieon.notification.application;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import kr.flab.movieon.common.error.InvalidArgumentException;
 import kr.flab.movieon.notification.application.NotificationTemplateManager.CreateTemplateCommand;
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
@@ -20,7 +21,7 @@ final class NotificationTemplateManagerTest {
         var sut = new NotificationTemplateManager(new DummyNotificationTemplateRepository());
 
         // Act & Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(InvalidArgumentException.class)
             .isThrownBy(() -> sut.create(new CreateTemplateCommand(arg, arg, arg, arg)));
     }
 
