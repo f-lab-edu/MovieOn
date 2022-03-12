@@ -5,8 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import kr.flab.movieon.payment.application.TossPaymentsPaymentApprovalRequest;
-import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentApprovalCommandVerifier;
-import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentApprovalProcessor;
 import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentCompletedResponse;
 import modules.IntegrateTestExtension;
 import org.javaunit.autoparams.AutoSource;
@@ -16,13 +14,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 
 public final class PaymentIntegrateTest extends IntegrateTestExtension {
-
-    @MockBean private TossPaymentsPaymentApprovalCommandVerifier verifier;
-    @MockBean private TossPaymentsPaymentApprovalProcessor approvalProcessor;
 
     @Nested
     @DisplayName("Toss Payments API")
