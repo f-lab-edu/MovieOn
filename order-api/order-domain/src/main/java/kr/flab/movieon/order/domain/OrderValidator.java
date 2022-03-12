@@ -4,6 +4,9 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
 import java.util.Map;
+import kr.flab.movieon.order.domain.exception.IsChangedItemException;
+import kr.flab.movieon.order.domain.exception.IsChangedItemOptionException;
+import kr.flab.movieon.order.domain.exception.IsEmptyOrderItemException;
 
 public class OrderValidator {
 
@@ -17,7 +20,7 @@ public class OrderValidator {
 
     public void validate(Order order) {
         if (order.getLineItems() == null || order.getLineItems().isEmpty()) {
-            throw new IllegalStateException("주문 항목이 비어 있습니다.");
+            throw new IsEmptyOrderItemException("주문 항목이 비어 있습니다.");
         }
 
         var items = getItems(order);
@@ -31,10 +34,10 @@ public class OrderValidator {
 
     private void validateOrderLineItem(OrderLineItem orderLineItem, Item item) {
         if (!item.isSatisfiedBy(orderLineItem.getName(), orderLineItem.getBasePrice())) {
-            throw new IllegalStateException("기본 상품 정보가 변경되었습니다.");
+            throw new IsChangedItemException("기본 상품 정보가 변경되었습니다.");
         }
         if (!item.isSatisfiedBy(orderLineItem.getOptions())) {
-            throw new IllegalStateException("상품 옵션 정보가 변경되었습니다.");
+            throw new IsChangedItemOptionException("상품 옵션 정보가 변경되었습니다.");
         }
     }
 

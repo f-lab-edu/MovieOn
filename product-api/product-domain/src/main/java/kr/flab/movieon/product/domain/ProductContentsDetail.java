@@ -61,7 +61,7 @@ public class ProductContentsDetail {
             return Arrays.stream(values())
                 .filter(r -> r.getDescription().equals(rateDescription))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("일치하는 이용 등급을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotMatchedRateException("일치하는 이용 등급을 찾을 수 없습니다."));
         }
 
         public int getAge() {

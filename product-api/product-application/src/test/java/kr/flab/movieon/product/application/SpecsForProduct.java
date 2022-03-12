@@ -7,6 +7,7 @@ import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
 import kr.flab.movieon.product.domain.Item;
 import kr.flab.movieon.product.domain.ItemRepository;
+import kr.flab.movieon.product.domain.NotMatchedRateException;
 import kr.flab.movieon.product.domain.Product;
 import kr.flab.movieon.product.domain.ProductRepository;
 import org.javaunit.autoparams.AutoSource;
@@ -27,7 +28,7 @@ final class SpecsForProduct {
             new DummyItemRepository());
 
         // Act & Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(NotMatchedRateException.class)
             .isThrownBy(() -> sut.register(command));
     }
 

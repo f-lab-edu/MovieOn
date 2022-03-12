@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import kr.flab.movieon.order.domain.exception.IsChangedItemException;
+import kr.flab.movieon.order.domain.exception.IsChangedItemOptionException;
+import kr.flab.movieon.order.domain.exception.IsEmptyOrderItemException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +21,7 @@ final class OrderValidatorTest {
         var sut = new OrderValidator(new ItemRepositoryStub(), new DummyPointManager());
 
         // Act & Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(IsEmptyOrderItemException.class)
             .isThrownBy(() -> sut.validate(isEmptyProduct()))
             .withMessage("주문 항목이 비어 있습니다.");
     }
@@ -30,19 +33,19 @@ final class OrderValidatorTest {
         var sut = new OrderValidator(new ItemRepositoryStub(), new DummyPointManager());
 
         // Act & Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(IsChangedItemException.class)
             .isThrownBy(() -> sut.validate(isChangedItem()))
             .withMessage("기본 상품 정보가 변경되었습니다.");
     }
 
     @Test
-    @DisplayName("주문을 검사하여 기본 상품 정보가 변경된 경우 예외가 발생합니다.")
+    @DisplayName("주문을 검사하여 상품 옵션 정보가 변경된 경우 예외가 발생합니다.")
     void sut_validate_an_exception_will_occur_if_the_item_option_information_is_changed() {
         // Arrange
         var sut = new OrderValidator(new ItemRepositoryStub(), new DummyPointManager());
 
         // Act & Assert
-        assertThatExceptionOfType(IllegalStateException.class)
+        assertThatExceptionOfType(IsChangedItemOptionException.class)
             .isThrownBy(() -> sut.validate(isChangedItemOption()))
             .withMessage("상품 옵션 정보가 변경되었습니다.");
     }

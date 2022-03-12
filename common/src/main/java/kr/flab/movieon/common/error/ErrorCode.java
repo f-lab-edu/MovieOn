@@ -24,8 +24,19 @@ public enum ErrorCode {
     // Jwt, mail token error
     INVALID_TOKEN(400, "Invalid token."),
     NOT_FOUND_REFRESH_TOKEN(404, "Refresh token is not found."),
-    TOKEN_EXPIRED(400, "Token expired.");
+    TOKEN_EXPIRED(400, "Token expired."),
 
+    // Order module error
+    ALREADY_CANCELED(400, "Already canceled order."),
+    MISS_MATCHED_AMOUNT(400, "Payment amount and the order amount do not match."),
+    EMPTY_ORDER_ITEMS(400, "Order item is empty."),
+    CHANGED_ITEM(400, "Item information is changed."),
+    CHANGED_ITEM_OPTION(400, "Item option is changed."),
+
+    // Product module error
+    NOT_MATCHED_RATE(400, "Not matched rate."),
+
+    DISABLED_NOTIFICATION_GROUP(400, "This notification group is disabled.");
 
     private final int status;
     private final String message;

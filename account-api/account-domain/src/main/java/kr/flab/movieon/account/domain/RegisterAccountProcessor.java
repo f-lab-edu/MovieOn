@@ -1,5 +1,7 @@
 package kr.flab.movieon.account.domain;
 
+import kr.flab.movieon.account.domain.exception.DuplicatedEmailException;
+import kr.flab.movieon.account.domain.exception.DuplicatedUsernameException;
 import kr.flab.movieon.common.error.InvalidTokenException;
 
 public final class RegisterAccountProcessor {

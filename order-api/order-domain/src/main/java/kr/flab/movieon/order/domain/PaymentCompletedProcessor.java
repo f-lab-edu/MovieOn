@@ -1,5 +1,7 @@
 package kr.flab.movieon.order.domain;
 
+import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
+import kr.flab.movieon.order.domain.exception.AmountNotMatchedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +20,7 @@ public final class PaymentCompletedProcessor {
         try {
             order.payed(event.getPayedAmount());
             return order;
-        } catch (IllegalStateException e) {
+        } catch (AlreadyCanceledException | AmountNotMatchedException e) {
             log.debug(e.getMessage());
             order.cancel();
             return order;
