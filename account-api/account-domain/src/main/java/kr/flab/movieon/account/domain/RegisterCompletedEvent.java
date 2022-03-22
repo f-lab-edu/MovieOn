@@ -9,7 +9,7 @@ public final class RegisterCompletedEvent implements DomainEvent {
     private final Date occurredOn;
 
     public RegisterCompletedEvent(Account account) {
-        this.accountId = account.getAccountId();
+        this.accountId = account.getAccountSubId();
         this.occurredOn = new Date();
     }
 

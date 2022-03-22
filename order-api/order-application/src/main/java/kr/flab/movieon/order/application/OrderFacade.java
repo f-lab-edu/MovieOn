@@ -25,6 +25,6 @@ public final class OrderFacade {
         var order = transactionTemplate.execute(status ->
             orderCommandHandler.create(accountId, request.toCommand()));
         order.pollAllEvents().forEach(publisher::publishEvent);
-        return order.getOrderId();
+        return order.getOrderSubId();
     }
 }

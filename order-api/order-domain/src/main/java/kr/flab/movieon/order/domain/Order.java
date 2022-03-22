@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import kr.flab.movieon.common.IdGenerator;
@@ -20,10 +21,12 @@ import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
 import kr.flab.movieon.order.domain.exception.AmountNotMatchedException;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "ORDERS")
+@DynamicUpdate
 public class Order extends AbstractAggregateRoot {
 
     private static final String PREFIX = "ord_";
@@ -31,8 +34,8 @@ public class Order extends AbstractAggregateRoot {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String orderId;
+    @Column(nullable = false)
+    private String orderSubId;
 
     private Customer customer;
 
@@ -43,6 +46,7 @@ public class Order extends AbstractAggregateRoot {
     private OrderStatus status;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     private List<OrderLineItem> lineItems;
 
     @Column(nullable = false)
@@ -64,7 +68,7 @@ public class Order extends AbstractAggregateRoot {
 
     private Order(Customer customer, String payMethod, OrderStatus status,
         BigDecimal useOfPoint, List<OrderLineItem> lineItems) {
-        this.orderId = IdGenerator.generate(PREFIX);
+        this.orderSubId = IdGenerator.generate(PREFIX);
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;
@@ -137,8 +141,8 @@ public class Order extends AbstractAggregateRoot {
         return id;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getOrderSubId() {
+        return orderSubId;
     }
 
     public Customer getCustomer() {

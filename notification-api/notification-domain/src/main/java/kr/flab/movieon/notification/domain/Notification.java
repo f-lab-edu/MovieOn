@@ -14,7 +14,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Inheritance
-@DiscriminatorColumn(name = "notification_type")
+@DiscriminatorColumn(name = "type")
 @Table(name = "NOTIFICATIONS")
 public abstract class Notification {
 

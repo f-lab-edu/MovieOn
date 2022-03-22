@@ -6,7 +6,6 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,8 +16,7 @@ import kr.flab.movieon.common.error.InvalidArgumentException;
 @Table(name = "ORDER_LINE_ITEMS")
 public class OrderLineItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private Long itemId;
@@ -26,7 +24,7 @@ public class OrderLineItem {
     private String name;
     @Column(nullable = false)
     private BigDecimal basePrice;
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     private List<OrderItemOption> options;
 
     protected OrderLineItem() {
