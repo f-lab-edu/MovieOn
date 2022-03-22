@@ -120,7 +120,7 @@ public class Order extends AbstractAggregateRoot {
     }
 
     public List<Long> getItemIds() {
-        return lineItems.stream()
+        return this.lineItems.stream()
             .map(OrderLineItem::getItemId)
             .collect(Collectors.toList());
     }
