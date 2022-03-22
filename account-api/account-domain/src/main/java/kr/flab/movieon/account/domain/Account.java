@@ -21,10 +21,12 @@ import javax.persistence.Table;
 import kr.flab.movieon.common.IdGenerator;
 import kr.flab.movieon.common.Role;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "ACCOUNTS")
+@DynamicUpdate
 public class Account extends AbstractAggregateRoot {
 
     private static final String PREFIX = "act_";
@@ -37,7 +39,7 @@ public class Account extends AbstractAggregateRoot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
-    private String accountId;
+    private String accountSubId;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
@@ -57,7 +59,7 @@ public class Account extends AbstractAggregateRoot {
     private Set<Role> roles = new HashSet<>();
 
     private Account(String email, String password, String username) {
-        this.accountId = IdGenerator.generate(PREFIX);
+        this.accountSubId = IdGenerator.generate(PREFIX);
         this.email = email;
         this.password = password;
         this.username = username;
@@ -124,8 +126,8 @@ public class Account extends AbstractAggregateRoot {
         return emailCheckToken;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getAccountSubId() {
+        return accountSubId;
     }
 
     @Override

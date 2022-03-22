@@ -11,9 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class TossPayments extends AbstractAggregateRoot {
 
     protected TossPayments() {

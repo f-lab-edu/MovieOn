@@ -11,7 +11,7 @@ public class NotificationTemplateType {
 
     @Enumerated(EnumType.STRING)
     private NotificationType type;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     protected NotificationTemplateType() {

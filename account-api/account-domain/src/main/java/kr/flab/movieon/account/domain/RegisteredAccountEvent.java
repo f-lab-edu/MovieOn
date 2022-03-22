@@ -12,7 +12,7 @@ public final class RegisteredAccountEvent implements DomainEvent {
     private final Date occurredOn;
 
     public RegisteredAccountEvent(Account account) {
-        this.accountId = account.getAccountId();
+        this.accountId = account.getAccountSubId();
         this.username = account.getUsername();
         this.email = account.getEmail();
         this.emailCheckToken = account.getEmailCheckToken();

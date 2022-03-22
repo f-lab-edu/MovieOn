@@ -6,8 +6,8 @@
 
   <select id="findByAccountId" parameterType="String"
     resultType="kr.flab.movieon.query.modules.account.AccountReadModel">
-    SELECT a.account_id, a.email, a.username
+    SELECT a.account_sub_id as accountId, a.email, a.username
     FROM accounts a
-    WHERE account_id = #{accountId}
+    WHERE account_sub_id = #{accountId}
   </select>
 </mapper>

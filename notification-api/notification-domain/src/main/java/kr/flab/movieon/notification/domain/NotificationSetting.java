@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import kr.flab.movieon.common.error.InvalidArgumentException;
@@ -33,6 +34,7 @@ public class NotificationSetting {
     private Receiver receiver;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "notification_setting_id")
     private Set<NotificationGroup> groups;
 
     @CreationTimestamp
