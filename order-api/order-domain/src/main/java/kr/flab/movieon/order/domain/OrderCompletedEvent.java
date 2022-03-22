@@ -3,7 +3,6 @@ package kr.flab.movieon.order.domain;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 import kr.flab.movieon.common.domain.model.DomainEvent;
 
 public final class OrderCompletedEvent implements DomainEvent {
@@ -18,9 +17,7 @@ public final class OrderCompletedEvent implements DomainEvent {
         this.orderId = order.getOrderSubId();
         this.customerId = order.getCustomer().getAccountId();
         this.orderedAt = order.getCompletedAt();
-        this.items = order.getLineItems().stream()
-            .map(OrderLineItem::getItemId)
-            .collect(Collectors.toList());
+        this.items = order.getItemIds();
         this.occurredOn = new Date();
     }
 
