@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
-public final class AccountQueryApi {
+public final class FindAccountApi {
 
     private final AccountReader accountReader;
 
-    public AccountQueryApi(AccountReader accountReader) {
+    public FindAccountApi(AccountReader accountReader) {
         this.accountReader = accountReader;
     }
 
@@ -22,7 +22,6 @@ public final class AccountQueryApi {
     public ResponseEntity<ApiResponse<?>> findInfo(
         @AuthenticationPrincipal AuthenticatedUser user) {
         var account = accountReader.findByAccountId(user.getId());
-        return ResponseEntity
-            .ok(ApiResponse.success(account));
+        return ResponseEntity.ok(ApiResponse.success(account));
     }
 }

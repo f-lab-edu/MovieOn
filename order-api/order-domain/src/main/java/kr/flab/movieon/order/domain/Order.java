@@ -2,6 +2,7 @@ package kr.flab.movieon.order.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -47,7 +48,7 @@ public class Order extends AbstractAggregateRoot {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private List<OrderLineItem> lineItems;
+    private List<OrderLineItem> lineItems = new ArrayList<>();
 
     @Column(nullable = false)
     private BigDecimal totalAmount;

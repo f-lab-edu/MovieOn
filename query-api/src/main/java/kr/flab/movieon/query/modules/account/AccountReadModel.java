@@ -1,20 +1,13 @@
 package kr.flab.movieon.query.modules.account;
 
-public class AccountReadModel {
+import java.time.LocalDateTime;
+
+public final class AccountReadModel {
 
     private String accountId;
     private String email;
     private String username;
-
-    protected AccountReadModel() {
-
-    }
-
-    public AccountReadModel(String accountId, String email, String username) {
-        this.accountId = accountId;
-        this.email = email;
-        this.username = username;
-    }
+    private LocalDateTime joinedAt;
 
     public String getAccountId() {
         return accountId;
@@ -26,5 +19,9 @@ public class AccountReadModel {
 
     public String getUsername() {
         return username;
+    }
+
+    public LocalDateTime getJoinedAt() {
+        return joinedAt;
     }
 }

@@ -2,6 +2,7 @@ package kr.flab.movieon.query.supports;
 
 import javax.sql.DataSource;
 import kr.flab.movieon.query.modules.account.MybatisAccountReader;
+import kr.flab.movieon.query.modules.order.MybatisOrderReader;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 @Import(value = {
-    MybatisAccountReader.class
+    MybatisAccountReader.class,
+    MybatisOrderReader.class
 })
 @Configuration
 @EnableRedisRepositories
