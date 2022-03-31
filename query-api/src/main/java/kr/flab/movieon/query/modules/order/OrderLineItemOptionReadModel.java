@@ -12,4 +12,12 @@ public final class OrderLineItemOptionReadModel {
     public Integer getSalesPrice() {
         return salesPrice;
     }
+
+    public void setOptionName(String optionName) {
+        this.optionName = optionName;
+    }
+
+    public void setSalesPrice(Integer salesPrice) {
+        this.salesPrice = salesPrice;
+    }
 }

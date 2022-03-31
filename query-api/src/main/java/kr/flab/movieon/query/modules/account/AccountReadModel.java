@@ -24,4 +24,20 @@ public final class AccountReadModel {
     public LocalDateTime getJoinedAt() {
         return joinedAt;
     }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setJoinedAt(LocalDateTime joinedAt) {
+        this.joinedAt = joinedAt;
+    }
 }

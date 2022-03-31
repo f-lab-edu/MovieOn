@@ -24,4 +24,21 @@ public final class OrderLineItemReadModel {
     public List<OrderLineItemOptionReadModel> getOptions() {
         return options;
     }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBasePrice(Integer basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public void setOptions(
+        List<OrderLineItemOptionReadModel> options) {
+        this.options = options;
+    }
 }

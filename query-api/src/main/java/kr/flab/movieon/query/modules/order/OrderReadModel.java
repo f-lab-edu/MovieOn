@@ -50,4 +50,41 @@ public final class OrderReadModel {
     public List<OrderLineItemReadModel> getLineItems() {
         return lineItems;
     }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public void setUseOfPoint(Integer useOfPoint) {
+        this.useOfPoint = useOfPoint;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setModifiedAt(LocalDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
+    }
+
+    public void setLineItems(
+        List<OrderLineItemReadModel> lineItems) {
+        this.lineItems = lineItems;
+    }
 }
