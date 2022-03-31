@@ -38,7 +38,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "com.h2database:h2"
     implementation "it.ozimov:embedded-redis:0.7.2"
     testImplementation "it.ozimov:embedded-redis:0.7.2"
     implementation "mysql:mysql-connector-java"

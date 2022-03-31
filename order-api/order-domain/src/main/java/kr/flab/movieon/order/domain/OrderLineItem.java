@@ -1,6 +1,7 @@
 package kr.flab.movieon.order.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ public class OrderLineItem {
     @Column(nullable = false)
     private BigDecimal basePrice;
     @ElementCollection
-    private List<OrderItemOption> options;
+    private List<OrderItemOption> options = new ArrayList<>();
 
     protected OrderLineItem() {
 

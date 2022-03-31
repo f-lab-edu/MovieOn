@@ -8,7 +8,7 @@ values ('act_202203081357591787178783', 'kitty@gmail.com', 'test-token', now(), 
         null, null, '$2a$10$9ibGcn661rKyysh6Y9R8VuKhXZCQG.gP8JGRMfaoBRMAPT6npq0qe',
         'solomon', false, null),
        ('act_202203081357591787172312', 'jiwon@gmail.com', 'test-token', now(), true,
-        null, null, '$2a$10$9ibGcn661rKyysh6Y9R8VuKhXZCQG.gP8JGRMfaoBRMAPT6npq0qe',
+        now(), null, '$2a$10$9ibGcn661rKyysh6Y9R8VuKhXZCQG.gP8JGRMfaoBRMAPT6npq0qe',
         'jiwon', false, null);
 
 insert into account_roles(account_id, roles) values (3, 'USER');

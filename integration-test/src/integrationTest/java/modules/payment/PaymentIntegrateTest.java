@@ -31,7 +31,7 @@ public final class PaymentIntegrateTest extends IntegrateTestExtension {
         void name(TossPaymentsPaymentCompletedResponse response) throws Exception {
             // Arrange
             var request = new TossPaymentsPaymentApprovalRequest();
-            request.setAmount(7800);
+            request.setAmount(21700);
             request.setOrderId("ord_202203101620471034855694");
             request.setPaymentKey("fake-key");
 

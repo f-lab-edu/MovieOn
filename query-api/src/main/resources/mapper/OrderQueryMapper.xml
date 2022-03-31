@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.flab.movieon.query.modules.order.OrderReader">
+
+  <select id="findByOrderId" resultMap="orderInfo">
+    SELECT ord.order_sub_id AS orderId,
+           ord.account_id   AS customerId,
+           ord.status       AS status,
+           ord.total_amount AS totalAmount,
+           ord.use_of_point AS useOfPoint,
+           ord.created_at   AS createdAt,
+           ord.modified_at  AS modifiedAt,
+           ord.completed_at AS completedAt,
+           oli.item_id      AS itemId,
+           oli.name         AS lineItemName,
+           oli.base_price   AS lineItemBasePrice,
+           olio.option_name AS lineItemOptionName,
+           olio.sales_price AS lineItemSalesPrice
+    FROM orders ord
+           INNER JOIN order_line_items oli ON ord.id = oli.order_id
+           INNER JOIN order_line_item_options olio ON oli.id = olio.order_line_item_id
+    WHERE ord.order_sub_id = #{orderId};
+  </select>
+
+  <resultMap type="OrderReadModel" id="orderInfo">
+    <result property="orderId" column="orderId"/>
+    <result property="customerId" column="customerId"/>
+    <result property="status" column="status"/>
+    <result property="totalAmount" column="totalAmount"/>
+    <result property="useOfPoint" column="useOfPoint"/>
+    <result property="createdAt" column="createdAt"/>
+    <result property="modifiedAt" column="modifiedAt"/>
+    <result property="completedAt" column="completedAt"/>
+    <collection property="lineItems" resultMap="lineItem" />
+  </resultMap>
+
+  <resultMap id="lineItem" type="OrderLineItemReadModel">
+    <result property="itemId" column="itemId"/>
+    <result property="name" column="lineItemName"/>
+    <result property="basePrice" column="lineItemBasePrice"/>
+    <collection property="options" resultMap="lineItemOption"/>
+  </resultMap>
+
+  <resultMap id="lineItemOption" type="OrderLineItemOptionReadModel">
+    <result property="optionName" column="lineItemOptionName"/>
+    <result property="salesPrice" column="lineItemSalesPrice"/>
+  </resultMap>
+
+</mapper>

@@ -4,10 +4,13 @@
 
 <mapper namespace="kr.flab.movieon.query.modules.account.AccountReader">
 
-  <select id="findByAccountId" parameterType="String"
-    resultType="kr.flab.movieon.query.modules.account.AccountReadModel">
-    SELECT a.account_sub_id as accountId, a.email, a.username
+  <select id="findByAccountId" parameterType="String" resultType="AccountReadModel">
+    SELECT a.account_sub_id as accountId,
+           a.email as email,
+           a.username as username,
+           a.joined_at as joinedAt
     FROM accounts a
-    WHERE account_sub_id = #{accountId}
+    WHERE a.account_sub_id = #{accountId}
   </select>
+
 </mapper>
