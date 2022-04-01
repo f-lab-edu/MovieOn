@@ -39,7 +39,7 @@ services:
     image: mysql:8.0.28
     volumes:
       - ./mysql/conf.d:/etc/mysql/conf.d
-    restart: always
+    restart: on-failure
     ports:
       - 3306:3306
     environment:

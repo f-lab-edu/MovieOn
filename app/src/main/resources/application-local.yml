@@ -34,7 +34,6 @@ spring:
 
 logging:
   level:
-    ROOT: INFO
     kr.flab.movieon: debug
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
