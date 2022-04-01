@@ -35,6 +35,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String REGISTER_CONFIRM_URI = "/api/v1/auth/confirm";
     private static final String LOGIN_URI = "/api/v1/auth/login";
     private static final String RE_ISSUANCE_URI = "/api/v1/auth/reIssuance";
+    private static final String[] SWAGGER_URI = {"/v2/api-docs", "/swagger-resources",
+        "/swagger-resources/**", "/configuration/ui", "/configuration/security",
+        "/swagger-ui.html", "/webjars/**", "/v3/api-docs", "/swagger-ui/**"};
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final FilterChainExceptionHelper filterChainExceptionHelper;
@@ -69,6 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
 
             .authorizeRequests()
+            .antMatchers(SWAGGER_URI).permitAll()
             .antMatchers(OPTIONS).permitAll()
             .antMatchers(POST, REGISTER_URI).permitAll()
             .antMatchers(GET, REGISTER_CONFIRM_URI).permitAll()
