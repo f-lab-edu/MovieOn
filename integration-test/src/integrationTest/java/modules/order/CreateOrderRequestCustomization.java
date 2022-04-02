@@ -1,9 +1,9 @@
 package modules.order;
 
 import java.util.List;
-import kr.flab.movieon.order.application.request.CreateOrderItemOptionRequest;
-import kr.flab.movieon.order.application.request.CreateOrderLineItemRequest;
-import kr.flab.movieon.order.application.request.CreateOrderRequest;
+import kr.flab.movieon.order.presentation.request.CreateOrderItemOptionRequest;
+import kr.flab.movieon.order.presentation.request.CreateOrderLineItemRequest;
+import kr.flab.movieon.order.presentation.request.CreateOrderRequest;
 import org.javaunit.autoparams.customization.Customizer;
 import org.javaunit.autoparams.generator.ObjectContainer;
 import org.javaunit.autoparams.generator.ObjectGenerationContext;

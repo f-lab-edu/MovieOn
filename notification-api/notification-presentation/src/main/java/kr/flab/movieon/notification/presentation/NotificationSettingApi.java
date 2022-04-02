@@ -2,15 +2,12 @@ package kr.flab.movieon.notification.presentation;
 
 import kr.flab.movieon.common.AuthenticatedUser;
 import kr.flab.movieon.notification.application.NotificationSettingManager;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/notifications")
-final class NotificationSettingApi {
+@RequestMapping(value = "/api/v1/notifications")
+final class NotificationSettingApi implements NotificationSettingSpecification {
 
     private final NotificationSettingManager settingManager;
 
@@ -18,27 +15,23 @@ final class NotificationSettingApi {
         this.settingManager = settingManager;
     }
 
-    @PatchMapping("/{groupName}/enable")
-    public void enable(@PathVariable String groupName,
-        @AuthenticationPrincipal AuthenticatedUser authentication) {
-        settingManager.enable(authentication.getId(), groupName);
+    @Override
+    public void enable(String groupName, AuthenticatedUser user) {
+        settingManager.enable(user.getId(), groupName);
     }
 
-    @PatchMapping("/{groupName}/enable/{typeName}")
-    public void enable(@PathVariable String groupName, @PathVariable String typeName,
-        @AuthenticationPrincipal AuthenticatedUser authentication) {
-        settingManager.enable(authentication.getId(), groupName, typeName);
+    @Override
+    public void enable(String groupName, String typeName, AuthenticatedUser user) {
+        settingManager.enable(user.getId(), groupName, typeName);
     }
 
-    @PatchMapping("/{groupName}/disable")
-    public void disable(@PathVariable String groupName,
-        @AuthenticationPrincipal AuthenticatedUser authentication) {
-        settingManager.disable(authentication.getId(), groupName);
+    @Override
+    public void disable(String groupName, AuthenticatedUser user) {
+        settingManager.disable(user.getId(), groupName);
     }
 
-    @PatchMapping("/{groupName}/disable/{typeName}")
-    public void disable(@PathVariable String groupName, @PathVariable String typeName,
-        @AuthenticationPrincipal AuthenticatedUser authentication) {
-        settingManager.disable(authentication.getId(), groupName, typeName);
+    @Override
+    public void disable(String groupName, String typeName, AuthenticatedUser user) {
+        settingManager.disable(user.getId(), groupName, typeName);
     }
 }

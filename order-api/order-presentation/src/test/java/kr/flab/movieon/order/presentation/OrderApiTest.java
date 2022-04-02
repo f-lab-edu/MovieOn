@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.List;
-import kr.flab.movieon.order.application.request.CreateOrderLineItemRequest;
-import kr.flab.movieon.order.application.request.CreateOrderRequest;
+import kr.flab.movieon.order.presentation.request.CreateOrderLineItemRequest;
+import kr.flab.movieon.order.presentation.request.CreateOrderRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @DisplayName("주문 생성 HTTP API")
 @ExtendWith(MockitoExtension.class)
-final class CreateOrderApiTest {
+final class OrderApiTest {
 
     private static final String REGISTER_ORDER_URI = "/api/v1/orders";
 
@@ -29,7 +29,7 @@ final class CreateOrderApiTest {
     private ObjectMapper objectMapper;
 
     @InjectMocks
-    private CreateOrderApi orderApi;
+    private OrderApi orderApi;
 
     @BeforeEach
     void setUp() {

@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import kr.flab.movieon.account.application.command.LoginAccountCommand;
-import kr.flab.movieon.account.application.command.RegisterAccountCommand;
+import kr.flab.movieon.account.presentation.request.LoginAccountRequest;
+import kr.flab.movieon.account.presentation.request.RegisterAccountRequest;
 import modules.IntegrateTestExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,15 +25,15 @@ final class AuthenticationIntegrationTest extends IntegrateTestExtension {
         @Test
         @DisplayName("적절한 파라미터를 입력하여, 등록 처리되고 계정 확인 메일이 발송된다.")
         void account_register_scenario_test() throws Exception {
-            var command = new RegisterAccountCommand();
-            command.setUsername("rebwon");
-            command.setEmail("msolo021015@gmail.com");
-            command.setPassword("12345678!");
+            var request = new RegisterAccountRequest();
+            request.setUsername("rebwon");
+            request.setEmail("msolo021015@gmail.com");
+            request.setPassword("12345678!");
 
             final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions
@@ -72,14 +72,14 @@ final class AuthenticationIntegrationTest extends IntegrateTestExtension {
         @Test
         @DisplayName("적절한 이메일과 비밀번호가 입력되고, 사용자에게 액세스, 리프레시 토큰을 반환한다.")
         void account_login_processing_return_access_refresh_tokens() throws Exception {
-            var command = new LoginAccountCommand();
-            command.setEmail("solomon@gmail.com");
-            command.setPassword("12345678!");
+            var request = new LoginAccountRequest();
+            request.setEmail("solomon@gmail.com");
+            request.setPassword("12345678!");
 
             final var actions = mockMvc.perform(post(LOGIN_URL)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions

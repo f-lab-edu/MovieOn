@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import kr.flab.movieon.order.application.request.CreateOrderRequest;
+import kr.flab.movieon.order.presentation.request.CreateOrderRequest;
 import modules.IntegrateTestExtension;
 import org.javaunit.autoparams.AutoSource;
 import org.javaunit.autoparams.customization.Customization;
@@ -18,7 +18,7 @@ public final class OrderIntegrationTest extends IntegrateTestExtension {
 
     @Nested
     @DisplayName("주문 생성 API")
-    class CreateOrderApiTest {
+    class OrderApiTest {
 
         private static final String CREATE_ORDER_URI = "/api/v1/orders";
 

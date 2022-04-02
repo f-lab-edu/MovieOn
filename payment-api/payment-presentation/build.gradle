@@ -5,8 +5,8 @@ apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
 dependencies {
-    api project(":common")
     api project(":payment-api:payment-application")
+    implementation "org.springdoc:springdoc-openapi-ui:1.6.6"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-validation"

@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kr.flab.movieon.common.error.ErrorCode;
-import kr.flab.movieon.common.result.ApiResponse;
+import kr.flab.movieon.common.result.ApiResponseEnvelop;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -25,6 +25,6 @@ public final class DefaultAuthenticationEntryPoint implements AuthenticationEntr
         AuthenticationException authException) throws IOException, ServletException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         var outputStream = response.getOutputStream();
-        objectMapper.writeValue(outputStream, ApiResponse.error(ErrorCode.UN_AUTHENTICATED));
+        objectMapper.writeValue(outputStream, ApiResponseEnvelop.error(ErrorCode.UN_AUTHENTICATED));
     }
 }

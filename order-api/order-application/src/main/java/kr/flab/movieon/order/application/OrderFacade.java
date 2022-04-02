@@ -1,7 +1,6 @@
 package kr.flab.movieon.order.application;
 
-import kr.flab.movieon.order.application.request.CreateOrderRequest;
-import kr.flab.movieon.order.domain.OrderCommandHandler;
+import kr.flab.movieon.order.application.command.CreateOrderCommand;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -9,21 +8,21 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Service
 public final class OrderFacade {
 
-    private final OrderCommandHandler orderCommandHandler;
+    private final CreateOrderCommandHandler createOrderCommandHandler;
     private final TransactionTemplate transactionTemplate;
     private final ApplicationEventPublisher publisher;
 
-    public OrderFacade(OrderCommandHandler orderCommandHandler,
+    public OrderFacade(CreateOrderCommandHandler createOrderCommandHandler,
         TransactionTemplate transactionTemplate,
         ApplicationEventPublisher publisher) {
-        this.orderCommandHandler = orderCommandHandler;
+        this.createOrderCommandHandler = createOrderCommandHandler;
         this.transactionTemplate = transactionTemplate;
         this.publisher = publisher;
     }
 
-    public String create(String accountId, CreateOrderRequest request) {
+    public String create(String accountId, CreateOrderCommand command) {
         var order = transactionTemplate.execute(status ->
-            orderCommandHandler.create(accountId, request.toCommand()));
+            createOrderCommandHandler.create(accountId, command));
         order.pollAllEvents().forEach(publisher::publishEvent);
         return order.getOrderSubId();
     }

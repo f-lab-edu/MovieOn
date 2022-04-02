@@ -3,7 +3,7 @@ package kr.flab.movieon.product.infrastructure;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.InvalidArgumentException;
 import kr.flab.movieon.common.error.SystemException;
-import kr.flab.movieon.common.result.ApiResponse;
+import kr.flab.movieon.common.result.ApiResponseEnvelop;
 import kr.flab.movieon.product.domain.NotMatchedRateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,16 +21,16 @@ public final class ProductModuleExceptionHandler {
         InvalidArgumentException.class,
         NotMatchedRateException.class
     })
-    public ResponseEntity<ApiResponse<?>> onError(SystemException e) {
+    public ResponseEntity<ApiResponseEnvelop<?>> onError(SystemException e) {
         log.error("SystemError: ", e);
         if (e.getMessage() != null) {
             return ResponseEntity
                 .status(toStatus(e.getErrorCode()))
-                .body(ApiResponse.error(e.getErrorCode(), e));
+                .body(ApiResponseEnvelop.error(e.getErrorCode(), e));
         }
         return ResponseEntity
             .status(toStatus(e.getErrorCode()))
-            .body(ApiResponse.error(e.getErrorCode()));
+            .body(ApiResponseEnvelop.error(e.getErrorCode()));
     }
 
     private HttpStatus toStatus(ErrorCode errorCode) {

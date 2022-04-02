@@ -3,11 +3,11 @@ package kr.flab.movieon.account.application;
 import kr.flab.movieon.account.application.command.ConfirmRegisterAccountCommand;
 import kr.flab.movieon.account.application.command.LoginAccountCommand;
 import kr.flab.movieon.account.application.command.RegisterAccountCommand;
-import kr.flab.movieon.account.application.response.TokenResponse;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
 import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.TokenReIssuer;
+import kr.flab.movieon.account.domain.Tokens;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -49,16 +49,14 @@ public final class AccountFacade {
         account.pollAllEvents().forEach(publisher::publishEvent);
     }
 
-    public TokenResponse login(LoginAccountCommand command) {
-        var tokens = transactionTemplate.execute(status -> {
+    public Tokens login(LoginAccountCommand command) {
+        return transactionTemplate.execute(status -> {
             var account = loginProcessor.login(command.getEmail(), command.getPassword());
             return tokenGenerator.generate(account);
         });
-        return new TokenResponse(tokens.getAccessToken(), tokens.getRefreshToken());
     }
 
-    public TokenResponse reIssuance(String payload) {
-        var tokens = transactionTemplate.execute(status -> tokenReIssuer.reIssuance(payload));
-        return new TokenResponse(tokens.getAccessToken(), tokens.getRefreshToken());
+    public Tokens reIssuance(String payload) {
+        return transactionTemplate.execute(status -> tokenReIssuer.reIssuance(payload));
     }
 }
