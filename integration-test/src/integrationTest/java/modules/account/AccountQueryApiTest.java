@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-public final class FindAccountApiTest extends IntegrateTestExtension {
+public final class AccountQueryApiTest extends IntegrateTestExtension {
 
     @Nested
     @DisplayName("회원 정보 조회 API")

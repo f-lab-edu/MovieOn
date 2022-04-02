@@ -5,8 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.flab.movieon.account.application.command.LoginAccountCommand;
-import kr.flab.movieon.account.application.command.RegisterAccountCommand;
+import kr.flab.movieon.account.presentation.request.LoginAccountRequest;
+import kr.flab.movieon.account.presentation.request.RegisterAccountRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -21,7 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@DisplayName("Account Command API")
+@DisplayName("Authentication API")
 @ExtendWith(MockitoExtension.class)
 class AuthenticationApiTest {
 
@@ -65,14 +65,14 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"@@@@@@@@@", "@naver.com", "jiwon"})
         @DisplayName("요청 Body의 이메일 형식이 맞지 않는 경우 400 에러를 반환한다.")
         void http_parameter_is_invalid_email(String arg) throws Exception {
-            var command = new LoginAccountCommand();
-            command.setEmail(arg);
-            command.setPassword("password1!");
+            var request = new LoginAccountRequest();
+            request.setEmail(arg);
+            request.setPassword("password1!");
 
             final var actions = mockMvc.perform(post(LOGIN_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions
@@ -83,14 +83,14 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"1", "a", "1a234567890123456"})
         @DisplayName("요청 Body의 비밀번호 형식이 맞지 않은 경우 400 에러를 반환한다.")
         void http_parameter_password_is_invalid(String args) throws Exception {
-            var command = new LoginAccountCommand();
-            command.setEmail("jiwon@naver.com");
-            command.setPassword(args);
+            var request = new LoginAccountRequest();
+            request.setEmail("jiwon@naver.com");
+            request.setPassword(args);
 
             final var actions = mockMvc.perform(post(LOGIN_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions
@@ -145,15 +145,15 @@ class AuthenticationApiTest {
         @NullAndEmptySource
         @DisplayName("HTTP 입력이 비었거나 null 이라면 400 에러를 응답한다.")
         void http_parameter_is_null_and_empty(String arg) throws Exception {
-            var command = new RegisterAccountCommand();
-            command.setUsername(arg);
-            command.setEmail(arg);
-            command.setPassword(arg);
+            var request = new RegisterAccountRequest();
+            request.setUsername(arg);
+            request.setEmail(arg);
+            request.setPassword(arg);
 
             final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions
@@ -164,15 +164,15 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"@@@@@@@@@", "@naver.com", "jiwon"})
         @DisplayName("요청 Body의 이메일 형식이 맞지 않는 경우 400 에러를 반환한다.")
         void http_parameter_is_invalid_email(String arg) throws Exception {
-            var command = new RegisterAccountCommand();
-            command.setUsername("username");
-            command.setEmail(arg);
-            command.setPassword("password1!");
+            var request = new RegisterAccountRequest();
+            request.setUsername("username");
+            request.setEmail(arg);
+            request.setPassword("password1!");
 
             final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions
@@ -183,15 +183,15 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"1", "a", "1a234567890123456"})
         @DisplayName("요청 Body의 비밀번호 형식이 맞지 않은 경우 400 에러를 반환한다.")
         void http_parameter_password_is_invalid(String args) throws Exception {
-            var command = new RegisterAccountCommand();
-            command.setUsername("username");
-            command.setEmail("jiwon@naver.com");
-            command.setPassword(args);
+            var request = new RegisterAccountRequest();
+            request.setUsername("username");
+            request.setEmail("jiwon@naver.com");
+            request.setPassword(args);
 
             final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(command))
+                .content(objectMapper.writeValueAsString(request))
             );
 
             actions

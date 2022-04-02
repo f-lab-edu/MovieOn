@@ -3,7 +3,7 @@ package kr.flab.movieon.order.infrastructure;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.InvalidArgumentException;
 import kr.flab.movieon.common.error.SystemException;
-import kr.flab.movieon.common.result.ApiResponse;
+import kr.flab.movieon.common.result.ApiResponseEnvelop;
 import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
 import kr.flab.movieon.order.domain.exception.AmountNotMatchedException;
 import kr.flab.movieon.order.domain.exception.IsChangedItemException;
@@ -29,16 +29,16 @@ public final class OrderModuleExceptionHandler {
         IsChangedItemException.class,
         IsChangedItemOptionException.class
     })
-    public ResponseEntity<ApiResponse<?>> onError(SystemException e) {
+    public ResponseEntity<ApiResponseEnvelop<?>> onError(SystemException e) {
         log.error("SystemError: ", e);
         if (e.getMessage() != null) {
             return ResponseEntity
                 .status(toStatus(e.getErrorCode()))
-                .body(ApiResponse.error(e.getErrorCode(), e));
+                .body(ApiResponseEnvelop.error(e.getErrorCode(), e));
         }
         return ResponseEntity
             .status(toStatus(e.getErrorCode()))
-            .body(ApiResponse.error(e.getErrorCode()));
+            .body(ApiResponseEnvelop.error(e.getErrorCode()));
     }
 
     private HttpStatus toStatus(ErrorCode errorCode) {

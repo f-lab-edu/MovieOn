@@ -1,6 +1,5 @@
 package kr.flab.movieon.order.infrastructure;
 
-import kr.flab.movieon.order.domain.OrderCommandHandler;
 import kr.flab.movieon.order.domain.OrderValidator;
 import kr.flab.movieon.order.domain.PaymentCompletedProcessor;
 import kr.flab.movieon.order.infrastructure.jpa.OrderRepositoryAdapter;
@@ -9,7 +8,6 @@ import org.springframework.context.annotation.Import;
 
 @Import(value = {
     OrderRepositoryAdapter.class,
-    OrderCommandHandler.class,
     OrderValidator.class,
     PaymentCompletedProcessor.class
 })

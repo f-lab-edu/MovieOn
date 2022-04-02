@@ -3,32 +3,33 @@ package kr.flab.movieon.common.result;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.SystemException;
 
-public final class ApiResponse<T> {
+public final class ApiResponseEnvelop<T> {
 
     private final boolean success;
     private final T body;
 
-    private ApiResponse(boolean success, T body) {
+    private ApiResponseEnvelop(boolean success, T body) {
         this.success = success;
         this.body = body;
     }
 
-    public static <T> ApiResponse<T> success(T body) {
-        return new ApiResponse<>(true, body);
+    public static <T> ApiResponseEnvelop<T> success(T body) {
+        return new ApiResponseEnvelop<>(true, body);
     }
 
-    public static ApiResponse<ErrorBody> error(ErrorCode errorCode) {
-        return new ApiResponse<>(false,
+    public static ApiResponseEnvelop<ErrorBody> error(ErrorCode errorCode) {
+        return new ApiResponseEnvelop<>(false,
             new ErrorBody(errorCode.name(), errorCode.getMessage()));
     }
 
-    public static ApiResponse<ErrorBody> error(ErrorCode errorCode, SystemException exception) {
-        return new ApiResponse<>(false,
+    public static ApiResponseEnvelop<ErrorBody> error(ErrorCode errorCode,
+        SystemException exception) {
+        return new ApiResponseEnvelop<>(false,
             new ErrorBody(errorCode.name(), exception.getMessage()));
     }
 
-    public static <T> ApiResponse<T> error(T body) {
-        return new ApiResponse<>(false, body);
+    public static <T> ApiResponseEnvelop<T> error(T body) {
+        return new ApiResponseEnvelop<>(false, body);
     }
 
     public boolean isSuccess() {

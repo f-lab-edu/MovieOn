@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-public final class FindOrderApiTest extends IntegrateTestExtension {
+public final class OrderQueryApiTest extends IntegrateTestExtension {
 
     @Nested
     @DisplayName("주문 단건 조회")

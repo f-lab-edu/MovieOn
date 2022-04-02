@@ -1,46 +1,55 @@
-package kr.flab.movieon.order.application.request;
+package kr.flab.movieon.order.presentation.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import kr.flab.movieon.order.domain.commands.CreateOrder;
-import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderItemOption;
-import kr.flab.movieon.order.domain.commands.CreateOrder.CreateOrderLineItem;
+import kr.flab.movieon.order.application.command.CreateOrderCommand;
+import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderItemOptionCommand;
+import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderLineItemCommand;
 
+@Schema(description = "주문 생성 요청")
 public final class CreateOrderRequest {
 
+    @Schema(description = "결제 방법", example = "TOSS", required = true)
     @NotBlank(message = "주문 요청 이후 결제할 결제 방법이 필요합니다")
     private String payMethod;
+
+    @Schema(description = "사용 포인트", example = "0", required = true)
     @NotNull(message = "포인트 사용 금액은 비어있을 수 없습니다")
     @Min(value = 0, message = "포인트 최소 사용 금액은 0원 이상이어야만 합니다")
     private Long useOfPoint;
+
+    @Schema(description = "주문 항목", required = true)
     @NotNull(message = "주문 항목은 비어있을 수 없습니다")
     @Size(min = 1, message = "주문 항목은 반드시 하나 이상이어야만 합니다")
     @Valid
     private List<CreateOrderLineItemRequest> lineItems;
 
-    public CreateOrder toCommand() {
-        return new CreateOrder(this.payMethod, BigDecimal.valueOf(this.useOfPoint), toLineItems());
+    public CreateOrderCommand toCommand() {
+        return new CreateOrderCommand(this.payMethod, BigDecimal.valueOf(this.useOfPoint),
+            toLineItems());
     }
 
-    private List<CreateOrderLineItem> toLineItems() {
+    private List<CreateOrderLineItemCommand> toLineItems() {
         return this.lineItems.stream()
-            .map(lineItemRequest -> new CreateOrderLineItem(lineItemRequest.getItemId(),
+            .map(lineItemRequest -> new CreateOrderLineItemCommand(lineItemRequest.getItemId(),
                 lineItemRequest.getProductName(),
                 BigDecimal.valueOf(lineItemRequest.getBasePrice()),
                 toItemOptions(lineItemRequest)))
             .collect(Collectors.toList());
     }
 
-    private List<CreateOrderItemOption> toItemOptions(CreateOrderLineItemRequest lineItemRequest) {
+    private List<CreateOrderItemOptionCommand> toItemOptions(
+        CreateOrderLineItemRequest lineItemRequest) {
         return lineItemRequest.getOptions().stream()
-            .map(itemOptionRequest -> new CreateOrderItemOption(itemOptionRequest.getOptionName(),
+            .map(itemOptionRequest -> new CreateOrderItemOptionCommand(
+                itemOptionRequest.getOptionName(),
                 BigDecimal.valueOf(itemOptionRequest.getSalesPrice())))
             .collect(Collectors.toList());
     }
@@ -67,24 +76,6 @@ public final class CreateOrderRequest {
 
     public void setLineItems(List<CreateOrderLineItemRequest> lineItems) {
         this.lineItems = lineItems;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CreateOrderRequest that = (CreateOrderRequest) o;
-        return Objects.equals(payMethod, that.payMethod) && Objects.equals(useOfPoint,
-            that.useOfPoint) && Objects.equals(lineItems, that.lineItems);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(payMethod, useOfPoint, lineItems);
     }
 
     @Override
