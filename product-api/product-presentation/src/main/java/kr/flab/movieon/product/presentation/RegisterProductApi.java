@@ -1,17 +1,11 @@
 package kr.flab.movieon.product.presentation;
 
-import javax.validation.Valid;
 import kr.flab.movieon.product.application.ProductManager;
 import kr.flab.movieon.product.application.RegisterProductCommand;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/products")
-public class RegisterProductApi {
+public class RegisterProductApi implements ProductSpecification {
 
     private final ProductManager productManager;
 
@@ -19,10 +13,8 @@ public class RegisterProductApi {
         this.productManager = productManager;
     }
 
-    @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void register(@RequestBody @Valid RegisterProductCommand command) {
-        // TODO request 값 확인 할 수 있도록 예외 처리 시 BindingResult 조작
+    @Override
+    public void register(RegisterProductCommand command) {
         productManager.register(command);
     }
 }
