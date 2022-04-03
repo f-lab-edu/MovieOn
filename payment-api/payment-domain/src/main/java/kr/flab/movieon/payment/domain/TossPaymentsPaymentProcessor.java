@@ -2,5 +2,5 @@ package kr.flab.movieon.payment.domain;
 
 public interface TossPaymentsPaymentProcessor {
 
-    TossPayments payed(TossPaymentsPaymentApprovalCommand command);
+    TossPayments payed(String orderId, String paymentKey, Integer amount);
 }

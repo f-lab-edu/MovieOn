@@ -1,6 +1,5 @@
 package kr.flab.movieon.payment.infrastructure;
 
-import kr.flab.movieon.payment.domain.TossPaymentsPaymentApprovalCommand;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,10 +18,10 @@ public class TossPaymentsPaymentApprovalCommandVerifier {
         this.tossPaymentsProperties = tossPaymentsProperties;
     }
 
-    public void verify(TossPaymentsPaymentApprovalCommand command) {
+    public void verify(String orderId, String paymentKey, Integer amount) {
         var request = createRequest(createHeaders());
         var response = restTemplate.exchange(
-            tossPaymentsProperties.getUrl() + command.getPaymentKey(),
+            tossPaymentsProperties.getUrl() + paymentKey,
             HttpMethod.GET, request, TossPaymentsPaymentApprovalVerifyResponse.class);
 
         if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
@@ -30,7 +29,7 @@ public class TossPaymentsPaymentApprovalCommandVerifier {
         }
 
         var tossPaymentsResponse = response.getBody();
-        if (!tossPaymentsResponse.isSatisfiedBy(command.getOrderId(), command.getAmount())) {
+        if (!tossPaymentsResponse.isSatisfiedBy(orderId, amount)) {
             // TODO 클라이언트가 OrderId와 Amount를 변조시켰으므로 예외 처리 필요함.
         }
     }
