@@ -6,14 +6,21 @@ import kr.flab.movieon.query.modules.order.MybatisOrderReader;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Import(value = {
     MybatisAccountReader.class,
@@ -38,12 +45,28 @@ public class QueryModuleConfiguration {
         factoryBean.setConfiguration(configuration);
         factoryBean.setTypeAliasesPackage("kr.flab.movieon.query.modules.*");
         var resolver = new PathMatchingResourcePatternResolver();
-        factoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+        factoryBean.setMapperLocations(resolver
+            .getResources("classpath:mapper/*.xml"));
         return factoryBean.getObject();
     }
 
-    // TODO RedisCacheManager 빈 생성
-    // TODO 알림 모듈은 Caffeine 캐시로, 쿼리 모듈은 Redis 캐시로 동작하도록.
+    @Bean
+    @Primary
+    public CacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+        var redisCacheConfig = RedisCacheConfiguration
+            .defaultCacheConfig()
+            .serializeKeysWith(RedisSerializationContext.SerializationPair
+                .fromSerializer(new StringRedisSerializer()))
+            .serializeValuesWith(RedisSerializationContext.SerializationPair
+                .fromSerializer(new GenericJackson2JsonRedisSerializer()));
+
+        return RedisCacheManager
+            .RedisCacheManagerBuilder
+            .fromConnectionFactory(connectionFactory)
+            .cacheDefaults(redisCacheConfig)
+            .build();
+    }
+
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(redisHost, redisPort);
