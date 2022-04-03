@@ -21,7 +21,7 @@ public class NotificationTemplateRepositoryAdapter implements NotificationTempla
         return templateRepository.save(entity);
     }
 
-    @Cacheable(value = "template")
+    @Cacheable(value = "template", cacheManager = "caffeineCacheManager")
     @Override
     public NotificationTemplate findByTemplateType(NotificationTemplateType templateType) {
         return templateRepository.findByTemplateType(templateType);

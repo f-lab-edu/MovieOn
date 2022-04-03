@@ -56,7 +56,7 @@ public class NotificationModuleConfiguration {
     }
 
     @Bean
-    public CacheManager cacheManager() {
+    public CacheManager caffeineCacheManager() {
         var cacheManager = new SimpleCacheManager();
         var caches = Arrays.stream(CachePolicy.values())
             .map(cache -> new CaffeineCache(cache.getCacheName(),
