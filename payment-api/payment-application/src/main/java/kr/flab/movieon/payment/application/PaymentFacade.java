@@ -16,8 +16,9 @@ public final class PaymentFacade {
         this.publisher = publisher;
     }
 
-    public void payed(TossPaymentsPaymentApprovalRequest request) {
-        var tossPayments = paymentProcessor.payed(request.toCommand());
+    public void payed(TossPaymentsPaymentApprovalCommand command) {
+        var tossPayments = paymentProcessor.payed(
+            command.getOrderId(), command.getPaymentKey(), command.getAmount());
         tossPayments.pollAllEvents().forEach(publisher::publishEvent);
     }
 }

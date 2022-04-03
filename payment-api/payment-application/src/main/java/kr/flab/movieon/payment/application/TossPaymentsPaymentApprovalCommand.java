@@ -1,4 +1,4 @@
-package kr.flab.movieon.payment.domain;
+package kr.flab.movieon.payment.application;
 
 public final class TossPaymentsPaymentApprovalCommand {
 

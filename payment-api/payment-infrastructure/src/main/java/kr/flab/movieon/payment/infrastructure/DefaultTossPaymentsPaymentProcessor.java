@@ -1,7 +1,6 @@
 package kr.flab.movieon.payment.infrastructure;
 
 import kr.flab.movieon.payment.domain.TossPayments;
-import kr.flab.movieon.payment.domain.TossPaymentsPaymentApprovalCommand;
 import kr.flab.movieon.payment.domain.TossPaymentsPaymentProcessor;
 import kr.flab.movieon.payment.domain.TossPaymentsRepository;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -25,10 +24,11 @@ public final class DefaultTossPaymentsPaymentProcessor implements TossPaymentsPa
     }
 
     @Override
-    public TossPayments payed(TossPaymentsPaymentApprovalCommand command) {
+    public TossPayments payed(String orderId, String paymentKey, Integer amount) {
         return transactionTemplate.execute(status -> {
-            commandVerifier.verify(command);
-            var response = approvalProcessor.approval(command);
+            commandVerifier.verify(orderId, paymentKey, amount);
+            var response = approvalProcessor
+                .approval(orderId, paymentKey, amount);
             var tossPayments = TossPaymentsFactory.create(response);
             tossPaymentsRepository.save(tossPayments);
             return tossPayments;

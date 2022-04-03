@@ -3,7 +3,6 @@ package kr.flab.movieon.payment.presentation;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,13 +22,11 @@ final class PaymentApiTest {
     @InjectMocks
     private PaymentApi paymentApi;
     private MockMvc mockMvc;
-    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(paymentApi)
             .build();
-        objectMapper = new ObjectMapper();
     }
 
     @Nested
