@@ -5,7 +5,7 @@
 <mapper namespace="kr.flab.movieon.query.modules.order.OrderReader">
 
   <select id="findByOrderId" resultMap="orderInfo">
-    SELECT ord.order_sub_id AS orderId,
+    SELECT ord.order_key    AS orderId,
            ord.account_id   AS customerId,
            ord.status       AS status,
            ord.total_amount AS totalAmount,
@@ -21,7 +21,7 @@
     FROM orders ord
            INNER JOIN order_line_items oli ON ord.id = oli.order_id
            INNER JOIN order_line_item_options olio ON oli.id = olio.order_line_item_id
-    WHERE ord.order_sub_id = #{orderId};
+    WHERE ord.order_key = #{orderId};
   </select>
 
   <resultMap type="OrderReadModel" id="orderInfo">

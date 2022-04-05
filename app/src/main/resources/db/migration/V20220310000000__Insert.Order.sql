@@ -1,4 +1,4 @@
-insert into orders(completed_at, created_at, account_id, modified_at, order_sub_id, pay_method, status,
+insert into orders(completed_at, created_at, account_id, modified_at, order_key, pay_method, status,
                    total_amount, use_of_point)
 values (null, now(), 'act_202203081357591787172312', now(), 'ord_202203101620471034855694', 'CARD',
         'CREATED', 21700, 1200);

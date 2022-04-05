@@ -33,7 +33,7 @@ public final class AccountRepositoryAdapter implements AccountRepository {
 
     @Override
     public Account findById(String accountId) {
-        return jpaAccountRepository.findByAccountSubId(accountId)
+        return jpaAccountRepository.findByAccountKey(accountId)
             .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.ACCOUNT_NOT_FOUND));
     }
 

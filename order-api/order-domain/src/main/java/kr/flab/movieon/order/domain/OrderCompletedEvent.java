@@ -14,7 +14,7 @@ public final class OrderCompletedEvent implements DomainEvent {
     private final Date occurredOn;
 
     public OrderCompletedEvent(Order order) {
-        this.orderId = order.getOrderSubId();
+        this.orderId = order.getOrderKey();
         this.customerId = order.getCustomer().getAccountId();
         this.orderedAt = order.getCompletedAt();
         this.items = order.getItemIds();
