@@ -3,7 +3,7 @@
 create table accounts
 (
     id                             bigint       not null auto_increment comment '계정 ID',
-    account_sub_id                 varchar(255) not null comment '계정 대체키',
+    account_key                    varchar(255) not null comment '계정 대체키',
     email                          varchar(255) not null comment '이메일',
     email_check_token              varchar(255) comment '이메일 검증 토큰',
     email_check_token_generated_at datetime(6) comment '이메일 검증 토큰 생성일',
@@ -21,7 +21,7 @@ create unique index accounts_unique_idx01 on accounts (email);
 
 create index accounts_idx01 on accounts (username);
 
-create index accounts_idx02 on accounts (account_sub_id);
+create index accounts_idx02 on accounts (account_key);
 
 -- account roles
 
@@ -148,7 +148,7 @@ create table orders
     created_at   datetime(6) comment '생성일',
     account_id   varchar(255) not null comment '계정 ID',
     modified_at  datetime(6) comment '수정일',
-    order_sub_id varchar(255) not null comment '주문 대체키',
+    order_key    varchar(255) not null comment '주문 대체키',
     pay_method   varchar(255) not null comment '결제 옵션',
     status       varchar(255) comment '주문 상태',
     total_amount bigint       not null comment '주문 합계 금액',
@@ -156,7 +156,7 @@ create table orders
     primary key (id)
 ) comment 'orders' charset = utf8mb4;
 
-create index orders_idx01 on orders (order_sub_id);
+create index orders_idx01 on orders (order_key);
 create index orders_idx02 on orders (account_id);
 
 -- order line items

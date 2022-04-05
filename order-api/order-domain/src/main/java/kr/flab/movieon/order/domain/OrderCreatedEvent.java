@@ -12,7 +12,7 @@ public final class OrderCreatedEvent implements DomainEvent {
     private final Date occurredOn;
 
     public OrderCreatedEvent(Order order) {
-        this.orderId = order.getOrderSubId();
+        this.orderId = order.getOrderKey();
         this.customerId = order.getCustomer().getAccountId();
         this.useOfPoint = order.getUseOfPoint();
         this.occurredOn = new Date();

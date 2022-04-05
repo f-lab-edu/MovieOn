@@ -18,7 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import kr.flab.movieon.common.IdGenerator;
+import kr.flab.movieon.common.KeyGenerator;
 import kr.flab.movieon.common.Role;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import org.hibernate.annotations.DynamicUpdate;
@@ -39,7 +39,7 @@ public class Account extends AbstractAggregateRoot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
-    private String accountSubId;
+    private String accountKey;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
@@ -59,7 +59,7 @@ public class Account extends AbstractAggregateRoot {
     private Set<Role> roles = new HashSet<>();
 
     private Account(String email, String password, String username) {
-        this.accountSubId = IdGenerator.generate(PREFIX);
+        this.accountKey = KeyGenerator.generate(PREFIX);
         this.email = email;
         this.password = password;
         this.username = username;
@@ -126,8 +126,8 @@ public class Account extends AbstractAggregateRoot {
         return emailCheckToken;
     }
 
-    public String getAccountSubId() {
-        return accountSubId;
+    public String getAccountKey() {
+        return accountKey;
     }
 
     @Override

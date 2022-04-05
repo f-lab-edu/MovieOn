@@ -1,4 +1,4 @@
-insert into accounts(account_sub_id, email, email_check_token, email_check_token_generated_at,
+insert into accounts(account_key, email, email_check_token, email_check_token_generated_at,
                      email_verified, joined_at, last_modified_at, password, username, withdraw,
                      withdrawal_at)
 values ('act_202203081357591787178783', 'kitty@gmail.com', 'test-token', now(), false,

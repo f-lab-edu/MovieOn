@@ -12,7 +12,7 @@ public final class OrderCanceledEvent implements DomainEvent {
     private final BigDecimal useOfPoint;
 
     public OrderCanceledEvent(Order order) {
-        this.orderId = order.getOrderSubId();
+        this.orderId = order.getOrderKey();
         this.accountId = order.getCustomer().getAccountId();
         this.occurredOn = new Date();
         this.useOfPoint = order.getUseOfPoint();

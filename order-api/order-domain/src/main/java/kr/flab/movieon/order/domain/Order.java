@@ -17,7 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import kr.flab.movieon.common.IdGenerator;
+import kr.flab.movieon.common.KeyGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
 import kr.flab.movieon.order.domain.exception.AmountNotMatchedException;
@@ -36,7 +36,7 @@ public class Order extends AbstractAggregateRoot {
     private Long id;
 
     @Column(nullable = false)
-    private String orderSubId;
+    private String orderKey;
 
     private Customer customer;
 
@@ -69,7 +69,7 @@ public class Order extends AbstractAggregateRoot {
 
     private Order(Customer customer, String payMethod, OrderStatus status,
         BigDecimal useOfPoint, List<OrderLineItem> lineItems) {
-        this.orderSubId = IdGenerator.generate(PREFIX);
+        this.orderKey = KeyGenerator.generate(PREFIX);
         this.customer = customer;
         this.payMethod = payMethod;
         this.status = status;
@@ -142,8 +142,8 @@ public class Order extends AbstractAggregateRoot {
         return id;
     }
 
-    public String getOrderSubId() {
-        return orderSubId;
+    public String getOrderKey() {
+        return orderKey;
     }
 
     public Customer getCustomer() {

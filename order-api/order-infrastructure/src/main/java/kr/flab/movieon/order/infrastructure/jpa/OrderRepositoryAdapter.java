@@ -18,7 +18,7 @@ public final class OrderRepositoryAdapter implements OrderRepository {
 
     @Override
     public Order findByOrderId(String orderId) {
-        return jpaOrderRepository.findByOrderSubId(orderId)
+        return jpaOrderRepository.findByOrderKey(orderId)
             .orElseThrow(IllegalArgumentException::new);
     }
 }
