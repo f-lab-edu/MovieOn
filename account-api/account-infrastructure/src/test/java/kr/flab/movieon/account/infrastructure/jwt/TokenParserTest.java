@@ -4,11 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
-import kr.flab.movieon.account.domain.Account;
+import java.util.EnumSet;
 import kr.flab.movieon.account.domain.Tokens;
 import kr.flab.movieon.account.infrastructure.jwt.fixtures.JwtCustomization;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenGenerator;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenParser;
+import kr.flab.movieon.common.Role;
 import kr.flab.movieon.common.error.InvalidTokenException;
 import org.javaunit.autoparams.AutoSource;
 import org.javaunit.autoparams.customization.Customization;
@@ -44,8 +45,7 @@ final class TokenParserTest {
     private Tokens getTokens(RefreshTokenInfoRepository refreshTokenInfoRepository,
         TokenProperties tokenProperties) {
         var generator = new JwtTokenGenerator(refreshTokenInfoRepository, tokenProperties);
-        return generator.generate(Account
-            .register("msolo021015@gmail.com", "pass", "rebwon"));
+        return generator.generate("msolo021015@gmail.com", EnumSet.of(Role.USER));
     }
 
     @ParameterizedTest

@@ -1,10 +1,7 @@
 package kr.flab.movieon.account.domain;
 
-import static java.util.stream.Collectors.toList;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -95,11 +92,6 @@ public class Account extends AbstractAggregateRoot {
     public void withDraw() {
         this.withdraw = true;
         this.withdrawalAt = LocalDateTime.now();
-    }
-
-    public List<String> getAuthorities() {
-        return this.roles.stream()
-            .map(r -> "ROLE_" + r.name()).collect(toList());
     }
 
     public Long getId() {
