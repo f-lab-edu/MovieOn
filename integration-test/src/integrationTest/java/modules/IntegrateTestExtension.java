@@ -36,6 +36,7 @@ public abstract class IntegrateTestExtension {
 
     @BeforeEach
     void setUp() {
-        tokens = tokenGenerator.generate(accountRepository.findByEmail("jiwon@gmail.com"));
+        var account = accountRepository.findByEmail("jiwon@gmail.com");
+        tokens = tokenGenerator.generate(account.getEmail(), account.getRoles());
     }
 }

@@ -46,6 +46,6 @@ public final class JwtTokenReIssuer implements TokenReIssuer {
         var refreshTokenJti = refreshTokenInfoRepository
             .findByRefreshTokenJti(token.getJti());
         refreshTokenJti.expire();
-        return tokenGenerator.generate(account);
+        return tokenGenerator.generate(account.getEmail(), account.getRoles());
     }
 }

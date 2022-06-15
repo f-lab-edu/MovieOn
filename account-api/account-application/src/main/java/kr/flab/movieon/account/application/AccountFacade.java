@@ -52,7 +52,7 @@ public final class AccountFacade {
     public Tokens login(LoginAccountCommand command) {
         return transactionTemplate.execute(status -> {
             var account = loginProcessor.login(command.getEmail(), command.getPassword());
-            return tokenGenerator.generate(account);
+            return tokenGenerator.generate(account.getEmail(), account.getRoles());
         });
     }
 
