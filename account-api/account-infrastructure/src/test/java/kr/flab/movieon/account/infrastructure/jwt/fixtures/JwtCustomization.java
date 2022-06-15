@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.infrastructure.jwt;
+package kr.flab.movieon.account.infrastructure.jwt.fixtures;
 
 import org.javaunit.autoparams.customization.CompositeCustomizer;
 

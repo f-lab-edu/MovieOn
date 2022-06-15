@@ -10,7 +10,6 @@ import kr.flab.movieon.account.infrastructure.jwt.Scopes;
 import kr.flab.movieon.account.infrastructure.jwt.TokenExtractor;
 import kr.flab.movieon.account.infrastructure.jwt.TokenParser;
 import kr.flab.movieon.common.error.InvalidArgumentException;
-import kr.flab.movieon.common.error.InvalidTokenException;
 
 public final class JwtTokenReIssuer implements TokenReIssuer {
 
@@ -33,15 +32,12 @@ public final class JwtTokenReIssuer implements TokenReIssuer {
 
     @Override
     public Tokens reIssuance(String payload) {
-        var rawToken = tokenExtractor.extract(payload);
-        if (rawToken.isEmpty()) {
-            throw new InvalidArgumentException();
-        }
-        var token = tokenParser.parse(rawToken.get());
+        var rawToken = tokenExtractor.extract(payload)
+            .orElseThrow(InvalidArgumentException::new);
+        var token = tokenParser.parse(rawToken);
 
-        if (!token.isRefreshable(Scopes.REFRESH_TOKEN.authority())) {
-            throw new InvalidTokenException();
-        }
+        token.verify(Scopes.REFRESH_TOKEN.authority());
+
         if (!refreshTokenInfoRepository.existsByRefreshTokenJti(token.getJti())) {
             throw new RefreshTokenNotFoundException();
         }

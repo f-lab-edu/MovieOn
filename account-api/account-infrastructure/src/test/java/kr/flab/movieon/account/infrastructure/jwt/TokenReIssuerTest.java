@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.Tokens;
+import kr.flab.movieon.account.infrastructure.jwt.fixtures.DummyAccountRepository;
+import kr.flab.movieon.account.infrastructure.jwt.fixtures.JwtCustomization;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenGenerator;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenParser;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenReIssuer;
@@ -92,7 +94,7 @@ final class TokenReIssuerTest {
             new DummyAccountRepository());
 
         // Act& Assert
-        assertThatExceptionOfType(TokenExpiredException.class)
+        assertThatExceptionOfType(AlreadyTokenExpiredException.class)
             .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.getRefreshToken()));
     }
 

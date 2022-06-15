@@ -33,21 +33,13 @@ public class RefreshTokenInfo {
 
     public void expire() {
         if (this.expired) {
-            throw new TokenExpiredException();
+            throw new AlreadyTokenExpiredException();
         }
         this.expired = true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public String getRefreshTokenJti() {
         return refreshTokenJti;
-    }
-
-    public boolean isExpired() {
-        return expired;
     }
 
     @Override

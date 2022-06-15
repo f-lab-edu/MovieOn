@@ -2,9 +2,11 @@ package kr.flab.movieon.account.infrastructure.jwt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.Tokens;
+import kr.flab.movieon.account.infrastructure.jwt.fixtures.JwtCustomization;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenGenerator;
 import kr.flab.movieon.account.infrastructure.jwt.impl.JwtTokenParser;
 import kr.flab.movieon.common.error.InvalidTokenException;
@@ -20,7 +22,7 @@ final class TokenParserTest {
     @AutoSource
     @Customization(JwtCustomization.class)
     @DisplayName("정상적인 Access Token을 파싱한 경우, Jti가 null이고 "
-        + "isRefreshable이 False여야 한다.")
+        + "token을 verify할 경우 예외가 발생한다.")
     void sut_parse_access_token_jti_is_null(RefreshTokenInfoRepository refreshTokenInfoRepository,
         TokenProperties tokenProperties) {
         // Arrange
@@ -35,7 +37,8 @@ final class TokenParserTest {
         assertThat(token.getSubject()).isNotNull();
         assertThat(token.getAuthorities()).isNotNull();
         assertThat(token.getJti()).isNull();
-        assertThat(token.isRefreshable(Scopes.REFRESH_TOKEN.authority())).isFalse();
+        assertThatExceptionOfType(InvalidTokenException.class)
+            .isThrownBy(() -> token.verify(Scopes.REFRESH_TOKEN.authority()));
     }
 
     private Tokens getTokens(RefreshTokenInfoRepository refreshTokenInfoRepository,
@@ -49,7 +52,7 @@ final class TokenParserTest {
     @AutoSource
     @Customization(JwtCustomization.class)
     @DisplayName("정상적인 Refresh Token을 파싱한 경우, Jti가 not-null이고"
-        + "isRefreshable이 True여야 한다.")
+        + "token을 verify했을 때 예외가 발생하지 않는다.")
     void sut_parse_refresh_token_jti_is_not_null(
         RefreshTokenInfoRepository refreshTokenInfoRepository, TokenProperties tokenProperties) {
         // Arrange
@@ -64,7 +67,8 @@ final class TokenParserTest {
         assertThat(token.getSubject()).isNotNull();
         assertThat(token.getAuthorities()).isNotNull();
         assertThat(token.getJti()).isNotNull();
-        assertThat(token.isRefreshable(Scopes.REFRESH_TOKEN.authority())).isTrue();
+        assertThatNoException()
+            .isThrownBy(() -> token.verify(Scopes.REFRESH_TOKEN.authority()));
     }
 
     @ParameterizedTest
