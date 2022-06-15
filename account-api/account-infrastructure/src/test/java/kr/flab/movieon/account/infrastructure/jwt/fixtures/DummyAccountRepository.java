@@ -1,4 +1,4 @@
-package kr.flab.movieon.account.infrastructure.jwt;
+package kr.flab.movieon.account.infrastructure.jwt.fixtures;
 
 import kr.flab.movieon.account.domain.Account;
 import kr.flab.movieon.account.domain.AccountRepository;

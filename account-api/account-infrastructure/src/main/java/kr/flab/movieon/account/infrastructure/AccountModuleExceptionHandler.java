@@ -3,8 +3,8 @@ package kr.flab.movieon.account.infrastructure;
 import kr.flab.movieon.account.domain.exception.DuplicatedEmailException;
 import kr.flab.movieon.account.domain.exception.InvalidAccountException;
 import kr.flab.movieon.account.domain.exception.PasswordNotMatchedException;
+import kr.flab.movieon.account.infrastructure.jwt.AlreadyTokenExpiredException;
 import kr.flab.movieon.account.infrastructure.jwt.RefreshTokenNotFoundException;
-import kr.flab.movieon.account.infrastructure.jwt.TokenExpiredException;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.InvalidArgumentException;
 import kr.flab.movieon.common.error.InvalidTokenException;
@@ -23,7 +23,7 @@ public final class AccountModuleExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(AccountModuleExceptionHandler.class);
 
     @ExceptionHandler(value = {
-        TokenExpiredException.class,
+        AlreadyTokenExpiredException.class,
         RefreshTokenNotFoundException.class,
         InvalidTokenException.class,
         DuplicatedEmailException.class,

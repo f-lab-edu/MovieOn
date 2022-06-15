@@ -1,5 +1,6 @@
-package kr.flab.movieon.account.infrastructure.jwt;
+package kr.flab.movieon.account.infrastructure.jwt.fixtures;
 
+import kr.flab.movieon.account.infrastructure.jwt.TokenProperties;
 import org.javaunit.autoparams.customization.Customizer;
 import org.javaunit.autoparams.generator.ObjectContainer;
 import org.javaunit.autoparams.generator.ObjectGenerationContext;

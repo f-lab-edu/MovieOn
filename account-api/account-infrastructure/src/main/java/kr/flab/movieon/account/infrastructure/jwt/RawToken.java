@@ -2,6 +2,7 @@ package kr.flab.movieon.account.infrastructure.jwt;
 
 import java.util.List;
 import java.util.Objects;
+import kr.flab.movieon.common.error.InvalidTokenException;
 
 public final class RawToken {
 
@@ -19,7 +20,13 @@ public final class RawToken {
         this.authorities = authorities;
     }
 
-    public boolean isRefreshable(String typeName) {
+    public void verify(String typeName) {
+        if (!isRefreshable(typeName)) {
+            throw new InvalidTokenException();
+        }
+    }
+
+    private boolean isRefreshable(String typeName) {
         return authorities.stream().anyMatch(scope -> scope.equals(typeName));
     }
 

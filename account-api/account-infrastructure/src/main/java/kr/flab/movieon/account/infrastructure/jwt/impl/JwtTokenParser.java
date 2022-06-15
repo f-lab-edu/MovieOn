@@ -10,8 +10,8 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.List;
+import kr.flab.movieon.account.infrastructure.jwt.AlreadyTokenExpiredException;
 import kr.flab.movieon.account.infrastructure.jwt.RawToken;
-import kr.flab.movieon.account.infrastructure.jwt.TokenExpiredException;
 import kr.flab.movieon.account.infrastructure.jwt.TokenParser;
 import kr.flab.movieon.account.infrastructure.jwt.TokenProperties;
 import kr.flab.movieon.common.error.InvalidTokenException;
@@ -47,7 +47,7 @@ public final class JwtTokenParser implements TokenParser {
             throw new InvalidTokenException();
         } catch (ExpiredJwtException expiredEx) {
             log.info("JWT Token is expired", expiredEx);
-            throw new TokenExpiredException();
+            throw new AlreadyTokenExpiredException();
         }
     }
 

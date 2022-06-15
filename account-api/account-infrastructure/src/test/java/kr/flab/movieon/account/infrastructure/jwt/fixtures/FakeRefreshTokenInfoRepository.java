@@ -1,8 +1,10 @@
-package kr.flab.movieon.account.infrastructure.jwt;
+package kr.flab.movieon.account.infrastructure.jwt.fixtures;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import kr.flab.movieon.account.infrastructure.jwt.RefreshTokenInfo;
+import kr.flab.movieon.account.infrastructure.jwt.RefreshTokenInfoRepository;
 
 public final class FakeRefreshTokenInfoRepository implements RefreshTokenInfoRepository {
 
