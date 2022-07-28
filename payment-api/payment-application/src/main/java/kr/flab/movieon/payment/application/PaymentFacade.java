@@ -18,7 +18,7 @@ public final class PaymentFacade {
 
     public void payed(TossPaymentsPaymentApprovalCommand command) {
         var tossPayments = paymentProcessor.payed(
-            command.getOrderId(), command.getPaymentKey(), command.getAmount());
+            command.orderId(), command.paymentKey(), command.amount());
         tossPayments.pollAllEvents().forEach(publisher::publishEvent);
     }
 }

@@ -33,10 +33,8 @@ public final class PaymentIntegrateTest extends IntegrateTestExtension {
             final String orderId = fixture.giveMeOne(String.class);
             final String paymentKey = fixture.giveMeOne(String.class);
             final Integer amount = fixture.giveMeOne(Integer.class);
-            var request = new TossPaymentsPaymentApprovalRequest();
-            request.setAmount(21700);
-            request.setOrderId("ord_202203101620471034855694");
-            request.setPaymentKey("fake-key");
+            var request = new TossPaymentsPaymentApprovalRequest("ord_202203101620471034855694",
+                "fake-key", 21700);
 
             doNothing().when(verifier).verify(orderId, paymentKey, amount);
             when(approvalProcessor.approval(orderId, paymentKey, amount)).thenReturn(
