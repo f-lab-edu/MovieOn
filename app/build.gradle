@@ -52,10 +52,10 @@ bootJar {
     enabled = true
 }
 
-test {
-    useJUnitPlatform()
-}
-
 jar {
     enabled = true
+}
+
+test {
+    useJUnitPlatform()
 }
