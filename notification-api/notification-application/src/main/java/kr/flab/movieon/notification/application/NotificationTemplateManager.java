@@ -17,8 +17,8 @@ public class NotificationTemplateManager {
     @Transactional
     public void create(CreateTemplateCommand command) {
         var template = NotificationTemplate.create(
-            command.getTypeName(), command.getTemplateName(),
-            command.getTitle(), command.getContents());
+            command.typeName(), command.templateName(),
+            command.title(), command.contents());
 
         templateRepository.save(template);
     }
@@ -29,35 +29,6 @@ public class NotificationTemplateManager {
         template.update(title, contents);
     }
 
-    public static final class CreateTemplateCommand {
-
-        private final String typeName;
-        private final String templateName;
-        private final String title;
-        private final String contents;
-
-        public CreateTemplateCommand(String typeName, String templateName, String title,
-            String contents) {
-            this.typeName = typeName;
-            this.templateName = templateName;
-            this.title = title;
-            this.contents = contents;
-        }
-
-        public String getTypeName() {
-            return typeName;
-        }
-
-        public String getTemplateName() {
-            return templateName;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getContents() {
-            return contents;
-        }
-    }
+    public record CreateTemplateCommand(String typeName, String templateName, String title,
+                                        String contents) {}
 }

@@ -20,7 +20,7 @@ public final class OrderApi implements OrderSpecification {
     @Override
     public ResponseEntity<ApiResponseEnvelop<URI>> create(CreateOrderRequest request,
         AuthenticatedUser user) {
-        var info = orderFacade.create(user.getId(), request.toCommand());
+        var info = orderFacade.create(user.id(), request.toCommand());
         URI uri = URI.create("http://localhost:8080/api/v1/orders/" + info);
         return ResponseEntity.ok(ApiResponseEnvelop.success(uri));
     }

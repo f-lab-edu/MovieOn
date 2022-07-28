@@ -31,7 +31,7 @@ public final class OrderIntegrationTest extends IntegrateTestExtension {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(factory()))
-                .header(AUTHORIZATION, BEARER + tokens.getAccessToken())
+                .header(AUTHORIZATION, BEARER + tokens.accessToken())
             );
 
             // Assert

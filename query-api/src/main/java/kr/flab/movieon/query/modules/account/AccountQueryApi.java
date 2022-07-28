@@ -16,7 +16,7 @@ public final class AccountQueryApi implements AccountQuerySpecification {
 
     @Override
     public ResponseEntity<ApiResponseEnvelop<AccountReadModel>> findInfo(AuthenticatedUser user) {
-        var account = accountReader.findByAccountId(user.getId());
+        var account = accountReader.findByAccountId(user.id());
         return ResponseEntity.ok(ApiResponseEnvelop.success(account));
     }
 }

@@ -21,7 +21,7 @@ public class NotificationTemplateApi implements NotificationTemplateSpecificatio
 
     @Override
     public void update(Long templateId, UpdateTemplateRequest request) {
-        templateManager.update(templateId, request.getTitle(), request.getContents());
+        templateManager.update(templateId, request.title(), request.contents());
     }
 
 }

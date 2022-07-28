@@ -1,8 +1,8 @@
 package kr.flab.movieon.account.application;
 
-import kr.flab.movieon.account.application.command.ConfirmRegisterAccountCommand;
-import kr.flab.movieon.account.application.command.LoginAccountCommand;
-import kr.flab.movieon.account.application.command.RegisterAccountCommand;
+import kr.flab.movieon.account.application.command.LoginAccount;
+import kr.flab.movieon.account.application.command.RegisterAccount;
+import kr.flab.movieon.account.application.command.RegisterConfirm;
 import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
 import kr.flab.movieon.account.domain.TokenGenerator;
@@ -35,23 +35,23 @@ public final class AccountFacade {
         this.tokenReIssuer = tokenReIssuer;
     }
 
-    public void register(RegisterAccountCommand command) {
+    public void register(RegisterAccount command) {
         var account = transactionTemplate.execute(
-            status -> registerProcessor.register(command.getEmail(), command.getPassword(),
-                command.getUsername()));
+            status -> registerProcessor.register(command.email(), command.password(),
+                command.username()));
         account.pollAllEvents().forEach(publisher::publishEvent);
     }
 
-    public void registerConfirm(ConfirmRegisterAccountCommand command) {
+    public void registerConfirm(RegisterConfirm command) {
         var account = transactionTemplate.execute(
-            status -> registerProcessor.registerConfirm(command.getToken(),
-                command.getEmail()));
+            status -> registerProcessor.registerConfirm(command.token(),
+                command.email()));
         account.pollAllEvents().forEach(publisher::publishEvent);
     }
 
-    public Tokens login(LoginAccountCommand command) {
+    public Tokens login(LoginAccount command) {
         return transactionTemplate.execute(status -> {
-            var account = loginProcessor.login(command.getEmail(), command.getPassword());
+            var account = loginProcessor.login(command.email(), command.password());
             return tokenGenerator.generate(account.getEmail(), account.getRoles());
         });
     }

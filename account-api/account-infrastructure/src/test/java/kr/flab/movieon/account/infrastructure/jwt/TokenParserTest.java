@@ -25,7 +25,7 @@ final class TokenParserTest {
         // Arrange
         var tokenProperties = Fixtures.tokenProperties();
         var accessToken = getTokens(new FakeRefreshTokenInfoRepository(), tokenProperties)
-            .getAccessToken();
+            .accessToken();
         var sut = new JwtTokenParser(tokenProperties);
 
         // Act
@@ -52,7 +52,7 @@ final class TokenParserTest {
         // Arrange
         var tokenProperties = Fixtures.tokenProperties();
         var refreshToken = getTokens(new FakeRefreshTokenInfoRepository(), tokenProperties)
-            .getRefreshToken();
+            .refreshToken();
         var sut = new JwtTokenParser(tokenProperties);
 
         // Act

@@ -23,7 +23,7 @@ public final class OrderQueryApiTest extends IntegrateTestExtension {
         @DisplayName("사용자가 자신의 주문 단건을 조회한다.")
         void successfully_order_info() throws Exception {
             final var action = mockMvc.perform(get(ORDER_URI + ORDER_ID)
-                .header(AUTHORIZATION, BEARER + tokens.getAccessToken())
+                .header(AUTHORIZATION, BEARER + tokens.accessToken())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
             );

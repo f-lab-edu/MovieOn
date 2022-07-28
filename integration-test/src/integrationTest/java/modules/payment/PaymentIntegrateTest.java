@@ -44,7 +44,7 @@ public final class PaymentIntegrateTest extends IntegrateTestExtension {
 
             // Act
             final var actions = mockMvc.perform(post(TOSS_PAYMENTS_SUCCESS_URI)
-                .header(AUTHORIZATION, BEARER + tokens.getAccessToken())
+                .header(AUTHORIZATION, BEARER + tokens.accessToken())
                 .content(objectMapper.writeValueAsString(request))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
