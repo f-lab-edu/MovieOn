@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import kr.flab.movieon.order.application.command.CreateOrderCommand;
 import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderItemOptionCommand;
 import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderLineItemCommand;
@@ -15,22 +16,20 @@ import kr.flab.movieon.order.domain.Order;
 import kr.flab.movieon.order.domain.Order.OrderStatus;
 import kr.flab.movieon.order.domain.OrderRepository;
 import kr.flab.movieon.order.domain.OrderValidator;
-import org.javaunit.autoparams.AutoSource;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.api.Test;
 
 final class CreateOrderCommandHandlerTest {
 
-    @ParameterizedTest
-    @AutoSource
+    @Test
     @DisplayName("주문 생성 명령을 처리하고 이벤트가 등록된다.")
-    void sut_create_order_command_handle(String accountId) {
+    void sut_create_order_command_handle() {
         // Arrange
         var sut = new CreateOrderCommandHandler(new DummyOrderRepository(),
             new OrderValidator(new ItemRepositoryStub(), new DummyPointManager()));
 
         // Act
-        var order = sut.create(accountId, createOrderCommand());
+        var order = sut.create(UUID.randomUUID().toString(), createOrderCommand());
 
         // Assert
         assertThat(order.getTotalAmount()).isEqualTo(BigDecimal.valueOf(16000));

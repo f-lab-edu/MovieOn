@@ -2,22 +2,22 @@ package kr.flab.movieon.notification.application;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import java.util.UUID;
 import kr.flab.movieon.common.error.InvalidArgumentException;
 import kr.flab.movieon.notification.application.NotificationTemplateManager.CreateTemplateCommand;
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
 import kr.flab.movieon.notification.domain.NotificationTemplateType;
-import org.javaunit.autoparams.AutoSource;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.api.Test;
 
 final class NotificationTemplateManagerTest {
 
-    @ParameterizedTest
-    @AutoSource
+    @Test
     @DisplayName("템플릿 타입이 잘못되었을 경우 에러가 발생합니다.")
-    void name(String arg) {
+    void name() {
         // Arrange
+        var arg = UUID.randomUUID().toString();
         var sut = new NotificationTemplateManager(new DummyNotificationTemplateRepository());
 
         // Act & Assert

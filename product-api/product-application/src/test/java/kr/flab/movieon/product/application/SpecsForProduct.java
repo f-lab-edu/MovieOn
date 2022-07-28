@@ -2,6 +2,7 @@ package kr.flab.movieon.product.application;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import com.navercorp.fixturemonkey.FixtureMonkey;
 import java.util.List;
 import kr.flab.movieon.product.domain.Category;
 import kr.flab.movieon.product.domain.CategoryRepository;
@@ -10,22 +11,19 @@ import kr.flab.movieon.product.domain.ItemRepository;
 import kr.flab.movieon.product.domain.NotMatchedRateException;
 import kr.flab.movieon.product.domain.Product;
 import kr.flab.movieon.product.domain.ProductRepository;
-import org.javaunit.autoparams.AutoSource;
-import org.javaunit.autoparams.customization.Customization;
-import org.javaunit.autoparams.customization.SettablePropertyWriter;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.api.Test;
 
 final class SpecsForProduct {
 
-    @ParameterizedTest
-    @AutoSource
-    @Customization(SettablePropertyWriter.class)
+    @Test
     @DisplayName("상품 등록 과정에서 이용 등급이 잘못된 경우 에러가 발생합니다.")
-    void name(RegisterProductCommand command) {
+    void name() {
         // Arrange
+        var fixture = FixtureMonkey.create();
         var sut = new ProductManager(new DummyProductRepository(), new DummyCategoryRepository(),
             new DummyItemRepository());
+        var command = fixture.giveMeOne(RegisterProductCommand.class);
 
         // Act & Assert
         assertThatExceptionOfType(NotMatchedRateException.class)

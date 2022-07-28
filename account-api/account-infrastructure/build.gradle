@@ -21,10 +21,10 @@ bootJar {
     enabled = false
 }
 
-test {
-    useJUnitPlatform()
-}
-
 jar {
     enabled = true
+}
+
+test {
+    useJUnitPlatform()
 }
