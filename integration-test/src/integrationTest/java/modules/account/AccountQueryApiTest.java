@@ -38,7 +38,7 @@ public final class AccountQueryApiTest extends IntegrateTestExtension {
         @DisplayName("인증에 성공한 사용자가 자신의 정보를 조회한다.")
         void successfully_find_info() throws Exception {
             final var action = mockMvc.perform(get(FIND_INFO_API)
-                    .header(AUTHORIZATION, BEARER + tokens.getAccessToken())
+                    .header(AUTHORIZATION, BEARER + tokens.accessToken())
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
             );

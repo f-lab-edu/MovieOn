@@ -25,10 +25,8 @@ final class AuthenticationIntegrationTest extends IntegrateTestExtension {
         @Test
         @DisplayName("적절한 파라미터를 입력하여, 등록 처리되고 계정 확인 메일이 발송된다.")
         void account_register_scenario_test() throws Exception {
-            var request = new RegisterAccountRequest();
-            request.setUsername("rebwon");
-            request.setEmail("msolo021015@gmail.com");
-            request.setPassword("12345678!");
+            var request = new RegisterAccountRequest("msolo021015@gmail.com", "12345678!",
+                "rebwon");
 
             final var actions = mockMvc.perform(post(REGISTER_URI)
                 .accept(MediaType.APPLICATION_JSON)
@@ -103,7 +101,7 @@ final class AuthenticationIntegrationTest extends IntegrateTestExtension {
             final var actions = mockMvc.perform(post(RE_ISSUANCE_URI)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header(AUTHORIZATION, BEARER + tokens.getRefreshToken())
+                .header(AUTHORIZATION, BEARER + tokens.refreshToken())
             );
 
             actions

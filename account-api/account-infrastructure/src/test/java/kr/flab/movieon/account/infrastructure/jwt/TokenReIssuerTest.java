@@ -53,7 +53,7 @@ final class TokenReIssuerTest {
 
         // Act & Assert
         assertThatExceptionOfType(InvalidTokenException.class)
-            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.getAccessToken()));
+            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.accessToken()));
     }
 
     @Test
@@ -71,7 +71,7 @@ final class TokenReIssuerTest {
 
         // Act & Assert
         assertThatExceptionOfType(RefreshTokenNotFoundException.class)
-            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.getRefreshToken()));
+            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.refreshToken()));
     }
 
     @Test
@@ -92,7 +92,7 @@ final class TokenReIssuerTest {
 
         // Act& Assert
         assertThatExceptionOfType(AlreadyTokenExpiredException.class)
-            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.getRefreshToken()));
+            .isThrownBy(() -> sut.reIssuance(PREFIX + tokens.refreshToken()));
     }
 
     private Tokens setUpTokens(JwtTokenGenerator tokenGenerator) {
@@ -101,7 +101,7 @@ final class TokenReIssuerTest {
 
     private void setUpExpiredRefreshTokenInfo(RefreshTokenInfoRepository tokenInfoRepository,
         Tokens tokens, JwtTokenParser tokenParser) {
-        var rawToken = tokenParser.parse(tokens.getRefreshToken());
+        var rawToken = tokenParser.parse(tokens.refreshToken());
         var refreshTokenInfo = tokenInfoRepository.findByRefreshTokenJti(
             rawToken.getJti());
         refreshTokenInfo.expire();

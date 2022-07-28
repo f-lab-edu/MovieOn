@@ -26,8 +26,8 @@ public final class CreateOrderCommandHandler {
     }
 
     public Order create(String accountId, CreateOrderCommand command) {
-        var order = Order.create(new Customer(accountId), command.getPayMethod(),
-            command.getUseOfPoint(), mapFrom(command.getLineItems()));
+        var order = Order.create(new Customer(accountId), command.payMethod(),
+            command.useOfPoint(), mapFrom(command.lineItems()));
         orderValidator.validate(order);
         orderRepository.save(order);
         return order;
@@ -35,14 +35,14 @@ public final class CreateOrderCommandHandler {
 
     private List<OrderLineItem> mapFrom(List<CreateOrderLineItemCommand> items) {
         return items.stream()
-            .map(p -> new OrderLineItem(p.getItemId(), p.getProductName(), p.getBasePrice(),
-                mapFromOption(p.getOptions())))
+            .map(p -> new OrderLineItem(p.itemId(), p.productName(), p.basePrice(),
+                mapFromOption(p.options())))
             .collect(Collectors.toList());
     }
 
     private List<OrderItemOption> mapFromOption(List<CreateOrderItemOptionCommand> options) {
         return options.stream()
-            .map(o -> new OrderItemOption(o.getOptionName(), o.getSalesPrice()))
+            .map(o -> new OrderItemOption(o.optionName(), o.salesPrice()))
             .collect(Collectors.toList());
     }
 }

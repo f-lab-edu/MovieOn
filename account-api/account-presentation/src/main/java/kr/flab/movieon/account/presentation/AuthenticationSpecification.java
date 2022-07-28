@@ -6,9 +6,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
-import kr.flab.movieon.account.presentation.request.ConfirmRegisterAccountRequest;
 import kr.flab.movieon.account.presentation.request.LoginAccountRequest;
 import kr.flab.movieon.account.presentation.request.RegisterAccountRequest;
+import kr.flab.movieon.account.presentation.request.RegisterConfirmRequest;
 import kr.flab.movieon.account.presentation.response.TokenResponse;
 import kr.flab.movieon.common.result.ApiResponseEnvelop;
 import org.springframework.http.MediaType;
@@ -40,7 +40,7 @@ public interface AuthenticationSpecification {
     })
     @GetMapping(value = "/api/v1/auth/confirm")
     ResponseEntity<Void> registerConfirm(
-        @ModelAttribute @Valid ConfirmRegisterAccountRequest request);
+        @ModelAttribute @Valid RegisterConfirmRequest request);
 
     @Operation(summary = "로그인", description = "회원가입 완료 사용자가 로그인하는 EndPoint를 제공합니다.")
     @ApiResponses(value = {

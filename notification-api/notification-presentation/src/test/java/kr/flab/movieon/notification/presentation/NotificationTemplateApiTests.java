@@ -43,11 +43,7 @@ final class NotificationTemplateApiTests {
         @DisplayName("템플릿을 추가하는 요청에서 필수 값이 비어있거나 NULL인 경우 400 에러가 발생합니다.")
         void name(String arg) throws Exception {
             // Arrange
-            var request = new CreateTemplateRequest();
-            request.setTemplateName(arg);
-            request.setContents(arg);
-            request.setTypeName(arg);
-            request.setTitle(arg);
+            var request = new CreateTemplateRequest(arg, arg, arg, arg);
 
             // Act
             final var actions = mockMvc.perform(post(CREATE_URI)

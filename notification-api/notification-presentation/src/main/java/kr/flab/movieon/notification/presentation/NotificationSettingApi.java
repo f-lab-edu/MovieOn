@@ -17,21 +17,21 @@ final class NotificationSettingApi implements NotificationSettingSpecification {
 
     @Override
     public void enable(String groupName, AuthenticatedUser user) {
-        settingManager.enable(user.getId(), groupName);
+        settingManager.enable(user.id(), groupName);
     }
 
     @Override
     public void enable(String groupName, String typeName, AuthenticatedUser user) {
-        settingManager.enable(user.getId(), groupName, typeName);
+        settingManager.enable(user.id(), groupName, typeName);
     }
 
     @Override
     public void disable(String groupName, AuthenticatedUser user) {
-        settingManager.disable(user.getId(), groupName);
+        settingManager.disable(user.id(), groupName);
     }
 
     @Override
     public void disable(String groupName, String typeName, AuthenticatedUser user) {
-        settingManager.disable(user.getId(), groupName, typeName);
+        settingManager.disable(user.id(), groupName, typeName);
     }
 }
