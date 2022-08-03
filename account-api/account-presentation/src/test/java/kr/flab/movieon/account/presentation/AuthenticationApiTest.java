@@ -65,9 +65,7 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"@@@@@@@@@", "@naver.com", "jiwon"})
         @DisplayName("요청 Body의 이메일 형식이 맞지 않는 경우 400 에러를 반환한다.")
         void http_parameter_is_invalid_email(String arg) throws Exception {
-            var request = new LoginAccountRequest();
-            request.setEmail(arg);
-            request.setPassword("password1!");
+            var request = new LoginAccountRequest(arg, "password1!");
 
             final var actions = mockMvc.perform(post(LOGIN_URI)
                 .accept(MediaType.APPLICATION_JSON)
@@ -83,9 +81,7 @@ class AuthenticationApiTest {
         @ValueSource(strings = {"1", "a", "1a234567890123456"})
         @DisplayName("요청 Body의 비밀번호 형식이 맞지 않은 경우 400 에러를 반환한다.")
         void http_parameter_password_is_invalid(String args) throws Exception {
-            var request = new LoginAccountRequest();
-            request.setEmail("jiwon@naver.com");
-            request.setPassword(args);
+            var request = new LoginAccountRequest("jiwon@naver.com", args);
 
             final var actions = mockMvc.perform(post(LOGIN_URI)
                 .accept(MediaType.APPLICATION_JSON)

@@ -24,6 +24,7 @@ class RegisterAccountProcessorTest {
         var account = sut.register("msolo021015@gmail.com", "12345678!", "rebwon");
 
         // Assert
+        assertThat(account.isEmailVerified()).isFalse();
         assertThat(account.pollAllEvents().size()).isEqualTo(1);
     }
 
@@ -40,6 +41,7 @@ class RegisterAccountProcessorTest {
         var confirmAccount = sut.registerConfirm(account.getEmailCheckToken(), account.getEmail());
 
         // Assert
+        assertThat(confirmAccount.isEmailVerified()).isTrue();
         assertThat(confirmAccount.pollAllEvents().size()).isEqualTo(1);
     }
 

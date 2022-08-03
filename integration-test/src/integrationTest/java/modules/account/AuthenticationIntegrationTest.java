@@ -70,9 +70,7 @@ final class AuthenticationIntegrationTest extends IntegrateTestExtension {
         @Test
         @DisplayName("적절한 이메일과 비밀번호가 입력되고, 사용자에게 액세스, 리프레시 토큰을 반환한다.")
         void account_login_processing_return_access_refresh_tokens() throws Exception {
-            var request = new LoginAccountRequest();
-            request.setEmail("solomon@gmail.com");
-            request.setPassword("12345678!");
+            var request = new LoginAccountRequest("solomon@gmail.com", "12345678!");
 
             final var actions = mockMvc.perform(post(LOGIN_URL)
                 .accept(MediaType.APPLICATION_JSON)

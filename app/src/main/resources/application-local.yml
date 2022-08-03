@@ -29,8 +29,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
-  config:
-    import: classpath:notifications.yml, classpath:payments.yml, classpath:accounts.yml
 
 server:
   port: 8080

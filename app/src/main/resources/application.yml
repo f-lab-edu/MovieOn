@@ -3,6 +3,8 @@ spring:
     name: movieon
   lifecycle:
     timeout-per-shutdown-phase: 20s
+  config:
+    import: classpath:notifications.yml, classpath:payments.yml, classpath:accounts.yml
 
 server:
   error:
