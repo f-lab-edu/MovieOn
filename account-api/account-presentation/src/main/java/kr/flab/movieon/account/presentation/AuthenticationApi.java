@@ -45,7 +45,7 @@ public final class AuthenticationApi implements AuthenticationSpecification {
     @Override
     public ResponseEntity<ApiResponseEnvelop<TokenResponse>> login(LoginAccountRequest request) {
         var tokens = accountFacade.login(
-            new LoginAccount(request.getEmail(), request.getPassword()));
+            new LoginAccount(request.email(), request.password()));
         return ResponseEntity.ok(ApiResponseEnvelop.success(
             new TokenResponse(tokens.accessToken(), tokens.refreshToken())));
     }
