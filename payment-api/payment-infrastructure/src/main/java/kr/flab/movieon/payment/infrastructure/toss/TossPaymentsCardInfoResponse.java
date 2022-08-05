@@ -1,4 +1,4 @@
-package kr.flab.movieon.payment.infrastructure;
+package kr.flab.movieon.payment.infrastructure.toss;
 
 public final class TossPaymentsCardInfoResponse {
 

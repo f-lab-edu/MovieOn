@@ -1,4 +1,4 @@
-package kr.flab.movieon.payment.infrastructure;
+package kr.flab.movieon.payment.infrastructure.toss;
 
 import kr.flab.movieon.payment.domain.PayMethod;
 import kr.flab.movieon.payment.domain.TossPayments;

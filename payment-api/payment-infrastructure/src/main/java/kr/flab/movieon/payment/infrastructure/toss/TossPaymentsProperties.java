@@ -1,4 +1,4 @@
-package kr.flab.movieon.payment.infrastructure;
+package kr.flab.movieon.payment.infrastructure.toss;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
