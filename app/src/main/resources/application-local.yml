@@ -1,4 +1,9 @@
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: joyful
+    password: joyful
   redis:
     host: localhost
     password:

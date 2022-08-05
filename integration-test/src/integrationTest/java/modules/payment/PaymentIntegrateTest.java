@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
-import kr.flab.movieon.payment.infrastructure.TossPaymentsCardInfoResponse;
-import kr.flab.movieon.payment.infrastructure.TossPaymentsPaymentCompletedResponse;
+import kr.flab.movieon.payment.infrastructure.toss.TossPaymentsCardInfoResponse;
+import kr.flab.movieon.payment.infrastructure.toss.TossPaymentsPaymentCompletedResponse;
 import kr.flab.movieon.payment.presentation.request.TossPaymentsPaymentApprovalRequest;
 import modules.IntegrateTestExtension;
 import org.junit.jupiter.api.DisplayName;

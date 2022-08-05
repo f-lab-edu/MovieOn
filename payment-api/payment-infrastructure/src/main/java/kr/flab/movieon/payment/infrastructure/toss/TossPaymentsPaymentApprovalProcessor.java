@@ -1,4 +1,4 @@
-package kr.flab.movieon.payment.infrastructure;
+package kr.flab.movieon.payment.infrastructure.toss;
 
 import java.util.HashMap;
 import java.util.Map;
