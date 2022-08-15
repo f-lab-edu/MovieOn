@@ -4,7 +4,6 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 import kr.flab.movieon.notification.domain.EmailNotification;
 import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessDelegator;
 import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessor;
@@ -66,7 +65,7 @@ public class NotificationModuleConfiguration {
                     .maximumSize(cache.getMaxSize())
                     .build()
             ))
-            .collect(Collectors.toList());
+            .toList();
         cacheManager.setCaches(caches);
         return cacheManager;
     }

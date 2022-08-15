@@ -3,7 +3,6 @@ package kr.flab.movieon.security.integrate;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +56,6 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
     private Collection<? extends GrantedAuthority> authorities(Set<Role> roles) {
         return roles.stream()
             .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
-            .collect(Collectors.toList());
+            .toList();
     }
 }

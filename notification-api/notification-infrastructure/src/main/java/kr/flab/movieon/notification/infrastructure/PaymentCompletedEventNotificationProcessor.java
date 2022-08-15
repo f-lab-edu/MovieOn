@@ -47,25 +47,25 @@ public final class PaymentCompletedEventNotificationProcessor
 
     @Override
     public Notification process(PaymentCompletedEvent event) {
-        var setting = settingRepository.findByReceiver(new Receiver(event.getAccountId()));
+        var setting = settingRepository.findByReceiver(new Receiver(event.accountId()));
         if (setting.isDisabledOptionInGroup(NotificationGroupType.PAYMENT_INFO, EMAIL)) {
             throw new IllegalStateException("결제 알림 수신이 거부되어 있는 사용자입니다.");
         }
 
-        var account = accountRepository.findById(event.getAccountId());
+        var account = accountRepository.findById(event.accountId());
 
         var template = templateRepository.findByTemplate("EMAIL", "결제 완료 메일");
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("username", account.getUsername());
+        variables.put("username", account.username());
         variables.put("message", "고객님께서 " + event.occurredOn() + " MovieOn에서 결제한 내역을 안내해 드립니다.");
-        variables.put("productName", event.getProductName());
-        variables.put("price", event.getPrice());
-        variables.put("discount", event.getDiscount());
+        variables.put("productName", event.productName());
+        variables.put("price", event.price());
+        variables.put("discount", event.discount());
         variables.put("host", host);
 
         var message = notificationTemplateProcessor.process(template.getContents(), variables);
-        return new EmailNotification(new Receiver(event.getAccountId()), message,
-            account.getEmail(), template.getTitle());
+        return new EmailNotification(new Receiver(event.accountId()), message,
+            account.email(), template.getTitle());
     }
 }

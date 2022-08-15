@@ -1,7 +1,5 @@
 package kr.flab.movieon.account.infrastructure.jwt.impl;
 
-import static java.util.stream.Collectors.toList;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -56,7 +54,8 @@ public final class JwtTokenGenerator implements TokenGenerator {
 
     private List<String> getAuthorities(Set<Role> roles) {
         return roles.stream()
-            .map(r -> "ROLE_" + r.name()).collect(toList());
+            .map(r -> "ROLE_" + r.name())
+            .toList();
     }
 
     private String generateRefreshToken(String email) {
