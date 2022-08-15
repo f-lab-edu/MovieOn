@@ -20,7 +20,7 @@ public interface TossPaymentSpecification {
         @ApiResponse(responseCode = "200", description = "결제 처리 성공"),
         @ApiResponse(responseCode = "400", description = "결제 처리 에러", content = @Content)
     })
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/api/v1/toss-payments/success")
     void payed(@RequestBody @Valid TossPaymentsPaymentApprovalRequest request);
 }
