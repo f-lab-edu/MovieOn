@@ -41,7 +41,7 @@ public final class NotificationEventHandler {
 
     @EventListener
     public void handle(RegisterCompletedEvent event) {
-        var setting = NotificationSetting.defaultSetting(event.getAccountId());
+        var setting = NotificationSetting.defaultSetting(event.accountId());
         settingRepository.save(setting);
     }
 }

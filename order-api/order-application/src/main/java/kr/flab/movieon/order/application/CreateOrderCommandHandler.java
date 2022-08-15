@@ -1,7 +1,6 @@
 package kr.flab.movieon.order.application;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import kr.flab.movieon.order.application.command.CreateOrderCommand;
 import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderItemOptionCommand;
 import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderLineItemCommand;
@@ -37,12 +36,12 @@ public final class CreateOrderCommandHandler {
         return items.stream()
             .map(p -> new OrderLineItem(p.itemId(), p.productName(), p.basePrice(),
                 mapFromOption(p.options())))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     private List<OrderItemOption> mapFromOption(List<CreateOrderItemOptionCommand> options) {
         return options.stream()
             .map(o -> new OrderItemOption(o.optionName(), o.salesPrice()))
-            .collect(Collectors.toList());
+            .toList();
     }
 }
