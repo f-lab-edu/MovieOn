@@ -23,6 +23,6 @@ public interface OrderQuerySpecification {
     })
     @GetMapping(value = "/api/v1/orders/{orderId}",
         produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     ResponseEntity<ApiResponseEnvelop<OrderReadModel>> findOrderInfo(@PathVariable String orderId);
 }

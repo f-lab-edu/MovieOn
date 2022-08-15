@@ -11,7 +11,7 @@ values ('act_202203081357591787178783', 'kitty@gmail.com', 'test-token', now(), 
         now(), null, '$2a$10$9ibGcn661rKyysh6Y9R8VuKhXZCQG.gP8JGRMfaoBRMAPT6npq0qe',
         'jiwon', false, null);
 
-insert into account_roles(account_id, roles) values (3, 'USER');
+insert into account_roles(account_id, roles) values (3, 'ADMIN');
 
 insert into notification_templates(contents, name, type, title, created_at)
 values ('<!DOCTYPE html>
