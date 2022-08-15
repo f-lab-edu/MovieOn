@@ -1,46 +1,39 @@
-plugins {
-    id "org.springframework.boot" version "2.7.1"
-    id "io.spring.dependency-management" version "1.0.12.RELEASE"
-    id "checkstyle"
-    id "java"
-}
-
 apply from: "$project.rootDir/gradle/scripts/test-aggregator.gradle"
 
 allprojects {
     repositories {
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
     }
 }
 
 subprojects {
-    apply plugin: "checkstyle"
-    apply plugin: "java-library"
-    apply plugin: "java-test-fixtures"
     apply plugin: "java"
+    apply plugin: "java-library"
+    apply plugin: "checkstyle"
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-    [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
 
     ext {
-        SPRING_VERSION = "5.3.12"
-        JUNIT_JUPITER_VERSION = "5.7.2"
-        JJWT_VERSION = "0.11.2"
-        ASSERTJ_VERSION = "3.19.0"
+        HIBERNATE_VERSION = "5.6.10.Final"
+        JUNIT_JUPITER_VERSION = "5.8.2"
+        JJWT_VERSION = "0.11.5"
+        ASSERTJ_VERSION = "3.22.0"
     }
+
+    group = projectGroups
+    version = applicationVersion
 
     dependencies {
         implementation "org.slf4j:slf4j-api:1.7.32"
+    }
+
+    tasks.getByName("jar") {
+        enabled = true
+    }
+
+    tasks.named("test") {
+        useJUnitPlatform()
     }
 
     checkstyle {
@@ -53,6 +46,47 @@ subprojects {
     }
 }
 
-bootJar {
-    mainClass = "kr.flab.movieon.MovieOnApplication"
-}
+
+//allprojects {
+//    repositories {
+//        mavenCentral()
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+//    }
+//}
+//
+//subprojects {
+//    apply plugin: "checkstyle"
+//    apply plugin: "java-library"
+//    apply plugin: "java"
+//
+//    sourceCompatibility = JavaVersion.VERSION_17
+//    targetCompatibility = JavaVersion.VERSION_17
+//    [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+//
+//    configurations {
+//        compileOnly {
+//            extendsFrom annotationProcessor
+//        }
+//    }
+//
+
+//
+//    dependencies {
+//        implementation "org.slf4j:slf4j-api:1.7.32"
+//    }
+//
+//    checkstyle {
+//        configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+//        configProperties = ["suppressionFile": "${project.rootDir}/config/checkstyle/checkstyle/checkstyle-suppressions.xml"]
+//        toolVersion = "8.40"
+//        ignoreFailures = false
+//        maxErrors = 0
+//        maxWarnings = 0
+//    }
+//}
+//
+//bootJar {
+//    mainClass = "kr.flab.movieon.MovieOnApplication"
+//}

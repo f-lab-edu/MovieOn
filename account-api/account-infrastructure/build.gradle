@@ -1,8 +1,7 @@
-apply plugin: "org.springframework.boot"
-apply plugin: "io.spring.dependency-management"
-
-group "kr.flab.movieon"
-version "0.0.1"
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+}
 
 dependencies {
     api project(":account-api:account-domain")
@@ -16,14 +15,6 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
-bootJar {
+tasks.getByName('bootJar') {
     enabled = false
-}
-
-jar {
-    enabled = true
-}
-
-test {
-    useJUnitPlatform()
 }

@@ -2,7 +2,7 @@ package kr.flab.movieon.notification.presentation.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.NotEmpty;
-import kr.flab.movieon.notification.application.NotificationTemplateManager.CreateTemplateCommand;
+import kr.flab.movieon.notification.application.NotificationTemplateManager.TemplateCommand;
 
 @Schema(description = "알림 템플릿 생성 요청")
 public record CreateTemplateRequest(
@@ -23,8 +23,8 @@ public record CreateTemplateRequest(
     String contents
 ) {
 
-    public CreateTemplateCommand toCommand() {
-        return new CreateTemplateCommand(this.typeName, this.templateName, this.title,
+    public TemplateCommand toCommand() {
+        return new TemplateCommand(this.typeName, this.templateName, this.title,
             this.contents);
     }
 }

@@ -3,6 +3,7 @@ package kr.flab.movieon.notification.infrastructure.jpa;
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
 import kr.flab.movieon.notification.domain.NotificationTemplateType;
+import kr.flab.movieon.notification.domain.NotificationType;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -21,15 +22,11 @@ public class NotificationTemplateRepositoryAdapter implements NotificationTempla
         return templateRepository.save(entity);
     }
 
-    @Cacheable(value = "template", cacheManager = "caffeineCacheManager")
+    @Cacheable(value = "template", cacheManager = "caffeineCacheManager",
+        key = "#typeName.concat(':').concat(#templateName)")
     @Override
-    public NotificationTemplate findByTemplateType(NotificationTemplateType templateType) {
-        return templateRepository.findByTemplateType(templateType);
-    }
-
-    @Override
-    public NotificationTemplate findById(Long templateId) {
-        return templateRepository.findById(templateId)
-            .orElseThrow(IllegalArgumentException::new);
+    public NotificationTemplate findByTemplate(String typeName, String templateName) {
+        return templateRepository.findByTemplateType(new NotificationTemplateType(
+            NotificationType.findByType(typeName), templateName));
     }
 }

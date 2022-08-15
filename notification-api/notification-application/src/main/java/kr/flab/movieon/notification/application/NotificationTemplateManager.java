@@ -2,6 +2,7 @@ package kr.flab.movieon.notification.application;
 
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ public class NotificationTemplateManager {
     }
 
     @Transactional
-    public void create(CreateTemplateCommand command) {
+    public void create(TemplateCommand command) {
         var template = NotificationTemplate.create(
             command.typeName(), command.templateName(),
             command.title(), command.contents());
@@ -24,11 +25,15 @@ public class NotificationTemplateManager {
     }
 
     @Transactional
-    public void update(Long templateId, String title, String contents) {
-        var template = templateRepository.findById(templateId);
-        template.update(title, contents);
+    @CacheEvict(value = "template", cacheManager = "caffeineCacheManager",
+        key = "#command.typeName().concat(':').concat(#command.templateName())")
+    public void update(TemplateCommand command) {
+        var template = templateRepository.findByTemplate(command.typeName, command.templateName);
+        template.update(command.title, command.contents);
     }
 
-    public record CreateTemplateCommand(String typeName, String templateName, String title,
-                                        String contents) {}
+    public record TemplateCommand(String typeName, String templateName, String title,
+                                  String contents) {
+
+    }
 }

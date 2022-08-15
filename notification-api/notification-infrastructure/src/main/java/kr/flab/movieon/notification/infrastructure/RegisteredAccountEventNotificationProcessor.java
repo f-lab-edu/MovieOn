@@ -1,7 +1,5 @@
 package kr.flab.movieon.notification.infrastructure;
 
-import static kr.flab.movieon.notification.domain.NotificationType.EMAIL;
-
 import java.util.HashMap;
 import java.util.Map;
 import kr.flab.movieon.notification.domain.EmailNotification;
@@ -9,7 +7,6 @@ import kr.flab.movieon.notification.domain.ExternalEventNotificationProcessor;
 import kr.flab.movieon.notification.domain.Notification;
 import kr.flab.movieon.notification.domain.NotificationTemplateProcessor;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
-import kr.flab.movieon.notification.domain.NotificationTemplateType;
 import kr.flab.movieon.notification.domain.Receiver;
 import kr.flab.movieon.notification.domain.RegisteredAccountEvent;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +37,7 @@ public final class RegisteredAccountEventNotificationProcessor
     @Override
     public Notification process(RegisteredAccountEvent event) {
         var template = templateRepository
-            .findByTemplateType(new NotificationTemplateType(EMAIL, "계정 확인 메일"));
+            .findByTemplate("EMAIL", "계정 확인 메일");
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("link", "/api/v1/auth/confirm?token=" + event.getEmailCheckToken()
