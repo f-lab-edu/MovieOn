@@ -4,10 +4,9 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.UUID;
 import kr.flab.movieon.common.error.InvalidArgumentException;
-import kr.flab.movieon.notification.application.NotificationTemplateManager.CreateTemplateCommand;
+import kr.flab.movieon.notification.application.NotificationTemplateManager.TemplateCommand;
 import kr.flab.movieon.notification.domain.NotificationTemplate;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
-import kr.flab.movieon.notification.domain.NotificationTemplateType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +21,7 @@ final class NotificationTemplateManagerTest {
 
         // Act & Assert
         assertThatExceptionOfType(InvalidArgumentException.class)
-            .isThrownBy(() -> sut.create(new CreateTemplateCommand(arg, arg, arg, arg)));
+            .isThrownBy(() -> sut.create(new TemplateCommand(arg, arg, arg, arg)));
     }
 
     private static final class DummyNotificationTemplateRepository implements
@@ -35,13 +34,7 @@ final class NotificationTemplateManagerTest {
         }
 
         @Override
-        public NotificationTemplate findByTemplateType(
-            NotificationTemplateType templateType) {
-            return null;
-        }
-
-        @Override
-        public NotificationTemplate findById(Long templateId) {
+        public NotificationTemplate findByTemplate(String typeName, String templateName) {
             return null;
         }
     }

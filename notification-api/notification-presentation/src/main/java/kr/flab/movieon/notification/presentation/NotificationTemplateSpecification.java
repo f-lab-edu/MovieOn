@@ -1,7 +1,6 @@
 package kr.flab.movieon.notification.presentation;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,7 +9,6 @@ import kr.flab.movieon.notification.presentation.request.CreateTemplateRequest;
 import kr.flab.movieon.notification.presentation.request.UpdateTemplateRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,11 +33,8 @@ public interface NotificationTemplateSpecification {
         @ApiResponse(responseCode = "200", description = "알림 템플릿 수정 성공"),
         @ApiResponse(responseCode = "400", description = "알림 템플릿 수정 요청 에러")
     })
-    @PutMapping(value = "/api/v1/notifications/templates/{templateId}",
+    @PutMapping(value = "/api/v1/notifications/templates",
         produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void update(
-        @Parameter(description = "템플릿ID", example = "1", required = true)
-        @PathVariable Long templateId,
-        @RequestBody @Valid UpdateTemplateRequest request);
+    void update(@RequestBody @Valid UpdateTemplateRequest request);
 }

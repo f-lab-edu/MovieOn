@@ -1,8 +1,7 @@
-apply plugin: "org.springframework.boot"
-apply plugin: "io.spring.dependency-management"
-
-group "kr.flab.movieon"
-version "0.0.1"
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+}
 
 dependencies {
     api project(":notification-api:notification-presentation")
@@ -45,18 +44,13 @@ dependencies {
     testImplementation "it.ozimov:embedded-redis:0.7.2"
     implementation "mysql:mysql-connector-java"
     implementation "org.flywaydb:flyway-core"
-    testImplementation "io.github.javaunit:autoparams:0.3.1"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
-bootJar {
+tasks.getByName('bootJar') {
     enabled = true
 }
 
-jar {
+tasks.getByName('jar') {
     enabled = true
-}
-
-test {
-    useJUnitPlatform()
 }

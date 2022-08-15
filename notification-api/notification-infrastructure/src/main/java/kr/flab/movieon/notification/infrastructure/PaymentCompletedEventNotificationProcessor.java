@@ -11,7 +11,6 @@ import kr.flab.movieon.notification.domain.NotificationGroup.NotificationGroupTy
 import kr.flab.movieon.notification.domain.NotificationSettingRepository;
 import kr.flab.movieon.notification.domain.NotificationTemplateProcessor;
 import kr.flab.movieon.notification.domain.NotificationTemplateRepository;
-import kr.flab.movieon.notification.domain.NotificationTemplateType;
 import kr.flab.movieon.notification.domain.PaymentCompletedEvent;
 import kr.flab.movieon.notification.domain.Receiver;
 import kr.flab.movieon.notification.integrate.AccountRepository;
@@ -55,8 +54,7 @@ public final class PaymentCompletedEventNotificationProcessor
 
         var account = accountRepository.findById(event.getAccountId());
 
-        var template = templateRepository
-            .findByTemplateType(new NotificationTemplateType(EMAIL, "결제 완료 메일"));
+        var template = templateRepository.findByTemplate("EMAIL", "결제 완료 메일");
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("username", account.getUsername());
