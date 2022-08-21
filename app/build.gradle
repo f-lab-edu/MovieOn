@@ -4,34 +4,34 @@ plugins {
 }
 
 dependencies {
-    api project(":notification-api:notification-presentation")
-    api project(":notification-api:notification-application")
-    api project(":notification-api:notification-domain")
-    api project(":notification-api:notification-infrastructure")
+    implementation project(":notification-api:notification-presentation")
+    implementation project(":notification-api:notification-application")
+    implementation project(":notification-api:notification-domain")
+    implementation project(":notification-api:notification-infrastructure")
 
-    api project(":account-api:account-presentation")
-    api project(":account-api:account-application")
-    api project(":account-api:account-domain")
-    api project(":account-api:account-infrastructure")
+    implementation project(":account-api:account-presentation")
+    implementation project(":account-api:account-application")
+    implementation project(":account-api:account-domain")
+    implementation project(":account-api:account-infrastructure")
 
-    api project(":order-api:order-presentation")
-    api project(":order-api:order-application")
-    api project(":order-api:order-domain")
-    api project(":order-api:order-infrastructure")
+    implementation project(":order-api:order-presentation")
+    implementation project(":order-api:order-application")
+    implementation project(":order-api:order-domain")
+    implementation project(":order-api:order-infrastructure")
 
-    api project(":payment-api:payment-presentation")
-    api project(":payment-api:payment-application")
-    api project(":payment-api:payment-domain")
-    api project(":payment-api:payment-infrastructure")
+    implementation project(":payment-api:payment-presentation")
+    implementation project(":payment-api:payment-application")
+    implementation project(":payment-api:payment-domain")
+    implementation project(":payment-api:payment-infrastructure")
 
-    api project(":product-api:product-presentation")
-    api project(":product-api:product-application")
-    api project(":product-api:product-domain")
-    api project(":product-api:product-infrastructure")
+    implementation project(":product-api:product-presentation")
+    implementation project(":product-api:product-application")
+    implementation project(":product-api:product-domain")
+    implementation project(":product-api:product-infrastructure")
 
-    api project(":query-api")
+    implementation project(":query-api")
 
-    api project(":common")
+    implementation project(":common")
 
     implementation "org.springdoc:springdoc-openapi-ui:1.6.6"
     implementation "org.springdoc:springdoc-openapi-security:1.6.6"
@@ -44,6 +44,8 @@ dependencies {
     testImplementation "it.ozimov:embedded-redis:0.7.2"
     implementation "mysql:mysql-connector-java"
     implementation "org.flywaydb:flyway-core"
+    testImplementation "com.h2database:h2"
+    testImplementation "com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.5"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
@@ -52,5 +54,5 @@ tasks.getByName('bootJar') {
 }
 
 tasks.getByName('jar') {
-    enabled = true
+    enabled = false
 }

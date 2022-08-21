@@ -26,14 +26,6 @@ Unit Test Command
 
 `$ ./gradlew test`
 
-Integration Test Command
-
-`$ ./gradlew integrationTest`
-
-All Test Command
-
-`$ ./gradlew clean test integrationTest`
-
 ### Architecture
 
 Modular Monolithic 아키텍처이므로, 다음과 같은 모듈들로 구성되어 있습니다.
@@ -50,7 +42,6 @@ Modular Monolithic 아키텍처이므로, 다음과 같은 모듈들로 구성�
 | Product-Api      | 상품을 관리하고 사용자에게 노출하는 기능을 담당하는 모듈입니다.          |
 | Point-Api        | (추가예정)                                       |
 | Purchase-Api     | (대체예정)                                       |
-| Integration-test | 통합 테스트를 지원하는 테스트 모듈입니다.                      |
 
 각 도메인 모듈은 하위에 아래와 같이 Layered Architecture 형식의 Build Artifacts로 분리되어 구성됩니다.
 

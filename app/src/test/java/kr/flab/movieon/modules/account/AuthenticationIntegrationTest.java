@@ -1,4 +1,4 @@
-package modules.account;
+package kr.flab.movieon.modules.account;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import kr.flab.movieon.account.presentation.request.LoginAccountRequest;
 import kr.flab.movieon.account.presentation.request.RegisterAccountRequest;
-import modules.IntegrateTestExtension;
+import kr.flab.movieon.modules.IntegrateTestExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

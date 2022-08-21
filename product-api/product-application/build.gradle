@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    api project(":product-api:product-domain")
+    implementation project(":product-api:product-domain")
+    implementation project(":common")
 
     testImplementation "com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.5"
     implementation "org.springframework.boot:spring-boot-starter-validation"

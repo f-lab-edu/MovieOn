@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    api project(":account-api:account-application")
+    implementation project(":account-api:account-application")
+    implementation project(":common")
     implementation "org.springdoc:springdoc-openapi-ui:1.6.6"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-security"

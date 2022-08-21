@@ -1,4 +1,4 @@
-package modules.order;
+package kr.flab.movieon.modules.order;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -6,10 +6,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+import kr.flab.movieon.modules.IntegrateTestExtension;
 import kr.flab.movieon.order.presentation.request.CreateOrderItemOptionRequest;
 import kr.flab.movieon.order.presentation.request.CreateOrderLineItemRequest;
 import kr.flab.movieon.order.presentation.request.CreateOrderRequest;
-import modules.IntegrateTestExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package modules.payment;
+package kr.flab.movieon.modules.payment;
 
 import static java.time.LocalDateTime.now;
 import static org.mockito.BDDMockito.doNothing;
@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
+import kr.flab.movieon.modules.IntegrateTestExtension;
 import kr.flab.movieon.payment.infrastructure.toss.TossPaymentsCardInfoResponse;
 import kr.flab.movieon.payment.infrastructure.toss.TossPaymentsPaymentCompletedResponse;
 import kr.flab.movieon.payment.presentation.request.TossPaymentsPaymentApprovalRequest;
-import modules.IntegrateTestExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
