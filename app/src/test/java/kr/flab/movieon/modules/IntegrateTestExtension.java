@@ -8,6 +8,7 @@ import kr.flab.movieon.account.domain.Tokens;
 import kr.flab.movieon.payment.infrastructure.toss.TossPaymentsPaymentApprovalCommandVerifier;
 import kr.flab.movieon.payment.infrastructure.toss.TossPaymentsPaymentApprovalProcessor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = MovieOnApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Tag("integration")
 public abstract class IntegrateTestExtension {
 
     protected static final String AUTHORIZATION = "Authorization";

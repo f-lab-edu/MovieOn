@@ -26,6 +26,10 @@ Unit Test Command
 
 `$ ./gradlew test`
 
+Integration Test Command
+
+`$ ./gradlew integrationTest`
+
 ### Architecture
 
 Modular Monolithic 아키텍처이므로, 다음과 같은 모듈들로 구성되어 있습니다.
