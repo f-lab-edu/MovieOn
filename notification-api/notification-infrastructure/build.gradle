@@ -4,8 +4,9 @@ plugins {
 }
 
 dependencies {
-    api project(":notification-api:notification-domain")
-    api project(":notification-api:notification-application")
+    implementation project(":notification-api:notification-domain")
+    implementation project(":notification-api:notification-application")
+    implementation project(":common")
 
     implementation "com.github.ben-manes.caffeine:caffeine"
     implementation "org.springframework.boot:spring-boot-starter-cache"

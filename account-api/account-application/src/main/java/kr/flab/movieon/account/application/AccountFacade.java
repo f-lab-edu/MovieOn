@@ -7,7 +7,6 @@ import kr.flab.movieon.account.domain.LoginAccountProcessor;
 import kr.flab.movieon.account.domain.RegisterAccountProcessor;
 import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.TokenReIssuer;
-import kr.flab.movieon.account.domain.Tokens;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -49,14 +48,18 @@ public final class AccountFacade {
         account.pollAllEvents().forEach(publisher::publishEvent);
     }
 
-    public Tokens login(LoginAccount command) {
-        return transactionTemplate.execute(status -> {
+    public TokenDto login(LoginAccount command) {
+        var tokens = transactionTemplate.execute(status -> {
             var account = loginProcessor.login(command.email(), command.password());
             return tokenGenerator.generate(account.getEmail(), account.getRoles());
         });
+        return new TokenDto(tokens.accessToken(), tokens.refreshToken());
     }
 
-    public Tokens reIssuance(String payload) {
-        return transactionTemplate.execute(status -> tokenReIssuer.reIssuance(payload));
+    public TokenDto reIssuance(String payload) {
+        var tokens = transactionTemplate.execute(status -> tokenReIssuer.reIssuance(payload));
+        return new TokenDto(tokens.accessToken(), tokens.refreshToken());
     }
+
+    public record TokenDto(String accessToken, String refreshToken) {}
 }

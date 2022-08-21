@@ -1,11 +1,11 @@
-package modules.notification;
+package kr.flab.movieon.modules.notification;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import kr.flab.movieon.modules.IntegrateTestExtension;
 import kr.flab.movieon.notification.presentation.request.UpdateTemplateRequest;
-import modules.IntegrateTestExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;

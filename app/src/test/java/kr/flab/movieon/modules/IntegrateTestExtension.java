@@ -1,4 +1,4 @@
-package modules;
+package kr.flab.movieon.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.flab.movieon.MovieOnApplication;

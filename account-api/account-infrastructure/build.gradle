@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    api project(":account-api:account-domain")
+    implementation project(":account-api:account-domain")
+    implementation project(":common")
     implementation "io.jsonwebtoken:jjwt-api:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-impl:${JJWT_VERSION}"
     implementation "io.jsonwebtoken:jjwt-jackson:${JJWT_VERSION}"
