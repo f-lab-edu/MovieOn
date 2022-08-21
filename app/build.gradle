@@ -56,3 +56,10 @@ tasks.getByName('bootJar') {
 tasks.getByName('jar') {
     enabled = false
 }
+
+tasks.register('integrationTest', Test) {
+    group = 'verification'
+    useJUnitPlatform {
+        includeTags('integration')
+    }
+}
