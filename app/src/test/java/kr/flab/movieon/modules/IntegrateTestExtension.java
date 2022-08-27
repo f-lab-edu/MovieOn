@@ -1,7 +1,6 @@
 package kr.flab.movieon.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.flab.movieon.MovieOnApplication;
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.domain.TokenGenerator;
 import kr.flab.movieon.account.domain.Tokens;
@@ -17,7 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = MovieOnApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integration")
