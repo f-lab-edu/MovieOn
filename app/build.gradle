@@ -43,7 +43,7 @@ dependencies {
     implementation "it.ozimov:embedded-redis:0.7.2"
     testImplementation "it.ozimov:embedded-redis:0.7.2"
     implementation "mysql:mysql-connector-java"
-    implementation "org.flywaydb:flyway-core"
+    implementation "org.flywaydb:flyway-mysql"
     testImplementation "com.h2database:h2"
     testImplementation "com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.5"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
