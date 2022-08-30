@@ -61,3 +61,5 @@ Modular Monolithic 아키텍처이므로, 다음과 같은 모듈들로 구성�
 ### Setup
 
 `$ git config core.hooksPath .githooks`
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ff-lab-edu%2FMovieOn&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
