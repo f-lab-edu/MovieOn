@@ -41,7 +41,6 @@ server:
 app:
   url: 'http://localhost:${server.port}'
 
-
 logging:
   level:
     kr.flab.movieon: debug
