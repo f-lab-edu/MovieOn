@@ -2,6 +2,7 @@ package kr.flab.movieon.order.presentation.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ public final class CreateOrderLineItemRequest {
     private Long basePrice;
 
     @Schema(description = "상품 옵션")
+    @Valid
     private List<CreateOrderItemOptionRequest> options;
 
     public Long getItemId() {

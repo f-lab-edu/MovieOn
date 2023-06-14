@@ -36,7 +36,7 @@ spring:
     open-in-view: false
 
 server:
-  port: 8080
+  port: 8082
 
 app:
   url: 'http://localhost:${server.port}'
