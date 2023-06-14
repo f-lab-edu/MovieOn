@@ -35,8 +35,7 @@ public final class GlobalExceptionHandler implements ErrorController {
 
     @RequestMapping("/error")
     public ResponseEntity<ApiResponseEnvelop<?>> onError(HttpServletRequest req) {
-        log.error("Unhandled Servlet Exception : {}",
-            req.getRequestURI() + "?" + req.getQueryString());
+        log.error("Unhandled Servlet Exception : {}", req);
         Integer errorCode = (Integer) req.getAttribute(SERVLET_ERROR_CODE);
         return ResponseEntity.status(HttpStatus.valueOf(errorCode))
             .body(ApiResponseEnvelop.error(ErrorCode.UN_HANDLED));

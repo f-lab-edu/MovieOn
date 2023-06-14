@@ -177,3 +177,4 @@ $RECYCLE.BIN/
 
 docker/es
 .jqwik-database
+scavenger.conf

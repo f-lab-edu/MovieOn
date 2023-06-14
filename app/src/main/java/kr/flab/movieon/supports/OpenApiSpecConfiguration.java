@@ -35,7 +35,7 @@ public class OpenApiSpecConfiguration {
 
     private SecurityScheme securityScheme() {
         return new SecurityScheme()
-            .type(Type.HTTP).scheme("bearer")
+            .type(Type.HTTP).scheme("Bearer")
             .bearerFormat("JWT")
             .in(In.HEADER).name("Authorization");
     }
