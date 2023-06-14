@@ -10,7 +10,7 @@ spring:
     port: 6379
   mail:
     host: smtp.gmail.com
-    username: [email]
+    username: [user]
     password: [password]
     port: 587
     properties:
