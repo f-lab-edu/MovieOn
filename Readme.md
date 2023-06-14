@@ -18,7 +18,7 @@ Build Command
 
 Run Command
 
-`$ java -jar app/build/libs/app-0.0.1.jar`
+`$ java -Dspring.profiles.active=local -Dscavenger.configuration=scavenger.conf -javaagent:scavenger-agent-java-1.1.0.jar -javaagent:agent/elastic-apm-agent-1.26.0.jar -jar app/build/libs/app-0.0.1.jar`
 
 ### Testing
 
