@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.List;
+import kr.flab.movieon.order.presentation.request.CreateOrderItemOptionRequest;
 import kr.flab.movieon.order.presentation.request.CreateOrderLineItemRequest;
 import kr.flab.movieon.order.presentation.request.CreateOrderRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,6 +84,33 @@ final class OrderApiTest {
         productRequest.setItemId(1L);
         productRequest.setProductName("보이스");
         productRequest.setBasePrice(-1L);
+        var request = new CreateOrderRequest();
+        request.setPayMethod("CARD");
+        request.setUseOfPoint(12L);
+        request.setLineItems(List.of(productRequest));
+
+        // Act
+        final var actions = mockMvc.perform(post(REGISTER_ORDER_URI)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
+
+        // Assert
+        actions.andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("주문 생성 요청 시 주문 상품 안에 있는 주문 옵션의 salesPrice가 0보다 작을 경우 400 에러를 리턴한다.")
+    void if_sales_price_options_negative_value_return_http_status_400() throws Exception {
+        // Arrange
+        var optionRequest = new CreateOrderItemOptionRequest();
+        optionRequest.setOptionName(null);
+        optionRequest.setSalesPrice(-1);
+        var productRequest = new CreateOrderLineItemRequest();
+        productRequest.setItemId(1L);
+        productRequest.setProductName("보이스");
+        productRequest.setBasePrice(100L);
+        productRequest.setOptions(List.of(optionRequest));
         var request = new CreateOrderRequest();
         request.setPayMethod("CARD");
         request.setUseOfPoint(12L);
