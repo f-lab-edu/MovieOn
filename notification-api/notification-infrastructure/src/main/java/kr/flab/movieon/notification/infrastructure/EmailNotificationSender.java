@@ -1,7 +1,7 @@
 package kr.flab.movieon.notification.infrastructure;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import kr.flab.movieon.notification.domain.EmailNotification;
 import kr.flab.movieon.notification.domain.NotificationSender;
 import org.slf4j.Logger;
