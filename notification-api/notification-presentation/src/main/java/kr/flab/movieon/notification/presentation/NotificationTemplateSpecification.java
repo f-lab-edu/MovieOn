@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import kr.flab.movieon.notification.presentation.request.CreateTemplateRequest;
 import kr.flab.movieon.notification.presentation.request.UpdateTemplateRequest;
 import org.springframework.http.MediaType;

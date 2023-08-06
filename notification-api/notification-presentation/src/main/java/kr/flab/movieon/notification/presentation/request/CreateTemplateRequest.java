@@ -1,7 +1,7 @@
 package kr.flab.movieon.notification.presentation.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import kr.flab.movieon.notification.application.NotificationTemplateManager.TemplateCommand;
 
 @Schema(description = "알림 템플릿 생성 요청")
