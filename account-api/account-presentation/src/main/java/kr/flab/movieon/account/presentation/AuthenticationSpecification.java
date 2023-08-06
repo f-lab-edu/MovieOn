@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import kr.flab.movieon.account.presentation.request.LoginAccountRequest;
 import kr.flab.movieon.account.presentation.request.RegisterAccountRequest;
 import kr.flab.movieon.account.presentation.request.RegisterConfirmRequest;
