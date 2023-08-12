@@ -2,7 +2,7 @@ package kr.flab.movieon.product.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class ItemOption {
