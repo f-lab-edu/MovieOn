@@ -30,6 +30,6 @@ logging:
   level:
     kr.flab.movieon: debug
     org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.orm.jdbc.bind: trace
     org.springframework.transaction: trace
     org.springframework.orm: trace
