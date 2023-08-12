@@ -9,7 +9,7 @@ public final class LoginAccountProcessor {
     private final PasswordEncrypter passwordEncrypter;
 
     public LoginAccountProcessor(AccountRepository accountRepository,
-        PasswordEncrypter passwordEncrypter) {
+                                 PasswordEncrypter passwordEncrypter) {
         this.accountRepository = accountRepository;
         this.passwordEncrypter = passwordEncrypter;
     }

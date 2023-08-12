@@ -71,6 +71,6 @@ public final class ProductContentsDetailBuilder {
 
     public ProductContentsDetail build() {
         return new ProductContentsDetail(rate, releasedAt, runningTime, director, actors,
-            availableDevices, providedQuality, drm, images);
+                availableDevices, providedQuality, drm, images);
     }
 }

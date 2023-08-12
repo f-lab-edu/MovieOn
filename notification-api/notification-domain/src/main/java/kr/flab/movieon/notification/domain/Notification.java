@@ -1,7 +1,5 @@
 package kr.flab.movieon.notification.domain;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -10,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -75,6 +75,6 @@ public abstract class Notification {
     @Override
     public String toString() {
         return "Notification{" + "id=" + id + ", receiver=" + receiver + ", message='" + message
-            + '\'' + ", createdAt=" + createdAt + '}';
+                + '\'' + ", createdAt=" + createdAt + '}';
     }
 }

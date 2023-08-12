@@ -1,7 +1,5 @@
 package kr.flab.movieon.notification.domain;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -9,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -36,16 +36,16 @@ public class NotificationTemplate {
     }
 
     private NotificationTemplate(NotificationTemplateType templateType, String title,
-        String contents) {
+                                 String contents) {
         this.templateType = templateType;
         this.title = title;
         this.contents = contents;
     }
 
     public static NotificationTemplate create(String typeName, String templateName,
-        String title, String contents) {
+                                              String title, String contents) {
         return new NotificationTemplate(new NotificationTemplateType(
-            NotificationType.findByType(typeName), templateName), title, contents);
+                NotificationType.findByType(typeName), templateName), title, contents);
     }
 
     public void update(String title, String contents) {

@@ -75,7 +75,7 @@ public final class TossPaymentsCardInfoBuilder {
 
     public TossPaymentsCardInfo build() {
         return new TossPaymentsCardInfo(company, number, installmentPlanMonths,
-            approveNo, useCardPoint, cardType, ownerType,
-            receiptUrl, acquireStatus, isInterestFree);
+                approveNo, useCardPoint, cardType, ownerType,
+                receiptUrl, acquireStatus, isInterestFree);
     }
 }

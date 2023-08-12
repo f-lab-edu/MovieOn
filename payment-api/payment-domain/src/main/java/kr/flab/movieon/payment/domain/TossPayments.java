@@ -1,7 +1,5 @@
 package kr.flab.movieon.payment.domain;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -24,7 +24,8 @@ public class TossPayments extends AbstractAggregateRoot {
 
     }
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
     private TossPaymentsInfo info;
@@ -40,8 +41,8 @@ public class TossPayments extends AbstractAggregateRoot {
     private LocalDateTime modifiedAt;
 
     private TossPayments(TossPaymentsInfo info,
-        TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
-        PayMethod payMethod) {
+                         TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
+                         PayMethod payMethod) {
         this.info = info;
         this.cancels = cancels;
         this.card = card;
@@ -50,8 +51,8 @@ public class TossPayments extends AbstractAggregateRoot {
     }
 
     public static TossPayments create(TossPaymentsInfo info,
-        TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
-        PayMethod payMethod) {
+                                      TossPaymentsCancelInfo cancels, TossPaymentsCardInfo card,
+                                      PayMethod payMethod) {
         return new TossPayments(info, cancels, card, payMethod);
     }
 

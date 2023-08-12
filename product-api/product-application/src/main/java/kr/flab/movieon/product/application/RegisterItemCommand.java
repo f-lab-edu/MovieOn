@@ -1,8 +1,8 @@
 package kr.flab.movieon.product.application;
 
-import java.util.List;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
 
 public final class RegisterItemCommand {
 

@@ -1,11 +1,5 @@
 package kr.flab.movieon.order.domain;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import kr.flab.movieon.common.KeyGenerator;
 import kr.flab.movieon.common.domain.model.AbstractAggregateRoot;
 import kr.flab.movieon.order.domain.exception.AlreadyCanceledException;
@@ -32,7 +32,8 @@ public class Order extends AbstractAggregateRoot {
 
     private static final String PREFIX = "ord_";
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -68,7 +69,7 @@ public class Order extends AbstractAggregateRoot {
     }
 
     private Order(Customer customer, String payMethod, OrderStatus status,
-        BigDecimal useOfPoint, List<OrderLineItem> lineItems) {
+                  BigDecimal useOfPoint, List<OrderLineItem> lineItems) {
         this.orderKey = KeyGenerator.generate(PREFIX);
         this.customer = customer;
         this.payMethod = payMethod;
@@ -80,15 +81,15 @@ public class Order extends AbstractAggregateRoot {
     }
 
     public static Order create(Customer customer, String payMethod,
-        BigDecimal useOfPoint, List<OrderLineItem> products) {
+                               BigDecimal useOfPoint, List<OrderLineItem> products) {
         return new Order(customer, payMethod, OrderStatus.CREATED, useOfPoint, products);
     }
 
     private BigDecimal calculateTotalPrice() {
         return this.lineItems.stream()
-            .map(OrderLineItem::calculatePrice)
-            .reduce(BigDecimal.ZERO, BigDecimal::add)
-            .subtract(this.useOfPoint);
+                .map(OrderLineItem::calculatePrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .subtract(this.useOfPoint);
     }
 
     public void payed(BigDecimal payedAmount) {
@@ -122,8 +123,8 @@ public class Order extends AbstractAggregateRoot {
 
     public List<Long> getItemIds() {
         return this.lineItems.stream()
-            .map(OrderLineItem::getItemId)
-            .collect(Collectors.toList());
+                .map(OrderLineItem::getItemId)
+                .collect(Collectors.toList());
     }
 
     public enum OrderStatus {

@@ -10,7 +10,7 @@ public final class RegisterAccountProcessor {
     private final PasswordEncrypter encrypter;
 
     public RegisterAccountProcessor(AccountRepository accountRepository,
-        PasswordEncrypter encrypter) {
+                                    PasswordEncrypter encrypter) {
         this.accountRepository = accountRepository;
         this.encrypter = encrypter;
     }

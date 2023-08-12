@@ -1,12 +1,12 @@
 package kr.flab.movieon.security.integrate;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Set;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Set;
 import kr.flab.movieon.account.domain.AccountRepository;
 import kr.flab.movieon.account.infrastructure.jwt.TokenExtractor;
 import kr.flab.movieon.account.infrastructure.jwt.TokenParser;
@@ -27,7 +27,7 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenParser tokenParser;
 
     public JwtAuthenticationFilter(AccountRepository accountRepository,
-        TokenExtractor tokenExtractor, TokenParser tokenParser) {
+                                   TokenExtractor tokenExtractor, TokenParser tokenParser) {
         this.accountRepository = accountRepository;
         this.tokenExtractor = tokenExtractor;
         this.tokenParser = tokenParser;
@@ -35,8 +35,8 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-        HttpServletResponse response, FilterChain filterChain)
-        throws ServletException, IOException {
+                                    HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         tokenExtractor.extract(request.getHeader(AUTHORIZATION_HEADER)).ifPresent(rawToken -> {
             var tokenMap = tokenParser.parse(rawToken);
             String email = tokenMap.getSubject();
@@ -44,8 +44,8 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 var context = new UsernamePasswordAuthenticationToken(
-                    new AuthenticatedUser(account.getAccountKey(), account.getRoles()), null,
-                    authorities(account.getRoles()));
+                        new AuthenticatedUser(account.getAccountKey(), account.getRoles()), null,
+                        authorities(account.getRoles()));
                 SecurityContextHolder.getContext().setAuthentication(context);
             }
         });
@@ -55,7 +55,7 @@ public final class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private Collection<? extends GrantedAuthority> authorities(Set<Role> roles) {
         return roles.stream()
-            .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
-            .toList();
+                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
+                .toList();
     }
 }

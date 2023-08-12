@@ -105,7 +105,7 @@ public final class TossPaymentsInfoBuilder {
 
     public TossPaymentsInfo build() {
         return new TossPaymentsInfo(version, orderId, orderName, paymentKey,
-            type, mid, totalAmount, balanceAmount, suppliedAmount, status,
-            requestedAt, approvedAt, transactionKey, vat, taxFreeAmount);
+                type, mid, totalAmount, balanceAmount, suppliedAmount, status,
+                requestedAt, approvedAt, transactionKey, vat, taxFreeAmount);
     }
 }
