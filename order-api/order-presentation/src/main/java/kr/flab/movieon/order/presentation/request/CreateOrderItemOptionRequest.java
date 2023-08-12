@@ -1,8 +1,8 @@
 package kr.flab.movieon.order.presentation.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "상품 상세 옵션")
 public final class CreateOrderItemOptionRequest {

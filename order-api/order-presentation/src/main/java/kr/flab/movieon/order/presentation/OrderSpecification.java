@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.net.URI;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import kr.flab.movieon.common.AuthenticatedUser;
 import kr.flab.movieon.common.result.ApiResponseEnvelop;
 import kr.flab.movieon.order.presentation.request.CreateOrderRequest;
