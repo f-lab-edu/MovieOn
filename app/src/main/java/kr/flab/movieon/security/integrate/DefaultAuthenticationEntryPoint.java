@@ -2,9 +2,9 @@ package kr.flab.movieon.security.integrate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.result.ApiResponseEnvelop;
 import org.springframework.http.HttpStatus;

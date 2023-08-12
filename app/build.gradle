@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.2'
-    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
 }
 
 dependencies {
@@ -42,7 +42,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-amqp"
     implementation "it.ozimov:embedded-redis:0.7.2"
     testImplementation "it.ozimov:embedded-redis:0.7.2"
-    implementation "mysql:mysql-connector-java"
+    runtimeOnly "com.mysql:mysql-connector-j"
     implementation "org.flywaydb:flyway-mysql"
     testImplementation "com.h2database:h2"
     testImplementation "com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.5"

@@ -1,8 +1,8 @@
 package kr.flab.movieon.supports;
 
 import java.math.BigDecimal;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public final class BigDecimalAttributeConverter implements AttributeConverter<BigDecimal, Long> {

@@ -1,15 +1,11 @@
 package kr.flab.movieon.security.integrate;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.OPTIONS;
-import static org.springframework.http.HttpMethod.POST;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -18,16 +14,17 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
+import static org.springframework.http.HttpMethod.*;
+
 @Import(value = {
-    DefaultAuthenticationEntryPoint.class,
-    DefaultAccessDeniedHandler.class,
-    JwtAuthenticationFilter.class,
-    FilterChainExceptionHelper.class,
-    BCryptPasswordEncoder.class
+        DefaultAuthenticationEntryPoint.class,
+        DefaultAccessDeniedHandler.class,
+        JwtAuthenticationFilter.class,
+        FilterChainExceptionHelper.class,
+        BCryptPasswordEncoder.class
 })
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfiguration {
 
     private static final String REGISTER_URI = "/api/v1/auth/register";
@@ -42,9 +39,9 @@ public class SecurityConfiguration {
     private final AccessDeniedHandler accessDeniedHandler;
 
     public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter,
-        FilterChainExceptionHelper filterChainExceptionHelper,
-        AuthenticationEntryPoint authenticationEntryPoint,
-        AccessDeniedHandler accessDeniedHandler) {
+                                 FilterChainExceptionHelper filterChainExceptionHelper,
+                                 AuthenticationEntryPoint authenticationEntryPoint,
+                                 AccessDeniedHandler accessDeniedHandler) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.filterChainExceptionHelper = filterChainExceptionHelper;
         this.authenticationEntryPoint = authenticationEntryPoint;
@@ -54,28 +51,25 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint)
-            .accessDeniedHandler(accessDeniedHandler)
-            .and()
-
-            .authorizeRequests()
-            .antMatchers(SWAGGER_URI).permitAll()
-            .antMatchers(OPTIONS).permitAll()
-            .antMatchers(POST, REGISTER_URI).permitAll()
-            .antMatchers(GET, REGISTER_CONFIRM_URI).permitAll()
-            .antMatchers(POST, LOGIN_URI).permitAll()
-            .antMatchers(POST, RE_ISSUANCE_URI).permitAll()
-            .anyRequest().authenticated()
-
-            .and()
-            .addFilterBefore(filterChainExceptionHelper, LogoutFilter.class)
-            .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .exceptionHandling(exceptionHandle -> exceptionHandle
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
+                )
+                .authorizeHttpRequests(
+                        (authz) -> authz.requestMatchers(SWAGGER_URI).permitAll()
+                                .requestMatchers(POST, REGISTER_URI).permitAll()
+                                .requestMatchers(GET, REGISTER_CONFIRM_URI).permitAll()
+                                .requestMatchers(POST, LOGIN_URI).permitAll()
+                                .requestMatchers(POST, RE_ISSUANCE_URI).permitAll()
+                                .anyRequest().authenticated()
+                )
+                .addFilterBefore(filterChainExceptionHelper, LogoutFilter.class)
+                .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
