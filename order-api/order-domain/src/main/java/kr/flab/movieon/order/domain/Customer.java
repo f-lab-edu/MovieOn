@@ -1,8 +1,8 @@
 package kr.flab.movieon.order.domain;
 
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Customer {
