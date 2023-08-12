@@ -23,6 +23,9 @@ spring:
   flyway:
     placeholder-replacement: false
 
+app:
+  url: 'http://localhost:${server.port}'
+
 logging:
   level:
     kr.flab.movieon: debug

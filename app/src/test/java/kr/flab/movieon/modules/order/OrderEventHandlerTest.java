@@ -38,7 +38,7 @@ public class OrderEventHandlerTest extends IntegrateTestExtension {
     @DisplayName("결제 완료 이벤트를 처리하는데, 데이터가 맞지 않는 경우 결제 취소 이벤트를 발행한다.")
     void name11() {
         PaymentCompletedEvent event = new PaymentCompletedEvent(
-            "ord_202203101620471034855695", "영화 2건 결제",
+            "ord_202203101620471034855694", "영화 2건 결제",
             BigDecimal.valueOf(21700), new Date()
         );
 
