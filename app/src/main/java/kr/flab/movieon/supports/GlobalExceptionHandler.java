@@ -2,7 +2,7 @@ package kr.flab.movieon.supports;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import kr.flab.movieon.MovieOnApplication;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.ResourceNotFoundException;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(basePackageClasses = MovieOnApplication.class)
 public final class GlobalExceptionHandler implements ErrorController {
 
-    private static final String SERVLET_ERROR_CODE = "javax.servlet.error.status_code";
+    private static final String SERVLET_ERROR_CODE = "jakarta.servlet.error.status_code";
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
