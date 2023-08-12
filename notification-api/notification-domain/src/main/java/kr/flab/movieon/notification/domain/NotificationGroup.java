@@ -1,7 +1,5 @@
 package kr.flab.movieon.notification.domain;
 
-import java.util.Arrays;
-import java.util.Set;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Arrays;
+import java.util.Set;
 import kr.flab.movieon.common.error.InvalidArgumentException;
 
 @Entity
@@ -22,13 +22,14 @@ public class NotificationGroup {
 
         public static NotificationGroupType findByGroup(String groupName) {
             return Arrays.stream(values())
-                .filter(g -> g.name().equals(groupName))
-                .findFirst()
-                .orElseThrow(() -> new InvalidArgumentException("일치하는 group을 찾을 수 없습니다."));
+                    .filter(g -> g.name().equals(groupName))
+                    .findFirst()
+                    .orElseThrow(() -> new InvalidArgumentException("일치하는 group을 찾을 수 없습니다."));
         }
     }
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private NotificationGroupType type;
@@ -36,10 +37,11 @@ public class NotificationGroup {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<NotificationOption> options;
 
-    protected NotificationGroup() {}
+    protected NotificationGroup() {
+    }
 
     public NotificationGroup(NotificationGroupType type,
-        Set<NotificationOption> options) {
+                             Set<NotificationOption> options) {
         this.type = type;
         this.options = options;
     }
@@ -54,9 +56,9 @@ public class NotificationGroup {
 
     public void enableOption(NotificationType notificationType) {
         var option = options.stream()
-            .filter(o -> o.isEqualTo(notificationType))
-            .findFirst()
-            .orElseThrow(InvalidArgumentException::new);
+                .filter(o -> o.isEqualTo(notificationType))
+                .findFirst()
+                .orElseThrow(InvalidArgumentException::new);
         option.enable();
     }
 
@@ -66,15 +68,15 @@ public class NotificationGroup {
 
     public void disableOption(NotificationType notificationType) {
         var option = options.stream()
-            .filter(o -> o.isEqualTo(notificationType))
-            .findFirst()
-            .orElseThrow(InvalidArgumentException::new);
+                .filter(o -> o.isEqualTo(notificationType))
+                .findFirst()
+                .orElseThrow(InvalidArgumentException::new);
         option.disable();
     }
 
     public boolean isDisabledOption(NotificationType notificationType) {
         return options.stream()
-            .anyMatch(o -> o.isEqualTo(notificationType) && o.isDisabled());
+                .anyMatch(o -> o.isEqualTo(notificationType) && o.isDisabled());
     }
 
     public Long getId() {

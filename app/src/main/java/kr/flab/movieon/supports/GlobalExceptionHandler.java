@@ -1,8 +1,8 @@
 package kr.flab.movieon.supports;
 
 import io.swagger.v3.oas.annotations.Hidden;
-import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.stream.Collectors;
 import kr.flab.movieon.MovieOnApplication;
 import kr.flab.movieon.common.error.ErrorCode;
 import kr.flab.movieon.common.error.ResourceNotFoundException;
@@ -38,52 +38,52 @@ public final class GlobalExceptionHandler implements ErrorController {
         log.error("Unhandled Servlet Exception : {}", req);
         Integer errorCode = (Integer) req.getAttribute(SERVLET_ERROR_CODE);
         return ResponseEntity.status(HttpStatus.valueOf(errorCode))
-            .body(ApiResponseEnvelop.error(ErrorCode.UN_HANDLED));
+                .body(ApiResponseEnvelop.error(ErrorCode.UN_HANDLED));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponseEnvelop<?>> onError(ResourceNotFoundException exception) {
         log.debug("ResourceNotFoundException: {}", exception.getMessage());
         return ResponseEntity.status(exception.getErrorCode().getStatus())
-            .body(ApiResponseEnvelop.error(exception.getErrorCode()));
+                .body(ApiResponseEnvelop.error(exception.getErrorCode()));
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ApiResponseEnvelop<ErrorBody>> onError(
-        HttpRequestMethodNotSupportedException exception) {
+            HttpRequestMethodNotSupportedException exception) {
         log.debug("HttpRequestMethodNotSupportedException: {}", exception.getMessage());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
-            .body(ApiResponseEnvelop.error(ErrorCode.METHOD_NOT_ALLOWED));
+                .body(ApiResponseEnvelop.error(ErrorCode.METHOD_NOT_ALLOWED));
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ApiResponseEnvelop<ErrorBody>> onError(
-        HttpMediaTypeNotSupportedException exception) {
+            HttpMediaTypeNotSupportedException exception) {
         log.debug("HttpMediaTypeNotSupportedException: {}", exception.getMessage());
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-            .body(ApiResponseEnvelop.error(ErrorCode.UNSUPPORTED_MEDIA_TYPE));
+                .body(ApiResponseEnvelop.error(ErrorCode.UNSUPPORTED_MEDIA_TYPE));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponseEnvelop<ErrorBody>> onError(
-        MethodArgumentNotValidException exception) {
+            MethodArgumentNotValidException exception) {
         log.error("MethodArgumentNotValidException: {}",
-            loggingField(exception.getBindingResult()));
+                loggingField(exception.getBindingResult()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(ApiResponseEnvelop.error(ErrorCode.INVALID_INPUT));
+                .body(ApiResponseEnvelop.error(ErrorCode.INVALID_INPUT));
     }
 
     @ExceptionHandler(BindException.class)
     public ResponseEntity<ApiResponseEnvelop<ErrorBody>> onError(BindException exception) {
         log.error("MethodArgumentNotValidException: {}",
-            loggingField(exception.getBindingResult()));
+                loggingField(exception.getBindingResult()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(ApiResponseEnvelop.error(ErrorCode.INVALID_INPUT));
+                .body(ApiResponseEnvelop.error(ErrorCode.INVALID_INPUT));
     }
 
     private String loggingField(BindingResult bindingResult) {
         return bindingResult.getFieldErrors().stream().map(this::format)
-            .collect(Collectors.joining("  "));
+                .collect(Collectors.joining("  "));
     }
 
     private String format(FieldError f) {

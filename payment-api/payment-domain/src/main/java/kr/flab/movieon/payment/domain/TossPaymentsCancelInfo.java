@@ -1,8 +1,8 @@
 package kr.flab.movieon.payment.domain;
 
+import jakarta.persistence.Embeddable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class TossPaymentsCancelInfo {

@@ -1,13 +1,13 @@
 package kr.flab.movieon.product.domain;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,7 +19,8 @@ public class Product {
 
     }
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
@@ -29,7 +30,7 @@ public class Product {
     private ProductContentsDetail contentsDetail;
 
     public Product(String name, String description, String thumbnails,
-        Category category, ProductContentsDetail contentsDetail) {
+                   Category category, ProductContentsDetail contentsDetail) {
         this.name = name;
         this.description = description;
         this.thumbnails = thumbnails;

@@ -1,9 +1,5 @@
 package kr.flab.movieon.order.domain;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -11,13 +7,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import kr.flab.movieon.common.error.InvalidArgumentException;
 
 @Entity
 @Table(name = "ORDER_LINE_ITEMS")
 public class OrderLineItem {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private Long itemId;
@@ -33,7 +34,7 @@ public class OrderLineItem {
     }
 
     public OrderLineItem(Long itemId, String name, BigDecimal basePrice,
-        List<OrderItemOption> options) {
+                         List<OrderItemOption> options) {
         if (basePrice.compareTo(BigDecimal.ZERO) < 0) {
             throw new InvalidArgumentException("주문 상품에 대한 가격이 잘못되었습니다.");
         }
@@ -65,8 +66,8 @@ public class OrderLineItem {
 
     public BigDecimal calculatePrice() {
         return this.basePrice.subtract(options.stream()
-            .map(OrderItemOption::getSalesPrice)
-            .reduce(BigDecimal.ZERO, BigDecimal::add));
+                .map(OrderItemOption::getSalesPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 
     @Override

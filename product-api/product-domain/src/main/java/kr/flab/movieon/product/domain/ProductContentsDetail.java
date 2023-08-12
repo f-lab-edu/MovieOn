@@ -1,14 +1,14 @@
 package kr.flab.movieon.product.domain;
 
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 @Embeddable
 public class ProductContentsDetail {
@@ -59,9 +59,9 @@ public class ProductContentsDetail {
 
         public static Rate findByRate(String rateDescription) {
             return Arrays.stream(values())
-                .filter(r -> r.getDescription().equals(rateDescription))
-                .findFirst()
-                .orElseThrow(() -> new NotMatchedRateException("일치하는 이용 등급을 찾을 수 없습니다."));
+                    .filter(r -> r.getDescription().equals(rateDescription))
+                    .findFirst()
+                    .orElseThrow(() -> new NotMatchedRateException("일치하는 이용 등급을 찾을 수 없습니다."));
         }
 
         public int getAge() {
@@ -119,16 +119,16 @@ public class ProductContentsDetail {
         }
         ProductContentsDetail that = (ProductContentsDetail) o;
         return drm == that.drm && rate == that.rate && Objects.equals(releasedAt, that.releasedAt)
-            && Objects.equals(runningTime, that.runningTime) && Objects.equals(
-            director, that.director) && Objects.equals(actors, that.actors)
-            && Objects.equals(availableDevices, that.availableDevices)
-            && Objects.equals(providedQuality, that.providedQuality)
-            && Objects.equals(images, that.images);
+                && Objects.equals(runningTime, that.runningTime) && Objects.equals(
+                director, that.director) && Objects.equals(actors, that.actors)
+                && Objects.equals(availableDevices, that.availableDevices)
+                && Objects.equals(providedQuality, that.providedQuality)
+                && Objects.equals(images, that.images);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(rate, releasedAt, runningTime, director, actors, availableDevices,
-            providedQuality, drm, images);
+                providedQuality, drm, images);
     }
 }

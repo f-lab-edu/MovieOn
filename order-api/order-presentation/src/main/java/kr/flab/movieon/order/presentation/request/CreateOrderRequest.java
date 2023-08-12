@@ -1,14 +1,14 @@
 package kr.flab.movieon.order.presentation.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 import kr.flab.movieon.order.application.command.CreateOrderCommand;
 import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderItemOptionCommand;
 import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderLineItemCommand;
@@ -33,25 +33,25 @@ public final class CreateOrderRequest {
 
     public CreateOrderCommand toCommand() {
         return new CreateOrderCommand(this.payMethod, BigDecimal.valueOf(this.useOfPoint),
-            toLineItems());
+                toLineItems());
     }
 
     private List<CreateOrderLineItemCommand> toLineItems() {
         return this.lineItems.stream()
-            .map(lineItemRequest -> new CreateOrderLineItemCommand(lineItemRequest.getItemId(),
-                lineItemRequest.getProductName(),
-                BigDecimal.valueOf(lineItemRequest.getBasePrice()),
-                toItemOptions(lineItemRequest)))
-            .collect(Collectors.toList());
+                .map(lineItemRequest -> new CreateOrderLineItemCommand(lineItemRequest.getItemId(),
+                        lineItemRequest.getProductName(),
+                        BigDecimal.valueOf(lineItemRequest.getBasePrice()),
+                        toItemOptions(lineItemRequest)))
+                .collect(Collectors.toList());
     }
 
     private List<CreateOrderItemOptionCommand> toItemOptions(
-        CreateOrderLineItemRequest lineItemRequest) {
+            CreateOrderLineItemRequest lineItemRequest) {
         return lineItemRequest.getOptions().stream()
-            .map(itemOptionRequest -> new CreateOrderItemOptionCommand(
-                itemOptionRequest.getOptionName(),
-                BigDecimal.valueOf(itemOptionRequest.getSalesPrice())))
-            .collect(Collectors.toList());
+                .map(itemOptionRequest -> new CreateOrderItemOptionCommand(
+                        itemOptionRequest.getOptionName(),
+                        BigDecimal.valueOf(itemOptionRequest.getSalesPrice())))
+                .collect(Collectors.toList());
     }
 
     public String getPayMethod() {
@@ -81,6 +81,6 @@ public final class CreateOrderRequest {
     @Override
     public String toString() {
         return "CreateOrderRequest{" + "payMethod='" + payMethod + '\'' + ", useOfPoint="
-            + useOfPoint + ", products=" + lineItems + '}';
+                + useOfPoint + ", products=" + lineItems + '}';
     }
 }

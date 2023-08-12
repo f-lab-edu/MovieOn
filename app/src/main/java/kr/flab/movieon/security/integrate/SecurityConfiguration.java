@@ -1,5 +1,8 @@
 package kr.flab.movieon.security.integrate;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -17,14 +20,12 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-import static org.springframework.http.HttpMethod.*;
-
 @Import(value = {
-        DefaultAuthenticationEntryPoint.class,
-        DefaultAccessDeniedHandler.class,
-        JwtAuthenticationFilter.class,
-        FilterChainExceptionHelper.class,
-        BCryptPasswordEncoder.class
+    DefaultAuthenticationEntryPoint.class,
+    DefaultAccessDeniedHandler.class,
+    JwtAuthenticationFilter.class,
+    FilterChainExceptionHelper.class,
+    BCryptPasswordEncoder.class
 })
 @Configuration
 @EnableMethodSecurity
@@ -37,23 +38,24 @@ public class SecurityConfiguration {
     private static final String SWAGGER_URI = "/swagger-ui/**";
     private static final String SWAGGER_API_URI = "/v3/api-docs/**";
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthFilter;
     private final FilterChainExceptionHelper filterChainExceptionHelper;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
 
-    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter,
+    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthFilter,
                                  FilterChainExceptionHelper filterChainExceptionHelper,
                                  AuthenticationEntryPoint authenticationEntryPoint,
                                  AccessDeniedHandler accessDeniedHandler) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtAuthFilter = jwtAuthFilter;
         this.filterChainExceptionHelper = filterChainExceptionHelper;
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           MvcRequestMatcher.Builder mvc) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement ->
@@ -75,7 +77,7 @@ public class SecurityConfiguration {
                 )
                 .addFilterBefore(filterChainExceptionHelper, LogoutFilter.class)
                 .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

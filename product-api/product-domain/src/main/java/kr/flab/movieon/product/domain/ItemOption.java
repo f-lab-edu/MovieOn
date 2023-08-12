@@ -1,8 +1,8 @@
 package kr.flab.movieon.product.domain;
 
+import jakarta.persistence.Embeddable;
 import java.math.BigDecimal;
 import java.util.Objects;
-import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class ItemOption {
@@ -37,7 +37,7 @@ public class ItemOption {
         }
         ItemOption that = (ItemOption) o;
         return Objects.equals(optionName, that.optionName) && Objects.equals(
-            salesPrice, that.salesPrice);
+                salesPrice, that.salesPrice);
     }
 
     @Override
