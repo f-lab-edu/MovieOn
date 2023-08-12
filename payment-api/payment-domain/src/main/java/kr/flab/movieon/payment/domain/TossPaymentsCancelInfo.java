@@ -2,7 +2,7 @@ package kr.flab.movieon.payment.domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class TossPaymentsCancelInfo {
