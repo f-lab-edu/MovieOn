@@ -14,7 +14,7 @@ public class PaymentApi implements TossPaymentSpecification {
     }
 
     @Override
-    public void payed(TossPaymentsPaymentApprovalRequest request) {
-        paymentFacade.payed(request.toCommand());
+    public void pay(TossPaymentsPaymentApprovalRequest request) {
+        paymentFacade.pay(request.toCommand());
     }
 }

@@ -26,7 +26,7 @@ public final class DefaultTossPaymentsPaymentProcessor implements TossPaymentsPa
     }
 
     @Override
-    public void payed(String orderId, String paymentKey, Integer amount) {
+    public void pay(String orderId, String paymentKey, Integer amount) {
         commandVerifier.verify(orderId, paymentKey, amount);
         var response = approvalProcessor
             .approval(orderId, paymentKey, amount);

@@ -24,7 +24,7 @@ public final class OrderEventHandler {
 
     @EventListener
     public void handle(PaymentCompletedEvent event) {
-        var order = transactionTemplate.execute(status -> processor.payed(event));
+        var order = transactionTemplate.execute(status -> processor.pay(event));
         order.pollAllEvents().forEach(publisher::publishEvent);
     }
 }

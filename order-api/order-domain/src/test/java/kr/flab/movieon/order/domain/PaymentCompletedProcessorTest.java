@@ -19,7 +19,7 @@ class PaymentCompletedProcessorTest {
         var sut = new PaymentCompletedProcessor(new OrderRepositoryStub());
 
         // Act
-        Order order = sut.payed(new PaymentCompletedEvent(
+        Order order = sut.pay(new PaymentCompletedEvent(
             "testId", "보이스", BigDecimal.valueOf(12000), new Date()));
 
         // Assert
@@ -34,7 +34,7 @@ class PaymentCompletedProcessorTest {
         var sut = new PaymentCompletedProcessor(new OrderRepositoryStub());
 
         // Act
-        Order order = sut.payed(new PaymentCompletedEvent(
+        Order order = sut.pay(new PaymentCompletedEvent(
             "testId", "보이스", BigDecimal.valueOf(13000), new Date()));
 
         // Assert
