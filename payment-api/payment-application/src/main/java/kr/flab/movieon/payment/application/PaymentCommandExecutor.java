@@ -4,11 +4,11 @@ import kr.flab.movieon.payment.domain.TossPaymentsPaymentProcessor;
 import org.springframework.stereotype.Service;
 
 @Service
-public final class PaymentFacade {
+public final class PaymentCommandExecutor {
 
     private final TossPaymentsPaymentProcessor paymentProcessor;
 
-    public PaymentFacade(TossPaymentsPaymentProcessor paymentProcessor) {
+    public PaymentCommandExecutor(TossPaymentsPaymentProcessor paymentProcessor) {
         this.paymentProcessor = paymentProcessor;
     }
 
