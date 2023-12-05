@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @Service
-public final class AccountFacade {
+public final class AccountCommandExecutor {
 
     private final RegisterAccountProcessor registerProcessor;
     private final LoginAccountProcessor loginProcessor;
@@ -21,11 +21,11 @@ public final class AccountFacade {
     private final TokenGenerator tokenGenerator;
     private final TokenReIssuer tokenReIssuer;
 
-    public AccountFacade(RegisterAccountProcessor registerProcessor,
-        LoginAccountProcessor loginProcessor,
-        ApplicationEventPublisher publisher,
-        TransactionTemplate transactionTemplate,
-        TokenGenerator tokenGenerator, TokenReIssuer tokenReIssuer) {
+    public AccountCommandExecutor(RegisterAccountProcessor registerProcessor,
+                                  LoginAccountProcessor loginProcessor,
+                                  ApplicationEventPublisher publisher,
+                                  TransactionTemplate transactionTemplate,
+                                  TokenGenerator tokenGenerator, TokenReIssuer tokenReIssuer) {
         this.registerProcessor = registerProcessor;
         this.loginProcessor = loginProcessor;
         this.publisher = publisher;
