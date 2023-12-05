@@ -12,7 +12,7 @@ public final class PaymentFacade {
         this.paymentProcessor = paymentProcessor;
     }
 
-    public void payed(TossPaymentsPaymentApprovalCommand command) {
-        paymentProcessor.payed(command.orderId(), command.paymentKey(), command.amount());
+    public void pay(TossPaymentsPaymentApprovalCommand command) {
+        paymentProcessor.pay(command.orderId(), command.paymentKey(), command.amount());
     }
 }

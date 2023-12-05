@@ -15,10 +15,10 @@ public final class PaymentCompletedProcessor {
         this.orderRepository = orderRepository;
     }
 
-    public Order payed(PaymentCompletedEvent event) {
+    public Order pay(PaymentCompletedEvent event) {
         Order order = orderRepository.findByOrderId(event.orderId());
         try {
-            order.payed(event.payedAmount());
+            order.pay(event.payedAmount());
             return order;
         } catch (AlreadyCanceledException | AmountNotMatchedException e) {
             log.debug(e.getMessage());

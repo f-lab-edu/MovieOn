@@ -22,5 +22,5 @@ public interface TossPaymentSpecification {
     })
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/api/v1/toss-payments/success")
-    void payed(@RequestBody @Valid TossPaymentsPaymentApprovalRequest request);
+    void pay(@RequestBody @Valid TossPaymentsPaymentApprovalRequest request);
 }

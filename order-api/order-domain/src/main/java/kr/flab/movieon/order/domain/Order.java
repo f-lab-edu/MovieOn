@@ -92,7 +92,7 @@ public class Order extends AbstractAggregateRoot {
                 .subtract(this.useOfPoint);
     }
 
-    public void payed(BigDecimal payedAmount) {
+    public void pay(BigDecimal payedAmount) {
         verifyPayed(payedAmount);
         verifyNotCanceled();
         this.status = OrderStatus.COMPLETED;
