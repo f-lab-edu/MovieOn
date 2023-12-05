@@ -1,7 +1,7 @@
 package kr.flab.movieon.account.presentation;
 
 import java.net.URI;
-import kr.flab.movieon.account.application.AccountFacade;
+import kr.flab.movieon.account.application.AccountCommandExecutor;
 import kr.flab.movieon.account.application.command.LoginAccount;
 import kr.flab.movieon.account.application.command.RegisterAccount;
 import kr.flab.movieon.account.application.command.RegisterConfirm;
@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public final class AuthenticationApi implements AuthenticationSpecification {
 
-    private final AccountFacade accountFacade;
+    private final AccountCommandExecutor accountCommandExecutor;
 
-    public AuthenticationApi(AccountFacade accountFacade) {
-        this.accountFacade = accountFacade;
+    public AuthenticationApi(AccountCommandExecutor accountCommandExecutor) {
+        this.accountCommandExecutor = accountCommandExecutor;
     }
 
     @Override
     public void register(RegisterAccountRequest request) {
-        accountFacade.register(new RegisterAccount(request.email(),
+        accountCommandExecutor.register(new RegisterAccount(request.email(),
             request.password(),
             request.username()));
     }
 
     @Override
     public ResponseEntity<Void> registerConfirm(RegisterConfirmRequest request) {
-        accountFacade.registerConfirm(
+        accountCommandExecutor.registerConfirm(
             new RegisterConfirm(request.token(), request.email()));
 
         var uri = URI.create("http://localhost:3000/login");
@@ -44,7 +44,7 @@ public final class AuthenticationApi implements AuthenticationSpecification {
 
     @Override
     public ResponseEntity<ApiResponseEnvelop<TokenResponse>> login(LoginAccountRequest request) {
-        var tokens = accountFacade.login(
+        var tokens = accountCommandExecutor.login(
             new LoginAccount(request.email(), request.password()));
         return ResponseEntity.ok(ApiResponseEnvelop.success(
             new TokenResponse(tokens.accessToken(), tokens.refreshToken())));
@@ -52,7 +52,7 @@ public final class AuthenticationApi implements AuthenticationSpecification {
 
     @Override
     public ResponseEntity<ApiResponseEnvelop<TokenResponse>> reIssuance(String payload) {
-        var tokens = accountFacade.reIssuance(payload);
+        var tokens = accountCommandExecutor.reIssuance(payload);
         return ResponseEntity.ok(ApiResponseEnvelop.success(
             new TokenResponse(tokens.accessToken(), tokens.refreshToken())));
     }

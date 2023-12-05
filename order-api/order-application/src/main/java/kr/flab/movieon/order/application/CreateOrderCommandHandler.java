@@ -2,8 +2,8 @@ package kr.flab.movieon.order.application;
 
 import java.util.List;
 import kr.flab.movieon.order.application.command.CreateOrderCommand;
-import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderItemOptionCommand;
-import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderLineItemCommand;
+import kr.flab.movieon.order.application.command.CreateOrderItemOptionCommand;
+import kr.flab.movieon.order.application.command.CreateOrderLineItemCommand;
 import kr.flab.movieon.order.domain.Customer;
 import kr.flab.movieon.order.domain.Order;
 import kr.flab.movieon.order.domain.OrderItemOption;

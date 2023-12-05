@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import kr.flab.movieon.order.application.command.CreateOrderCommand;
-import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderItemOptionCommand;
-import kr.flab.movieon.order.application.command.CreateOrderCommand.CreateOrderLineItemCommand;
+import kr.flab.movieon.order.application.command.CreateOrderItemOptionCommand;
+import kr.flab.movieon.order.application.command.CreateOrderLineItemCommand;
 
 @Schema(description = "주문 생성 요청")
 public final class CreateOrderRequest {
