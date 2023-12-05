@@ -19,13 +19,13 @@ import kr.flab.movieon.order.domain.OrderValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-final class CreateOrderCommandHandlerTest {
+final class OrderCommandExecutorTest {
 
     @Test
     @DisplayName("주문 생성 명령을 처리하고 이벤트가 등록된다.")
     void sut_create_order_command_handle() {
         // Arrange
-        var sut = new CreateOrderCommandHandler(new DummyOrderRepository(),
+        var sut = new OrderCommandExecutor(new DummyOrderRepository(),
             new OrderValidator(new ItemRepositoryStub(), new DummyPointManager()));
 
         // Act
