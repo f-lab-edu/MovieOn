@@ -8,7 +8,7 @@ include(
     "product-api:product-presentation",
     "product-api:product-application",
     "product-api:product-domain",
-    "product-api:product-infrastructure"
+    "product-api:product-infrastructure",
 )
 
 include(
@@ -16,7 +16,7 @@ include(
     "payment-api:payment-presentation",
     "payment-api:payment-application",
     "payment-api:payment-domain",
-    "payment-api:payment-infrastructure"
+    "payment-api:payment-infrastructure",
 )
 
 include(
@@ -24,7 +24,7 @@ include(
     "account-api:account-presentation",
     "account-api:account-application",
     "account-api:account-domain",
-    "account-api:account-infrastructure"
+    "account-api:account-infrastructure",
 )
 
 include(
@@ -32,7 +32,7 @@ include(
     "notification-api:notification-presentation",
     "notification-api:notification-application",
     "notification-api:notification-domain",
-    "notification-api:notification-infrastructure"
+    "notification-api:notification-infrastructure",
 )
 
 include(
@@ -40,8 +40,7 @@ include(
     "order-api:order-presentation",
     "order-api:order-application",
     "order-api:order-domain",
-    "order-api:order-infrastructure"
+    "order-api:order-infrastructure",
 )
 
 include("query-api")
-
