@@ -1,8 +1,8 @@
 dependencies {
     implementation project(":common")
-    implementation "jakarta.persistence:jakarta.persistence-api:2.2.3"
-    implementation "org.hibernate:hibernate-core:6.2.6.Final"
-    testImplementation "org.assertj:assertj-core:${ASSERTJ_VERSION}"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${JUNIT_JUPITER_VERSION}"
+    implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"
+    implementation "org.hibernate:hibernate-core:6.3.2.Final"
+    testImplementation "org.assertj:assertj-core"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
