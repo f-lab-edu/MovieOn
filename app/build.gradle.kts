@@ -6,8 +6,6 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("plugin.jpa")
-    kotlin("plugin.allopen")
-    kotlin("plugin.spring") apply false
 }
 
 dependencies {
