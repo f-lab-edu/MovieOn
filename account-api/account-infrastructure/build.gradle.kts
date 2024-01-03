@@ -14,9 +14,9 @@ plugins {
 dependencies {
     implementation(project(":account-api:account-domain"))
     implementation(project(":common"))
-    implementation("io.jsonwebtoken:jjwt-api:0.12.3")
-    implementation("io.jsonwebtoken:jjwt-impl:0.12.3")
-    implementation("io.jsonwebtoken:jjwt-jackson:0.12.3")
+    implementation("io.jsonwebtoken:jjwt-api:${Version.jjwt}")
+    implementation("io.jsonwebtoken:jjwt-impl:${Version.jjwt}")
+    implementation("io.jsonwebtoken:jjwt-jackson:${Version.jjwt}")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")

@@ -100,7 +100,7 @@ subprojects {
 
     tasks.withType<ProcessResources> {
         // 동일한 파일(main/resources/application.yaml, intTest/resources/application.yaml)이 있어서, 리소스 복사할 때 충돌 회피
-        duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
 
     val intTestImplementation: Configuration by configurations.getting {

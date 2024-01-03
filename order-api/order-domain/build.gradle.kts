@@ -8,8 +8,8 @@ tasks.bootJar {
 
 dependencies {
     implementation(project(":common"))
-    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
-    implementation("org.hibernate:hibernate-core:6.3.2.Final")
+    implementation("jakarta.persistence:jakarta.persistence-api:${Version.jakartaPersistenceApi}")
+    implementation("org.hibernate:hibernate-core:${Version.hibernateCore}")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")

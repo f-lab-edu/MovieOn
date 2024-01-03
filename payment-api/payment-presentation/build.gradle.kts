@@ -14,7 +14,7 @@ plugins {
 dependencies {
     implementation(project(":payment-api:payment-application"))
     implementation(project(":common"))
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
+    implementation("org.springdoc:springdoc-openapi-ui:${Version.springdocOpenapi}")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
