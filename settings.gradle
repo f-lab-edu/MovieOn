@@ -2,13 +2,6 @@ rootProject.name = 'MovieOn'
 include 'app'
 include 'common'
 include (
-        'purchase-api',
-        'purchase-api:purchase-presentation',
-        'purchase-api:purchase-application',
-        'purchase-api:purchase-domain',
-        'purchase-api:purchase-infrastructure',
-)
-include (
         'product-api',
         'product-api:product-presentation',
         'product-api:product-application',
