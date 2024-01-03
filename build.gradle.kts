@@ -8,24 +8,18 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.yaml:snakeyaml:1.28")
         classpath("org.jetbrains.kotlin:kotlin-allopen:1.8.20")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0-RC2")
     }
 }
 
 plugins {
-    id("org.springframework.boot") version "3.1.2"
-    id("io.spring.dependency-management") version "1.1.2"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.8.20"
-    id("org.jetbrains.kotlin.plugin.noarg") version "1.8.20"
     jacoco
     idea
 
-    kotlin("jvm") version "1.8.20"
-    kotlin("plugin.spring") version "1.8.20"
-    kotlin("plugin.jpa") version "1.8.20"
-    kotlin("kapt") version "1.8.20"
+    kotlin("jvm")
+    kotlin("kapt")
+    kotlin("plugin.noarg")
 }
 
 java {
@@ -37,14 +31,6 @@ configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
-}
-
-tasks.jar {
-    enabled = true
-}
-
-tasks.bootJar {
-    enabled = false
 }
 
 allprojects {
@@ -74,7 +60,8 @@ subprojects {
     }
 
     noArg {
-        annotation("com.kidsworld.core.annotation.NoArgsConstructor")
+        // spring, jpa 가 아니라서 플러그인이 적용되지 않는 코드에 noArg 적용하는 용도로 사용한다.
+        annotation("kr.flab.movieon.common.annotation.NoArgsConstructor")
     }
 
     dependencies {
