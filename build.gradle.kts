@@ -72,14 +72,14 @@ subprojects {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        implementation("au.com.console:kassava:2.0.0")
-        implementation("net.logstash.logback:logstash-logback-encoder:7.2")
+        implementation("au.com.console:kassava:${Version.kassava}")
+        implementation("net.logstash.logback:logstash-logback-encoder:${Version.logstashLogbackEncoder}")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
-        testImplementation("io.kotest:kotest-assertions-core:5.5.4")
-        testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
-        testImplementation("io.mockk:mockk:1.12.0")
+        testImplementation("io.kotest:kotest-runner-junit5:${Version.kotest}")
+        testImplementation("io.kotest:kotest-assertions-core:${Version.kotest}")
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:${Version.kotestSpring}")
+        testImplementation("io.mockk:mockk:${Version.mockk}")
     }
 
     tasks.withType<KotlinCompile> {
@@ -99,7 +99,7 @@ subprojects {
     }
 
     tasks.withType<ProcessResources> {
-        // 동일한 파일(main/resources/application.yaml, intTest/resources/application.yaml)이 있어서, 리소스 복사할 때 충돌 회피
+        // 동일한 파일(main/resources/application.yml, intTest/resources/application.yml)이 있어서, 리소스 복사할 때 충돌 회피
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
 
@@ -119,6 +119,7 @@ subprojects {
         }
 
         reports {
+            // app/build/reports/jacoco/test/html/index.html
             html.required.set(true)
             junitXml.required.set(true)
         }

@@ -32,12 +32,12 @@ public final class JwtTokenParser implements TokenParser {
                     .build()
                     .parseSignedClaims(token);
 
-            String jti = (String) jwt.getBody().get("jti");
+            String jti = (String) jwt.getPayload().get("jti");
             if (jti == null) {
                 return new RawToken((String) jwt.getPayload().get("email"),
                         (List<String>) jwt.getPayload().get("scopes"));
             }
-            return new RawToken((String) jwt.getBody().get("email"), jti,
+            return new RawToken((String) jwt.getPayload().get("email"), jti,
                     (List<String>) jwt.getPayload().get("scopes"));
         } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException ex) {
             log.error("Invalid JWT Token", ex);
