@@ -71,7 +71,7 @@ subprojects {
 
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib")
         implementation("au.com.console:kassava:${Version.kassava}")
         implementation("net.logstash.logback:logstash-logback-encoder:${Version.logstashLogbackEncoder}")
 
