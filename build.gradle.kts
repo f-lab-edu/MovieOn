@@ -1,6 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.dsl.SpringBootExtension
 
+plugins {
+    jacoco
+    idea
+
+    kotlin("jvm")
+    kotlin("kapt")
+    kotlin("plugin.noarg")
+}
+
 buildscript {
     repositories {
         maven("https://plugins.gradle.org/m2/")
@@ -11,15 +20,6 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-allopen:1.8.20")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
     }
-}
-
-plugins {
-    jacoco
-    idea
-
-    kotlin("jvm")
-    kotlin("kapt")
-    kotlin("plugin.noarg")
 }
 
 java {
