@@ -1,11 +1,11 @@
-tasks.bootJar {
-    enabled = true
-}
-
 plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("plugin.jpa")
+}
+
+tasks.bootJar {
+    enabled = true
 }
 
 dependencies {
